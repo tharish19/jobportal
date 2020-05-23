@@ -11,6 +11,12 @@ namespace rest_api_jobs.Repository
     public interface IUserRepository
     {
         /// <summary>
+        /// Gets the holiday list asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<DateTime>> GetHolidayListAsync();
+
+        /// <summary>
         /// Gets the latest jobs asynchronous.
         /// </summary>
         /// <param name="lastBusinessDateTime">The last business date time.</param>
@@ -18,9 +24,10 @@ namespace rest_api_jobs.Repository
         Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime);
 
         /// <summary>
-        /// Gets the holiday list asynchronous.
+        /// Adds the or update job status asynchronous.
         /// </summary>
+        /// <param name="jobStatus">The job status.</param>
         /// <returns></returns>
-        Task<List<DateTime>> GetHolidayListAsync();
+        Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus);
     }
 }

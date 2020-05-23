@@ -10,9 +10,16 @@ namespace rest_api_jobs.Business
     public interface IUserBusiness
     {
         /// <summary>
-        /// Gets the latest jobs asynchronous.
+        /// Gets the latest jobs.
         /// </summary>
         /// <returns></returns>
         Task<List<JobDetailsModel>> GetLatestJobsAsync();
+
+        /// <summary>
+        /// Adds the or update job status.
+        /// </summary>
+        /// <param name="jobStatus">The job status.</param>
+        /// <returns></returns>
+        Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus);
     }
 }

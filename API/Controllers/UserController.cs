@@ -12,27 +12,42 @@ namespace rest_api_jobs.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
+        /// <summary>
+        /// The user business
+        /// </summary>
         private IUserBusiness userBusiness;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="_userBusiness">The user business.</param>
         public UserController(IUserBusiness _userBusiness)
         {
             userBusiness = _userBusiness;
         }
 
+        /// <summary>
+        /// Gets the latest jobs posted.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("jobsposted")]
         public async Task<List<JobDetailsModel>> GetLatestJobsAsync()
         {
-            try
-            {
-                return await userBusiness.GetLatestJobsAsync().ConfigureAwait(false);
-            }
-            catch (Exception exp)
-            {
-                return null;
-            }
+            return await userBusiness.GetLatestJobsAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Adds the or update job status.
+        /// </summary>
+        /// <param name="jobStatus">The job status.</param>
+        /// <returns></returns>
+        [HttpPost("update/job/status")]
+        public async Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus)
+        {
+            return await userBusiness.AddOrUpdateJobStatusAsync(jobStatus).ConfigureAwait(false);
         }
     }
 }

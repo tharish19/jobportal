@@ -16,6 +16,10 @@ namespace rest_api_jobs.Repository
         /// </summary>
         private string connectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserRepository"/> class.
+        /// </summary>
+        /// <param name="_connectionString">The connection string.</param>
         public UserRepository(string _connectionString)
         {
             connectionString = _connectionString;
@@ -59,6 +63,25 @@ namespace rest_api_jobs.Repository
                         lastBusinessDateTime
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return dbResult.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Adds the or update selected job status.
+        /// </summary>
+        /// <param name="jobStatus">The job status.</param>
+        /// <returns></returns>
+        public async Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                return await connection.ExecuteScalarAsync<bool>("AddOrUpdateJobStatus",
+                    new
+                    {
+                        selectedJobID = jobStatus.JobID,
+                        selectedJobStatus = jobStatus.JobStatus,
+                        appliedByThe = jobStatus.AppliedBy
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
             }
         }
     }

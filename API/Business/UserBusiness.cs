@@ -44,10 +44,10 @@ namespace rest_api_jobs.Business
             {
                 DateTime lastBusinessDateTime = GetLastBusinessDay(date);
                 jobs = await userRepository.GetLatestJobsAsync(lastBusinessDateTime).ConfigureAwait(false);
-                
+
                 counter++;
                 date = date.AddDays(-1);
-                
+
                 if (jobs.Count > 100 || counter >= 5)
                     isNotDataSufficient = false;
 
@@ -55,6 +55,18 @@ namespace rest_api_jobs.Business
 
             return jobs;
         }
+
+        /// <summary>
+        /// Adds the or update job status.
+        /// </summary>
+        /// <param name="jobStatus">The job status.</param>
+        /// <returns></returns>
+        public async Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus)
+        {
+            return await userRepository.AddOrUpdateJobStatusAsync(jobStatus).ConfigureAwait(false);
+        }
+
+        #region Private Methods
 
         /// <summary>
         /// Gets the last business day.
@@ -99,5 +111,7 @@ namespace rest_api_jobs.Business
         {
             return holidayList.Contains(date);
         }
+
+        #endregion
     }
 }
