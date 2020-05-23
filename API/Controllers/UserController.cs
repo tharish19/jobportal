@@ -23,7 +23,7 @@ namespace rest_api_jobs.Controllers
         }
 
         [HttpGet("jobsposted")]
-        public async Task<IEnumerable<JobDetailsModel>> GetLatestJobsAsync()
+        public async Task<List<JobDetailsModel>> GetLatestJobsAsync()
         {
             try
             {

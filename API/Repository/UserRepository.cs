@@ -11,6 +11,9 @@ namespace rest_api_jobs.Repository
 {
     public class UserRepository : IUserRepository
     {
+        /// <summary>
+        /// The My SQL connection string
+        /// </summary>
         private string connectionString;
 
         public UserRepository(string _connectionString)
@@ -18,34 +21,45 @@ namespace rest_api_jobs.Repository
             connectionString = _connectionString;
         }
 
+        /// <summary>
+        /// Gets the MY SQL connection string.
+        /// </summary>
+        /// <returns></returns>
         private MySqlConnection GetConnection()
         {
             return new MySqlConnection(connectionString);
         }
 
-        public async Task<IEnumerable<JobDetailsModel>> GetLatestJobsAsync()
+        /// <summary>
+        /// Gets the list of holidays.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<DateTime>> GetHolidayListAsync()
         {
-            DateTime.TryParse("2020-05-21 03:35:00", out DateTime lastBusinessDateTime);
-            try
+            using (MySqlConnection connection = GetConnection())
             {
-                using (MySqlConnection connection = GetConnection())
-                {
-                    var dbResult = await connection.QueryAsync<JobDetailsModel>
-                        ("GetJobsFromLastBusinessDay",
-                        new
-                        {
-                            lastBusinessDateTime
-                        }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
-                    return dbResult.ToList();
-                }
+                var dbResult = await connection.QueryAsync<DateTime>("GetHolidayList",
+                    null, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return dbResult.ToList();
             }
-            catch (Exception)
+        }
+
+        /// <summary>
+        /// Gets the latest jobs which are posted after the 4 pm of last business date.
+        /// </summary>
+        /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <returns></returns>
+        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime)
+        {
+            using (MySqlConnection connection = GetConnection())
             {
-
-                throw;
+                var dbResult = await connection.QueryAsync<JobDetailsModel>("GetJobsFromLastBusinessDay",
+                    new
+                    {
+                        lastBusinessDateTime
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return dbResult.ToList();
             }
-
-            return null;
         }
     }
 }

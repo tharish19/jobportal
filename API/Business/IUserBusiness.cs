@@ -13,6 +13,6 @@ namespace rest_api_jobs.Business
         /// Gets the latest jobs asynchronous.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<JobDetailsModel>> GetLatestJobsAsync();
+        Task<List<JobDetailsModel>> GetLatestJobsAsync();
     }
 }
