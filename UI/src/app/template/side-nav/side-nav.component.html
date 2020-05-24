@@ -3,7 +3,6 @@
         <div class="side-nav-logo">
             <a href="" [routerLink]="['/dashboard']">
                 <div class="logo logo-dark" style="background-image: url('assets/images/logo/logo.png')"></div>
-                <div class="logo logo-white" style="background-image: url('assets/images/logo/logo-white.png')"></div>
             </a>
             <div class="mobile-toggle side-nav-toggle">
                 <a (click)="toggleSideNavCollapse()" href="javascript:void(0);">
@@ -11,245 +10,66 @@
                 </a>
             </div>
         </div>
-        <ul class="side-nav-menu scrollable">
+        <ul class="side-nav-menu scrollable navbarhover m-t30">
             <li clas="nav-item" routerLinkActive="active">
-                <a class="mrg-top-30" href="" [routerLink]="['/dashboard']">
+                <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
                     <span class="icon-holder">
-                        <i class="ti-home"></i>
+                        <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
+                            <path fill="#fff" color="#fff"
+                                d="m 107.54751,-0.15302294 C 48.23506,-0.15302294 0,50.883936 0,113.64176 V 1024 H 215.09503 V 910.20522 H 107.54751 V 113.64176 h 537.73757 v 316.29259 c 9.35664,5.86043 18.4444,12.17604 26.88688,19.40201 A 218.32145,231.0034 0 0 1 752.8326,406.43573 V 113.64176 c 0,-62.757824 -48.23506,-113.79478294 -107.54752,-113.79478294 z M 215.09503,227.43654 V 341.23132 H 322.64254 V 227.43654 Z m 215.09503,0 V 341.23132 H 537.73757 V 227.43654 Z M 215.09503,455.0261 V 568.82088 H 322.64254 V 455.0261 Z m 322.64254,56.89739 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z m 268.86879,0 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z M 215.09503,682.61566 V 796.41044 H 322.64254 V 682.61566 Z m 322.64254,170.69217 c -117.49566,0 -215.09503,51.71973 -215.09503,126.14151 V 1024 h 699.05886 v -44.55066 c 0,-74.42178 -97.59939,-126.14151 -215.09504,-126.14151 -50.81621,0 -97.33051,10.12773 -134.4344,27.14005 -37.10389,-17.06921 -83.61819,-27.14005 -134.43439,-27.14005 z"
+                                class="sc-13tn5xx-1 dkcuct"></path>
+                        </svg>
                     </span>
-                    <span class="title">Dashboard</span>
+                    <span class="title">JOBS</span>
                 </a>
             </li>
-            <li class="nav-item dropdown" >
-                <a class="dropdown-toggle" href="javascript:void(0);" >
+            <li clas="nav-item" routerLinkActive="active">
+                <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
                     <span class="icon-holder">
-                        <i class="ti-package"></i>
+                        <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
+                            <path fill="white" color="white"
+                                d="m 107.54751,-0.15302294 C 48.23506,-0.15302294 0,50.883936 0,113.64176 V 1024 H 215.09503 V 910.20522 H 107.54751 V 113.64176 h 537.73757 v 316.29259 c 9.35664,5.86043 18.4444,12.17604 26.88688,19.40201 A 218.32145,231.0034 0 0 1 752.8326,406.43573 V 113.64176 c 0,-62.757824 -48.23506,-113.79478294 -107.54752,-113.79478294 z M 215.09503,227.43654 V 341.23132 H 322.64254 V 227.43654 Z m 215.09503,0 V 341.23132 H 537.73757 V 227.43654 Z M 215.09503,455.0261 V 568.82088 H 322.64254 V 455.0261 Z m 322.64254,56.89739 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z m 268.86879,0 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z M 215.09503,682.61566 V 796.41044 H 322.64254 V 682.61566 Z m 322.64254,170.69217 c -117.49566,0 -215.09503,51.71973 -215.09503,126.14151 V 1024 h 699.05886 v -44.55066 c 0,-74.42178 -97.59939,-126.14151 -215.09504,-126.14151 -50.81621,0 -97.33051,10.12773 -134.4344,27.14005 -37.10389,-17.06921 -83.61819,-27.14005 -134.43439,-27.14005 z"
+                                class="sc-13tn5xx-1 dkcuct"></path>
+                        </svg>
                     </span>
-                    <span class="title">Apps</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
+                    <span class="title">NETWORK</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/apps/email/email-inbox/1']">Email</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/apps/calendar']">Calendar</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/apps/social']">Social</a>
-                    </li> 
-                    <li>
-                        <a href="" [routerLink]="['/apps/task']">Task</a>
-                    </li>              
-                </ul>
             </li>
-            <li class="nav-item dropdown" routerLinkActive="open">
-                <a class="dropdown-toggle" href="javascript:void(0);">
+            <li clas="nav-item" routerLinkActive="active">
+                <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
                     <span class="icon-holder">
-                        <i class="ti-palette"></i>
+                        <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
+                            <path fill="white" color="white"
+                                d="m 107.54751,-0.15302294 C 48.23506,-0.15302294 0,50.883936 0,113.64176 V 1024 H 215.09503 V 910.20522 H 107.54751 V 113.64176 h 537.73757 v 316.29259 c 9.35664,5.86043 18.4444,12.17604 26.88688,19.40201 A 218.32145,231.0034 0 0 1 752.8326,406.43573 V 113.64176 c 0,-62.757824 -48.23506,-113.79478294 -107.54752,-113.79478294 z M 215.09503,227.43654 V 341.23132 H 322.64254 V 227.43654 Z m 215.09503,0 V 341.23132 H 537.73757 V 227.43654 Z M 215.09503,455.0261 V 568.82088 H 322.64254 V 455.0261 Z m 322.64254,56.89739 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z m 268.86879,0 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z M 215.09503,682.61566 V 796.41044 H 322.64254 V 682.61566 Z m 322.64254,170.69217 c -117.49566,0 -215.09503,51.71973 -215.09503,126.14151 V 1024 h 699.05886 v -44.55066 c 0,-74.42178 -97.59939,-126.14151 -215.09504,-126.14151 -50.81621,0 -97.33051,10.12773 -134.4344,27.14005 -37.10389,-17.06921 -83.61819,-27.14005 -134.43439,-27.14005 z"
+                                class="sc-13tn5xx-1 dkcuct"></path>
+                        </svg>
                     </span>
-                    <span class="title">UI Elements</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
+                    <span class="title">HOTLIST</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/ui-elements/cards']">Cards</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/ui-elements/buttons']">Buttons</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/ui-elements/modals']">Modals</a>
-                    </li>
-                    <li> 
-                        <a href="" [routerLink]="['/ui-elements/tabs']">Tabs &amp; Accordions</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/ui-elements/progress-slider']">Progress &amp; Slider</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/ui-elements/notification']">Notification</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/ui-elements/typography']">Typography</a>
-                    </li>
-                </ul>
             </li>
-            <li class="nav-item dropdown" >
-                <a class="dropdown-toggle" href="javascript:void(0);" >
+            <li clas="nav-item" routerLinkActive="active">
+                <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
                     <span class="icon-holder">
-                        <i class="ti-file"></i>
+                        <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
+                            <path fill="white" color="white"
+                                d="m 107.54751,-0.15302294 C 48.23506,-0.15302294 0,50.883936 0,113.64176 V 1024 H 215.09503 V 910.20522 H 107.54751 V 113.64176 h 537.73757 v 316.29259 c 9.35664,5.86043 18.4444,12.17604 26.88688,19.40201 A 218.32145,231.0034 0 0 1 752.8326,406.43573 V 113.64176 c 0,-62.757824 -48.23506,-113.79478294 -107.54752,-113.79478294 z M 215.09503,227.43654 V 341.23132 H 322.64254 V 227.43654 Z m 215.09503,0 V 341.23132 H 537.73757 V 227.43654 Z M 215.09503,455.0261 V 568.82088 H 322.64254 V 455.0261 Z m 322.64254,56.89739 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z m 268.86879,0 a 107.54751,113.79478 0 1 0 0,227.58956 107.54751,113.79478 0 0 0 0,-227.58956 z M 215.09503,682.61566 V 796.41044 H 322.64254 V 682.61566 Z m 322.64254,170.69217 c -117.49566,0 -215.09503,51.71973 -215.09503,126.14151 V 1024 h 699.05886 v -44.55066 c 0,-74.42178 -97.59939,-126.14151 -215.09504,-126.14151 -50.81621,0 -97.33051,10.12773 -134.4344,27.14005 -37.10389,-17.06921 -83.61819,-27.14005 -134.43439,-27.14005 z"
+                                class="sc-13tn5xx-1 dkcuct"></path>
+                        </svg>
                     </span>
-                    <span class="title">Forms</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
+                    <span class="title">REPORTING</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/forms/form-elements']">Form Elements</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/forms/form-layouts']">Form Layouts</a>
-                    </li>  
-                    <li>
-                        <a href="" [routerLink]="['/forms/form-wizard']">Form Wizard</a>
-                    </li>                     
-                </ul>
             </li>
-            <li class="nav-item dropdown" routerLinkActive="open">
-                <a class="dropdown-toggle" href="javascript:void(0);" >
+        </ul>
+        <ul class="side-nav-menu scrollable navbarhover">
+            <li clas="nav-item" routerLinkActive="active">
+                <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
                     <span class="icon-holder">
-                        <i class="ti-layout-media-overlay"></i>
+                        <img shape="rounded"
+                            src="https://ui-avatars.com/api/?name=K1&amp;color=ffffff&amp;bold=true&amp;background=8779B3&amp;size=60"
+                            class="lq5a4r-2 kFQnoa">
                     </span>
-                    <span class="title">Jobs</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
+                    <!-- <span class="title">{{user.profile.name}}</span> -->
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/jobs/grid-table']">Grid Table</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/jobs/data-table']">Data Table</a>
-                    </li>                     
-                </ul>
-            </li>
-            <li class="nav-item dropdown" routerLinkActive="open">
-                <a class="dropdown-toggle" href="javascript:void(0);" >
-                    <span class="icon-holder">
-                        <i class="ti-layout-media-overlay"></i>
-                    </span>
-                    <span class="title">Tables</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/tables/basic-table']">Basic Table</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/tables/data-table']">Data Table</a>
-                    </li>                     
-                </ul>
-            </li>
-            <li class="nav-item dropdown" >
-                <a class="dropdown-toggle" href="javascript:void(0);" >
-                    <span class="icon-holder">
-                        <i class="ti-pie-chart"></i>
-                    </span>
-                    <span class="title">Charts</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/charts/nvd3']">Nvd3</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/charts/chartjs']">ChartJs</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/charts/sparkline']">Sparkline</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown" routerLinkActive="open">
-                <a class="dropdown-toggle" href="javascript:void(0);" >
-                    <span class="icon-holder">
-                        <i class="ti-map-alt"></i>
-                    </span>
-                    <span class="title">Map</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/maps/google-map']">Google Map</a>
-                    </li>
-                    <li>
-                        <a href="" [routerLink]="['/maps/vector-map']">Vector Map</a>
-                    </li>               
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="ti-cloud"></i>
-                    </span>
-                    <span class="title">Extra</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="" [routerLink]="['/extras/invoice']">Invoice</a>
-                    </li>  
-                    <li>
-                        <a href="" [routerLink]="['/extras/account-setting']">Account Settings</a>
-                    </li> 
-                    <li>
-                        <a href="" [routerLink]="['/extras/faq']">FAQ</a>
-                    </li> 
-                    <li>
-                        <a href="" [routerLink]="['/extras/gallery']">Gallery</a>
-                    </li> 
-                    <li>
-                        <a href="" [routerLink]="['/authentication/sign-in']">Sign In</a>
-                    </li> 
-                    <li>
-                        <a href="" [routerLink]="['/authentication/sign-in2']">Sign In 2</a>
-                    </li>  
-                    <li>
-                        <a href="" [routerLink]="['/authentication/sign-up']">Sign Up</a>
-                    </li> 
-                    <li>
-                        <a href="" [routerLink]="['/authentication/404']">404</a>
-                    </li>  
-                    <li>
-                        <a href="" [routerLink]="['/authentication/500']">500</a>
-                    </li>              
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="ti-view-list-alt"></i>
-                    </span>
-                    <span class="title">Multiple Levels</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Level 1.2</span>
-                        </a>
-                    </li>	
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Level 1.1</span>
-                            <span class="arrow">
-                                <i class="ti-angle-right"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="javascript:void(0);">Level 2</a>
-                            </li>         
-                        </ul>
-                    </li>         
-                </ul>
             </li>
         </ul>
     </div>

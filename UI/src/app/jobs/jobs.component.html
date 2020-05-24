@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row align-items-center justify-content-center">
         <div class="col-md-9">
             <form method="post" class="search-jobs-form">
@@ -33,14 +33,35 @@
 
 <div class="card-body shadoweffect pt0 mt10">
     <div class="table-responsive">
-        <kendo-grid #grid id="GridID" class="CustomGrid KendoCustomScroll GridScroll"
+        <!-- <kendo-grid #grid id="GridID" class="CustomGrid KendoCustomScroll GridScroll" [pageable]="{
+            buttonCount: buttonCount,
+            info: info,
+            type: type,
+            pageSizes: pageSizes,
+            previousNext: previousNext
+          }" [pageSize]="pageSize"
             [ngClass]=" applyDynamicClass == true ? 'scrollH' : 'scrollV'" [skip]="state.skip" [skip]="state.skip"
-            [sort]="state.sort" [sortable]="{allowUnsort: true}" [pageable]="false" [pageSize]="pageSize"
+            [sort]="state.sort" [sortable]="{allowUnsort: true}" [pageSize]="pageSize"
             (pageChange)="pageChange($event)" [kendoGridBinding]="filterGridData"
             (dataStateChange)="dataStateChange($event)" [selectable]="true" [scrollable]="'virtual'" [rowHeight]="20"
-            style="width: 100%;" [filter]="filter" filterable="menu" (filterChange)="filterChange($event)">
-            <kendo-grid-column field="sNo" title="SNO" filterable="true" sortable="true"
-                width="100">
+            style="width: 100%;" [filter]="filter" filterable="menu" (filterChange)="filterChange($event)"> -->
+
+
+                <kendo-grid #grid [kendoGridBinding]="filterGridData" filterable="menu" [skip]="skip" [pageable]="{
+                    buttonCount: buttonCount,
+                    info: info,
+                    type: type,
+                    pageSizes: pageSizes,
+                    previousNext: previousNext
+                  }" [pageSize]="pageSize" (pageChange)="pageChange($event)" [reorderable]="true" class="PayrollReviewKendogrid" [resizable]="true"
+                  [sort]="[{
+                        field: 'name',
+                        dir: 'asc'
+                      }]" [sortable]="{
+                        allowUnsort: true
+                        }">
+                    <kendo-grid-column field="jobTitle" title="Job title" filterable="true" sortable="true" width="100">
+
                 <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                     let-filterService="filterService">
                     <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -51,8 +72,7 @@
                     </kendo-grid-string-filter-menu>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column field="name" title="NAME" filterable="true" sortable="true"
-                width="70">
+            <kendo-grid-column field="companyName" title="Comapny Name" filterable="true" sortable="true" width="150">
                 <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                     let-filterService="filterService">
                     <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -63,8 +83,7 @@
                     </kendo-grid-string-filter-menu>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column field="city" title="CITY" filterable="true" sortable="true"
-                width="100">
+            <kendo-grid-column field="jobLocation" title="Location" filterable="true" sortable="true" width="70">
                 <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                     let-filterService="filterService">
                     <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -75,7 +94,51 @@
                     </kendo-grid-string-filter-menu>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column field="skill" title="SKILL" filterable="true" sortable="true" width="150">
+            <kendo-grid-column field="rowInsertDate" title="Posted On" filterable="true" sortable="true" width="150">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="postedBy" title="Posted By" filterable="true" sortable="true" width="150">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="appliedBy" title="Applied By" filterable="true" sortable="true" width="150">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="appliedOn" title="Applied Date" filterable="true" sortable="true" width="150">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="jobType" title="Type" filterable="true" sortable="true" width="100">
                 <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                     let-filterService="filterService">
                     <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -88,9 +151,4 @@
             </kendo-grid-column>
         </kendo-grid>
     </div>
-    <!-- <div class="editclosewrap">
-        <app-actions-component [enableReset]="isDirty" [enableSave]="isDirty" [resetWithoutChange]="isFormReset"
-            (editClickEvent)="isDisabled = false" (saveClickEvent)="save()" (resetClickEvent)="reset()">
-        </app-actions-component>
-    </div> -->
 </div>
