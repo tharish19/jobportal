@@ -8,7 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit {
     @HostBinding('class') public cssClass = 'DefaultClass';
 
-    constructor(private router: Router) {}
+    constructor() {}
     ngOnInit() {
         // this.router.events.filter(event => event instanceof NavigationEnd).subscribe((_event: NavigationEnd) => {
         //     const body = document.getElementsByTagName('body')[0];
