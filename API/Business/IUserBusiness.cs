@@ -16,6 +16,12 @@ namespace rest_api_jobs.Business
         Task<List<JobDetailsModel>> GetLatestJobsAsync();
 
         /// <summary>
+        /// Gets the job search strings.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<string>> GetJobSearchStringsAsync();
+
+        /// <summary>
         /// Gets the filtered jobs.
         /// </summary>
         /// <param name="jobSearchString">The job search string.</param>

@@ -67,6 +67,20 @@ namespace rest_api_jobs.Repository
         }
 
         /// <summary>
+        /// Gets the job search strings.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<string>> GetJobSearchStringsAsync()
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                var dbResult = await connection.QueryAsync<string>("GetJobSearchStrings",
+                    null, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return dbResult.ToList();
+            }
+        }
+
+        /// <summary>
         /// Gets the filtered jobs asynchronous.
         /// </summary>
         /// <param name="whereCondition">The where condition.</param>

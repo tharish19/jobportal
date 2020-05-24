@@ -40,6 +40,16 @@ namespace rest_api_jobs.Controllers
         }
 
         /// <summary>
+        /// Gets the job search strings.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("searchstrings")]
+        public async Task<List<string>> GetJobSearchStringsAsync()
+        {
+            return await userBusiness.GetJobSearchStringsAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Gets the filtered jobs asynchronous.
         /// </summary>
         /// <param name="jobSearchString">The job search string.</param>
