@@ -67,6 +67,42 @@ namespace rest_api_jobs.Repository
         }
 
         /// <summary>
+        /// Gets the filtered jobs asynchronous.
+        /// </summary>
+        /// <param name="whereCondition">The where condition.</param>
+        /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <returns></returns>
+        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, DateTime lastBusinessDateTime)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                var dbResult = await connection.QueryAsync<JobDetailsModel>("GetFilteredJobs",
+                    new
+                    {
+                        whereCondition,
+                        lastBusinessDateTime
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return dbResult.ToList();
+            }
+        }
+
+        //public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, string lastBusinessDateTime, string jobSearchString, string filteredBy)
+        //{
+        //    using (MySqlConnection connection = GetConnection())
+        //    {
+        //        var dbResult = await connection.QueryAsync<JobDetailsModel>("GetFilteredJobs",
+        //            new
+        //            {
+        //                whereCondition,
+        //                lastBusinessDateTime,
+        //                jobSearchString,
+        //                filteredBy
+        //            }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+        //        return dbResult.ToList();
+        //    }
+        //}
+
+        /// <summary>
         /// Adds the or update selected job status.
         /// </summary>
         /// <param name="jobStatus">The job status.</param>

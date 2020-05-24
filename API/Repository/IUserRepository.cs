@@ -24,6 +24,16 @@ namespace rest_api_jobs.Repository
         Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime);
 
         /// <summary>
+        /// Gets the filtered jobs asynchronous.
+        /// </summary>
+        /// <param name="whereCondition">The where condition.</param>
+        /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <returns></returns>
+        Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, DateTime lastBusinessDateTime);
+
+        //Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, string lastBusinessDateTime, string jobSearchString, string filteredBy);
+
+        /// <summary>
         /// Adds the or update job status asynchronous.
         /// </summary>
         /// <param name="jobStatus">The job status.</param>
