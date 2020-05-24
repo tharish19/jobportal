@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-9">
+            <form method="post" class="search-jobs-form">
+                <div class="row ">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+                        <div class="input-group inputfieldscustom">
+                            <span class="input-group-prepend">
+                                <div class="input-group-text bg-transparent "><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                            </span>
+                            <input class="form-control py-2 border-left-0 border" type="text" placeholder="Skills, Designations, Companies"  id="example-jobtitle-input">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+                        <div class="input-group inputfieldscustom">
+                            <span class="input-group-prepend">
+                                <div class="input-group-text bg-transparent"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                            </span>
+                            <input class="form-control py-2 border-left-0 border" type="text" placeholder="Enter Locations…" id="example-location-input">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-2">
+                        <button type="submit" class="btn  btn-md  text-white btn-search"><span
+                                class="icon-search icon"></span>Search Job</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+
+<div class="card-body shadoweffect pt0 mt10">
+    <div class="table-responsive">
+        <kendo-grid #grid id="GridID" class="CustomGrid KendoCustomScroll GridScroll"
+            [ngClass]=" applyDynamicClass == true ? 'scrollH' : 'scrollV'" [skip]="state.skip" [skip]="state.skip"
+            [sort]="state.sort" [sortable]="{allowUnsort: true}" [pageable]="false" [pageSize]="pageSize"
+            (pageChange)="pageChange($event)" [kendoGridBinding]="filterGridData"
+            (dataStateChange)="dataStateChange($event)" [selectable]="true" [scrollable]="'virtual'" [rowHeight]="20"
+            style="width: 100%;" [filter]="filter" filterable="menu" (filterChange)="filterChange($event)">
+            <kendo-grid-column field="sNo" title="SNO" filterable="true" sortable="true"
+                width="100">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="name" title="NAME" filterable="true" sortable="true"
+                width="70">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="city" title="CITY" filterable="true" sortable="true"
+                width="100">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="skill" title="SKILL" filterable="true" sortable="true" width="150">
+                <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                    let-filterService="filterService">
+                    <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                        operator="contains" [filterService]="filterService">
+                        <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                        <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                        <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                    </kendo-grid-string-filter-menu>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+    <!-- <div class="editclosewrap">
+        <app-actions-component [enableReset]="isDirty" [enableSave]="isDirty" [resetWithoutChange]="isFormReset"
+            (editClickEvent)="isDisabled = false" (saveClickEvent)="save()" (resetClickEvent)="reset()">
+        </app-actions-component>
+    </div> -->
+</div>

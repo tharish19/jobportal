@@ -1,0 +1,256 @@
+<div class="side-nav" sideBar>
+    <div class="side-nav-inner">
+        <div class="side-nav-logo">
+            <a href="" [routerLink]="['/dashboard']">
+                <div class="logo logo-dark" style="background-image: url('assets/images/logo/logo.png')"></div>
+                <div class="logo logo-white" style="background-image: url('assets/images/logo/logo-white.png')"></div>
+            </a>
+            <div class="mobile-toggle side-nav-toggle">
+                <a (click)="toggleSideNavCollapse()" href="javascript:void(0);">
+                    <i class="ti-arrow-circle-left"></i>
+                </a>
+            </div>
+        </div>
+        <ul class="side-nav-menu scrollable">
+            <li clas="nav-item" routerLinkActive="active">
+                <a class="mrg-top-30" href="" [routerLink]="['/dashboard']">
+                    <span class="icon-holder">
+                        <i class="ti-home"></i>
+                    </span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);" >
+                    <span class="icon-holder">
+                        <i class="ti-package"></i>
+                    </span>
+                    <span class="title">Apps</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/apps/email/email-inbox/1']">Email</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/apps/calendar']">Calendar</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/apps/social']">Social</a>
+                    </li> 
+                    <li>
+                        <a href="" [routerLink]="['/apps/task']">Task</a>
+                    </li>              
+                </ul>
+            </li>
+            <li class="nav-item dropdown" routerLinkActive="open">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="ti-palette"></i>
+                    </span>
+                    <span class="title">UI Elements</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/ui-elements/cards']">Cards</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/ui-elements/buttons']">Buttons</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/ui-elements/modals']">Modals</a>
+                    </li>
+                    <li> 
+                        <a href="" [routerLink]="['/ui-elements/tabs']">Tabs &amp; Accordions</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/ui-elements/progress-slider']">Progress &amp; Slider</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/ui-elements/notification']">Notification</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/ui-elements/typography']">Typography</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);" >
+                    <span class="icon-holder">
+                        <i class="ti-file"></i>
+                    </span>
+                    <span class="title">Forms</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/forms/form-elements']">Form Elements</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/forms/form-layouts']">Form Layouts</a>
+                    </li>  
+                    <li>
+                        <a href="" [routerLink]="['/forms/form-wizard']">Form Wizard</a>
+                    </li>                     
+                </ul>
+            </li>
+            <li class="nav-item dropdown" routerLinkActive="open">
+                <a class="dropdown-toggle" href="javascript:void(0);" >
+                    <span class="icon-holder">
+                        <i class="ti-layout-media-overlay"></i>
+                    </span>
+                    <span class="title">Jobs</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/jobs/grid-table']">Grid Table</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/jobs/data-table']">Data Table</a>
+                    </li>                     
+                </ul>
+            </li>
+            <li class="nav-item dropdown" routerLinkActive="open">
+                <a class="dropdown-toggle" href="javascript:void(0);" >
+                    <span class="icon-holder">
+                        <i class="ti-layout-media-overlay"></i>
+                    </span>
+                    <span class="title">Tables</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/tables/basic-table']">Basic Table</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/tables/data-table']">Data Table</a>
+                    </li>                     
+                </ul>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="dropdown-toggle" href="javascript:void(0);" >
+                    <span class="icon-holder">
+                        <i class="ti-pie-chart"></i>
+                    </span>
+                    <span class="title">Charts</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/charts/nvd3']">Nvd3</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/charts/chartjs']">ChartJs</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/charts/sparkline']">Sparkline</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" routerLinkActive="open">
+                <a class="dropdown-toggle" href="javascript:void(0);" >
+                    <span class="icon-holder">
+                        <i class="ti-map-alt"></i>
+                    </span>
+                    <span class="title">Map</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/maps/google-map']">Google Map</a>
+                    </li>
+                    <li>
+                        <a href="" [routerLink]="['/maps/vector-map']">Vector Map</a>
+                    </li>               
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="ti-cloud"></i>
+                    </span>
+                    <span class="title">Extra</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" [routerLink]="['/extras/invoice']">Invoice</a>
+                    </li>  
+                    <li>
+                        <a href="" [routerLink]="['/extras/account-setting']">Account Settings</a>
+                    </li> 
+                    <li>
+                        <a href="" [routerLink]="['/extras/faq']">FAQ</a>
+                    </li> 
+                    <li>
+                        <a href="" [routerLink]="['/extras/gallery']">Gallery</a>
+                    </li> 
+                    <li>
+                        <a href="" [routerLink]="['/authentication/sign-in']">Sign In</a>
+                    </li> 
+                    <li>
+                        <a href="" [routerLink]="['/authentication/sign-in2']">Sign In 2</a>
+                    </li>  
+                    <li>
+                        <a href="" [routerLink]="['/authentication/sign-up']">Sign Up</a>
+                    </li> 
+                    <li>
+                        <a href="" [routerLink]="['/authentication/404']">404</a>
+                    </li>  
+                    <li>
+                        <a href="" [routerLink]="['/authentication/500']">500</a>
+                    </li>              
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="ti-view-list-alt"></i>
+                    </span>
+                    <span class="title">Multiple Levels</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item dropdown">
+                        <a href="javascript:void(0);">
+                            <span>Level 1.2</span>
+                        </a>
+                    </li>	
+                    <li class="nav-item dropdown">
+                        <a href="javascript:void(0);">
+                            <span>Level 1.1</span>
+                            <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="javascript:void(0);">Level 2</a>
+                            </li>         
+                        </ul>
+                    </li>         
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
