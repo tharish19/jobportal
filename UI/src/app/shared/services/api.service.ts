@@ -9,7 +9,6 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 })
 export class ApiService {
     API_KEY = 'http://localhost:53138'; // 'https://rest-api-jobs.azurewebsites.net';
-    API_URL_GRID = 'http://localhost:53138/fetchmysqldata';       // 'https://rest-api-jobs.azurewebsites.net/fetchmysqldata';
   token: any = 'my-auth-token';
   httpOptions = {
   headers: new HttpHeaders({

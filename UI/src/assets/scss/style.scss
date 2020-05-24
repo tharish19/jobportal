@@ -112,3 +112,111 @@
 {
 	background:none;
 }
+
+
+
+//sidenavbar  starts here
+.side-nav {
+	.side-nav-inner {
+		.side-nav-logo {
+			background-color: #fff;
+		}
+		.icon-holder {
+			img {
+				height: 30px;
+				width: 30px;
+				border-radius: 50%;
+			}
+		}
+	}
+}
+.side-nav .side-nav-inner .side-nav-menu li a {
+	box-shadow: rgba(255, 255, 255, 0.25) 0px -1px 0px inset;
+	color: #fff;
+	font-weight: 400;
+	font-size: 12px;
+	letter-spacing: 1px;
+	&:hover,
+	:focus,
+	:active,
+	:visited {
+		text-decoration: none;
+		color: rgb(10, 175, 196);
+		background-color: rgb(8, 42, 61);
+		svg path {
+			fill: rgb(10, 175, 196);
+		}
+	}
+}
+.side-nav .side-nav-inner .side-nav-menu {
+	border-right: none;
+}
+
+@media only screen and (max-width: 1440px) and (min-width: 992px) {
+	.side-nav:hover {
+		width: 200px;
+	}
+}
+.side-nav {
+	background-color: rgb(11, 57, 84);
+}
+.side-nav .side-nav-inner .side-nav-menu {
+	height: calc(100vh - 21%);
+}
+//sidenavbar ends here
+
+// contanier search fileds & search button starts here
+.input-group-prepend {
+	background-color: #fff;
+	.input-group-text {
+		border-top: 1px solid #ced4dd;
+		border-left: 1px solid #ced4dd;
+		border-bottom: 1px solid #ced4dd;
+		color: #888da8;
+	}
+}
+.inputfieldscustom {
+	background-color: #fff;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 106, 194, 0.2);
+	box-shadow: 0 1px 4px 0 rgba(0, 106, 194, 0.2);
+	#example-jobtitle-input,
+	#example-location-input {
+		border: 1px solid #ced4dd !important;
+		border-left: none !important;
+		&::placeholder {
+			color: #515365;
+			font-size: 12px;
+		}
+	}
+}
+.btn-search {
+	padding: 10px;
+	border-radius: 0px;
+	background-color: rgb(10, 106, 128);
+	outline: 0;
+	color: #fff;
+	border: none;
+	&:hover,
+	:active,
+	:visited,
+	:focus {
+		background-color: rgb(10, 106, 128);
+		outline: 0;
+	}
+}
+// contanier search fileds & search button starts here
+
+//pageconatiner
+.page-container .main-content {
+	padding: 95px 0px 0px 0px;
+	min-height: calc(100vh - 40px);
+}
+//page contanier
+
+//footerstarts
+.content-footer .footer {
+	padding: 11px 0;
+	font-size: 80%;
+}
+//footerends
