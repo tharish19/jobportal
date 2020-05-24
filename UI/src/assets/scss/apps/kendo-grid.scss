@@ -1,0 +1,422 @@
+/*---Kendo gris Custom ScrollBar--\\*/
+.KendoCustomScroll {
+  .k-grid-content::-webkit-scrollbar-track,
+  .k-column-list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: transparent;
+  }
+  .k-grid-content::-webkit-scrollbar,
+  .k-column-list::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+    height: 6px;
+  }
+  .k-grid-content::-webkit-scrollbar-thumb,
+  .k-column-list::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgb(175, 175, 175);
+    background-color: #c5c5c5 !important;
+  }
+  .k-grid-content,.k-column-list{
+    scrollbar-width: thin;
+    scrollbar-color : rgba(0, 0, 0, 0.3);
+  }
+}
+
+
+/*---Kendo gris Custom ScrollBar--//*/
+/*--Kendo Grid Custom Filters Styling---\\*/
+.KendoCustomFilter_list {
+  kendo-popup.k-animation-container {
+    box-shadow: none;
+    z-index: 11 !important;
+    .k-popup {
+      color: #fff;
+      font-size: 12px;
+      padding: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #c1c1c1;
+      outline: none;
+      box-shadow: 4px 4px 10px rgb(216, 216, 216);
+      box-shadow: none;
+    }
+  }
+  .k-filter-menu {
+    .k-filter-menu-container {
+      width: 202px;
+      padding: 0px;
+      .filter_list {
+        padding: 0px 0px 0px 10px;
+        ul {
+          margin: 0;
+          padding: 0;
+          li {
+            border: 0px;
+            line-height: normal;
+            padding: 10px 10px 10px 0;
+            cursor: pointer;
+            word-break: break-word;
+            .k-checkbox-label {
+              line-height: 23px;
+              line-height: 20px;
+              padding-left: 24px;
+              padding-right: 4px;
+            }
+          }
+        }
+      }
+    }
+    .k-action-buttons {
+      margin: 0 !important;
+      justify-content: center;
+      box-shadow: none;
+    }
+  }
+  kendo-popup.k-animation-container {
+    .k-popup .k-action-buttons .k-button {
+      background: -webkit-linear-gradient(top, #7d7e7d, #0e0e0e) !important;
+      color: #fff;
+      font-size: 12px;
+      color: #fff;
+      padding: 8px 16px;
+      background: #999 !important;
+      &:last-child {
+        background: #ff6000 !important;
+      }
+    }
+    .k-checkbox-label::before {
+      border-radius: 100%;
+      width: 23px;
+      height: 23px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+.k-radio-label::before {
+  width: 23px;
+  height: 23px;
+  width: 20px;
+  height: 20px;
+}
+.KendoCustomFilter_list {
+  kendo-popup.k-animation-container {
+    .k-checkbox-label::before,
+    .k-checkbox:focus + .k-checkbox-label::before,
+    .k-radio:focus + .k-radio-label::before {
+      background-color: #e0e0e0;
+      background-color: transparent;
+      border-color: rgba(0, 0, 0, 0.31);
+    }
+    .k-checkbox {
+      &:checked + .k-checkbox-label {
+        &::before {
+          background-color: #2fd300;
+          background-color: #4caf50;
+          border-color: #3a903e;
+        }
+        &::after {
+          background-color: transparent;
+          border-color: transparent;
+          max-width: 28px;
+        }
+      }
+      &:indeterminate + .k-checkbox-label::after {
+        background-color: transparent;
+        border-color: transparent;
+        max-width: 28px;
+      }
+      &:focus + .k-checkbox-label::before {
+        border-color: rgba(255, 255, 255, 0.31);
+      }
+    }
+    .k-radio:focus + .k-radio-label::before {
+      border-color: rgba(255, 255, 255, 0.31);
+    }
+    .k-checkbox-label::after {
+      text-indent: 4px;
+      font-size: 15px;
+      width: 23px;
+      height: 23px;
+      text-indent: 3px;
+      font-size: 13px;
+      width: 20px;
+      height: 20px;
+      top: 1px;
+    }
+    .k-popup.k-calendar-container {
+      .k-calendar table {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+      .k-calendar-infinite .k-calendar-header {
+        padding-bottom: 0px;
+        line-height: normal;
+        .k-title {
+          padding-bottom: 0px;
+        }
+      }
+      .k-calendar-infinite .k-calendar-view {
+        height: 18em;
+      }
+      .k-calendar-infinite .k-calendar-view.k-calendar-monthview td {
+        height: 2.4285714286em;
+        width: 2.4285714286em;
+      }
+      .k-calendar-infinite
+        .k-calendar-view.k-calendar-monthview
+        td.k-state-selected
+        .k-link {
+        border-color: #ff6000;
+        color: white;
+        background-color: #ff6000;
+      }
+      .k-calendar .k-calendar-monthview .k-link {
+        height: 2.4em;
+        padding: 0;
+      }
+    }
+  }
+  .k-filter-menu .k-filter-menu-container {
+    width: 202px;
+    kendo-grid-filter-menu-input-wrapper {
+      padding: 0.5rem 1rem;
+      display: table;
+      width: 100%;
+      kendo-dropdownlist.k-dropdown.k-header {
+        max-width: 170px;
+      }
+    }
+    .k-dropdown-wrap,
+    .k-numerictextbox .k-numeric-wrap {
+      color: #484848;
+      border-color: rgba(0, 0, 0, 0.16);
+      font-size: 14px;
+      background-color: transparent;
+      background: transparent;
+    }
+    .k-dropdown-wrap {
+      &:hover {
+        border-color: rgba(0, 0, 0, 0.42);
+      }
+      &.k-state-focused {
+        box-shadow: none;
+      }
+      .k-input {
+        color: #484848;
+      }
+    }
+    kendo-grid-filter-menu-input-wrapper .k-textbox {
+      color: #484848;
+      font-size: 14px;
+      border-color: rgba(0, 0, 0, 0.16);
+    }
+    kendo-grid-filter-menu-input-wrapper .k-datepicker {
+      &:hover .k-select {
+        background: none;
+        background-image: none;
+      }
+      .k-dateinput-wrap .k-input {
+        font-size: 14px;
+      }
+      .k-picker-wrap {
+        &:hover {
+          border-color: rgba(0, 0, 0, 0.42);
+        }
+      }
+      .k-select {
+        background: none;
+        background-image: none;
+      }
+    }
+  }
+  .k-list-container {
+    background-color: #fff;
+    box-shadow: none;
+    kendo-list ul.k-list {
+      color: #484848;
+      box-shadow: none;
+    }
+    .k-list .k-item {
+      padding: 2px 10px;
+      &:hover {
+        color: #484848;
+      }
+      &.k-state-selected {
+        color: #fff;
+        background: #ff6000;
+      }
+      &:hover {
+        &.k-state-selected {
+          color: #fff;
+          background: #ff6000;
+        }
+        color: #ffffff;
+        background: #ff6000;
+      }
+      &.k-state-hover {
+        color: #ffffff;
+        background: #ff6000;
+      }
+    }
+    .k-list-optionlabel:hover {
+      color: #ffffff;
+      background: #ff6000;
+    }
+  }
+}
+/*--Kendo Grid Custom Filters Styling---//*/
+/*--Kendo Grid Custom modified Styling---\\*/
+.CustomGrid {
+  .k-grid-header {
+    th {
+      font-weight: 500;
+      font-size: 13px;
+      color: #484848;
+      border-right: 0px solid #f3f3f3;
+      padding: 10px 5px 10px 5px;
+      /*height: 43px;*/
+      line-height: normal;
+      vertical-align: top;
+      border-left: 0px;
+      border-bottom: 1px solid #f3f3f3;
+      border-right-width: 0px;
+      &.k-filterable {
+        padding-right: 32px;
+        .k-i-sort-desc-sm,
+        .k-i-sort-asc-sm {
+          position: absolute;
+          right: 18px;
+          top: 10px;
+        }
+      }
+    }
+    .k-header {
+      > .k-link {
+        /*position: relative;*/
+        margin: 0;
+        padding: 0;
+      }
+      .k-i-sort-desc-sm,
+      .k-i-sort-asc-sm {
+        position: absolute;
+        right: 0px;
+        top: 10px;
+      }
+    }
+    .k-grid-header-wrap table {
+      padding: 0px;
+    }
+  }
+  .k-grid-container .k-grid-content .k-grid-table-wrap .k-grid-table {
+    padding: 0px;
+  }
+  .k-grid-header .k-i-sort-asc-sm,
+  .k-i-sort-desc-sm,
+  .k-sort-order {
+    color: #1ab94c;
+  }
+  .k-grid-header {
+    .k-link:hover .k-icon {
+      color: #1ab94c;
+    }
+    .k-grid-filter {
+      width: calc(3px + 1.428571em);
+      height: calc(3px + 1.42857143em);
+      top: 7px;
+      color: #ff6000;
+      right: 0px;
+      &.k-state-active {
+        background-color: rgb(232, 232, 232);
+        color: #ff6000;
+      }
+      .k-icon.k-i-filter {
+        font-size: 12px;
+        font-size: 13px;
+        position: relative;
+        top: 1px;
+        &::before {
+          content: "\e015";
+        }
+      }
+    }
+  }
+  &.k-grid {
+    td {
+      font-size: 11px;
+      color: #484848;
+      line-height: initial;
+      padding: 10px 5px 10px 5px;
+      vertical-align: middle;
+      border-color: transparent;
+      border-bottom: 1px solid #f3f3f3;
+    }
+    .k-grid-header .k-header {
+      white-space: normal;
+    }
+  }
+  &.scrollH .k-grid-header .k-grid-header-wrap table {
+    padding-right: 6px;
+  }
+  .k-pager-wrap{
+    border-top: 1px solid #f3f3f3;
+    font-weight: 400;
+    kendo-pager-prev-buttons,
+    kendo-pager-next-buttons{
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      top: 3px;
+      .k-pager-nav{
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+        padding: 10px;
+      }
+    }
+    kendo-pager-numeric-buttons{
+      display: inline-block;
+      vertical-align: middle;
+      ul.k-pager-numbers{
+        li{
+          .k-link{
+            width: 24px;
+            height: 24px;
+            font-size: 11px;
+            padding: 10px;
+            border: 1px solid #e2e2e2;
+            color: #484848 !important;
+            margin-right: 5px;
+
+            &.k-state-selected,
+            &:hover{
+              background-color: #ff6000;
+              color: #fff !important;
+              box-shadow: none;
+              border-color: #ff6000;
+            }
+          }
+        }
+      }
+    }
+    .k-pager-info{
+      font-size: 12px;
+    }
+  }
+}
+/*--Kendo Grid Custom modified Styling---//*/
+.k-detail-row > .k-hierarchy-cell
+{
+  background-color: white;
+}
+.k-i-add::before, .k-i-plus::before, .k-plus::before {
+  color:transparent;
+}
+
+/*--Kendo Grid Pagination Type Custom modified Styling---\\*/
+
+/*--Kendo Grid Pagination Type Custom modified Styling---//*/
+

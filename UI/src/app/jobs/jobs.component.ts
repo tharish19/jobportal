@@ -39,7 +39,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
 
   constructor(
-    // private rootComp: AppComponent
+    private rootComp: AppComponent,
     private jobsService: JobsService
   ) { }
   getJobsData() {
@@ -52,7 +52,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    // this.rootComp.cssClass = 'KendoCustomFilter_list';
+    this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
   }
 

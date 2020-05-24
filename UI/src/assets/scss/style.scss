@@ -3,74 +3,72 @@
   Author: Theme_Nate
 ----------------------------------------------------------------------------*/
 
-@import 'mixins'; // Mixins
-@import 'variables'; // Variables
-
+@import "mixins"; // Mixins
+@import "variables"; // Variables
 
 /*---------------------------------
 -------------- common -------------
 ---------------------------------*/
-@import 'common/general'; //                 general
-@import 'common/helpers'; //                 helpers
-@import 'common/side-nav'; //                side-nav
-@import 'common/side-panel'; //              side-panel
-@import 'common/header'; //                  header
-@import 'common/footer'; //                  footer
-@import 'common/page-container'; //          page-container
-@import 'common/widgets'; //                 widgets
-@import 'common/rtl'; //                     rtl
-@import 'common/themes'; //                  themes
-@import 'common/theme-configurator'; //      theme-configurator
-
+@import "common/general"; //                 general
+@import "common/helpers"; //                 helpers
+@import "common/side-nav"; //                side-nav
+@import "common/side-panel"; //              side-panel
+@import "common/header"; //                  header
+@import "common/footer"; //                  footer
+@import "common/page-container"; //          page-container
+@import "common/widgets"; //                 widgets
+@import "common/rtl"; //                     rtl
+@import "common/themes"; //                  themes
+@import "common/theme-configurator"; //      theme-configurator
 
 /*---------------------------------
 ------------ plugins -------------
 ---------------------------------*/
-@import 'plugins/slick'; //                  slick
-@import 'plugins/nouislider'; //             nouislider
-@import 'plugins/ng-select'; //              ng-select
-@import 'plugins/toasty'; //                 toasty
-@import 'plugins/datatables'; //             datatables
-@import 'plugins/datepicker'; //             datepicker
-@import 'plugins/summernote'; //             summernote
-@import 'plugins/nvd3'; //                   nvd3
-@import 'plugins/rickshaw'; //               rickshaw
-@import 'plugins/sparkline'; //              sparkline
-
+@import "plugins/slick"; //                  slick
+@import "plugins/nouislider"; //             nouislider
+@import "plugins/ng-select"; //              ng-select
+@import "plugins/toasty"; //                 toasty
+@import "plugins/datatables"; //             datatables
+@import "plugins/datepicker"; //             datepicker
+@import "plugins/summernote"; //             summernote
+@import "plugins/nvd3"; //                   nvd3
+@import "plugins/rickshaw"; //               rickshaw
+@import "plugins/sparkline"; //              sparkline
 
 /*---------------------------------
 ------------ elements -------------
 ---------------------------------*/
-@import 'elements/buttons'; //               buttons
-@import 'elements/modal'; //                 modal
-@import 'elements/form'; //                  form
-@import 'elements/list'; //                  list
-@import 'elements/label'; //         		 label
-@import 'elements/card'; //                  card
-@import 'elements/page-title'; //            page title
-@import 'elements/breadcrumb'; //            breadcrumb
-@import 'elements/dropdown'; //              dropdown
-@import 'elements/chat'; //                  chat
-@import 'elements/todo'; //                  todo
-@import 'elements/tabs'; //                  tabs
-@import 'elements/accordion'; //             accordion
-@import 'elements/noticfication'; //         noticfication
-@import 'elements/progress-bar'; //          progress bar
-@import 'elements/tables'; //   	         tables
-@import 'elements/wizard'; //   	         wizard
-@import 'elements/maps'; //   	   	         maps
-@import 'elements/authentication'; //        authentication
-@import 'elements/icons'; //                 icons
-
+@import "elements/buttons"; //               buttons
+@import "elements/modal"; //                 modal
+@import "elements/form"; //                  form
+@import "elements/list"; //                  list
+@import "elements/label"; //         		 label
+@import "elements/card"; //                  card
+@import "elements/page-title"; //            page title
+@import "elements/breadcrumb"; //            breadcrumb
+@import "elements/dropdown"; //              dropdown
+@import "elements/chat"; //                  chat
+@import "elements/todo"; //                  todo
+@import "elements/tabs"; //                  tabs
+@import "elements/accordion"; //             accordion
+@import "elements/noticfication"; //         noticfication
+@import "elements/progress-bar"; //          progress bar
+@import "elements/tables"; //   	         tables
+@import "elements/wizard"; //   	         wizard
+@import "elements/maps"; //   	   	         maps
+@import "elements/authentication"; //        authentication
+@import "elements/icons"; //                 icons
 
 /*---------------------------------
 -------------- apps ---------------
 ---------------------------------*/
-@import 'apps/calendar'; //                  calendar
-@import 'apps/email'; //                     email
-@import 'apps/social'; //                    social
-@import 'apps/gallery'; //                   gallery
-@import 'apps/task'; //                      task
+@import "apps/calendar"; //                  calendar
+@import "apps/email"; //                     email
+@import "apps/social"; //                    social
+@import "apps/gallery"; //                   gallery
+@import "apps/task"; //                      task
+@import "apps/kendo-grid.scss"; //            kendo-grid
+@import "apps/kendo.scss"; //
 
 /*.jqx-button
 {
@@ -85,35 +83,30 @@
 	color:#000 !important;
 	
 }*/
-.yellow .jqx-button
-{
-	
-	color:#000 !important;
-	
+.yellow .jqx-button {
+	color: #000 !important;
 }
-.green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+.green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected),
+.jqx-widget .green:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
 	color: #000;
 	background-color: #fff099;
 }
 
-.yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+.yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected),
+.jqx-widget .yellow:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
 	color: #000;
 	background-color: #ff9a9a;
 }
-.green a, .yellow a
-{
-	color:#000 !important;
+.green a,
+.yellow a {
+	color: #000 !important;
 }
-.yellow .jqx-fill-state-normal
-{
-	background:none;
+.yellow .jqx-fill-state-normal {
+	background: none;
 }
-.green .jqx-fill-state-normal
-{
-	background:none;
+.green .jqx-fill-state-normal {
+	background: none;
 }
-
-
 
 //sidenavbar  starts here
 .side-nav {
@@ -197,6 +190,8 @@
 	outline: 0;
 	color: #fff;
 	border: none;
+	border-radius: 3px;
+	transition: all 100ms ease 0s;
 	&:hover,
 	:active,
 	:visited,
@@ -205,18 +200,105 @@
 		outline: 0;
 	}
 }
+.btn-post {
+	border-radius: 3px;
+	transition: all 100ms ease 0s;
+	padding: 8px;
+	border-radius: 0px;
+	background-color: rgb(10, 106, 128);
+	outline: 0;
+	color: #fff;
+	border: none;
+	font-size: 12px;
+	font-weight: 500;
+	border-radius: 3px;
+	&:hover,
+	:active,
+	:visited,
+	:focus {
+		background-color: rgb(10, 106, 128);
+		outline: 0;
+	}
+}
+.btn-refresh{
+    background-color: rgb(232, 241, 242);
+    color: rgb(83, 83, 83);
+	line-height: 1;
+	color:#000;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-appearance: none;
+    user-select: none;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(229, 229, 229, 0.6);
+    border-radius: 3px;
+    transition: all 100ms ease 0s;
+    padding: 12px;
+    border: none;
+}
+.Newtablinks{
+	a{
+		color: rgb(11, 116, 140);
+		font-size: 14px;
+		cursor: pointer;
+	}
+	.seperation{
+		margin-left: 2rem;
+		&:hover,:active,:focus,:visited{
+			color:rgb(11, 116, 140);
+			cursor: pointer;
+		}
+	}
+}
 // contanier search fileds & search button starts here
 
 //pageconatiner
+.allJobsLabel {
+	color: rgb(19, 41, 45);
+	font-size: 18px;
+	line-height: 1;
+	font-weight: 600;
+	margin: auto;
+	svg {
+		margin-right: 10px;
+		path {
+			fill: #0aafc4;
+		}
+	}
+	span {
+		vertical-align: middle;
+	}
+}
 .page-container .main-content {
-	padding: 95px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
 	min-height: calc(100vh - 40px);
 }
 //page contanier
+
+// porgressbar for loader starts here
+.pace .pace-progress {
+	background-color: #0a6a80;
+}
+// progressbar for loader ends here
 
 //footerstarts
 .content-footer .footer {
 	padding: 11px 0;
 	font-size: 80%;
 }
+.content-footer {
+	padding: 0px;
+}
 //footerends
+
+//custom style
+.mb-10{
+	margin-bottom: 10px;
+}
+.mt-10{
+	margin-top: 10px;
+}
+
+//custom style
