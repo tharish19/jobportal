@@ -81,12 +81,14 @@ namespace rest_api_jobs.Repository
         }
 
         /// <summary>
-        /// Gets the filtered jobs asynchronous.
+        /// Gets the filtered jobs.
         /// </summary>
         /// <param name="whereCondition">The where condition.</param>
         /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <param name="jobSearchString">The job search string.</param>
+        /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, DateTime lastBusinessDateTime)
+        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, DateTime lastBusinessDateTime, string jobSearchString, string filteredBy)
         {
             using (MySqlConnection connection = GetConnection())
             {
@@ -94,27 +96,13 @@ namespace rest_api_jobs.Repository
                     new
                     {
                         whereCondition,
-                        lastBusinessDateTime
+                        lastBusinessDateTime,
+                        jobSearchString,
+                        filteredBy
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return dbResult.ToList();
             }
         }
-
-        //public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, string lastBusinessDateTime, string jobSearchString, string filteredBy)
-        //{
-        //    using (MySqlConnection connection = GetConnection())
-        //    {
-        //        var dbResult = await connection.QueryAsync<JobDetailsModel>("GetFilteredJobs",
-        //            new
-        //            {
-        //                whereCondition,
-        //                lastBusinessDateTime,
-        //                jobSearchString,
-        //                filteredBy
-        //            }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
-        //        return dbResult.ToList();
-        //    }
-        //}
 
         /// <summary>
         /// Adds the or update selected job status.

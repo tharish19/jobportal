@@ -1,0 +1,30 @@
+﻿DELIMITER //
+CREATE PROCEDURE GetJobsFromLastBusinessDay (
+	IN lastBusinessDateTime datetime
+)
+BEGIN
+	SET group_concat_max_len = 2048;
+	
+	SELECT 
+		JD.JobID,
+		JD.JobTitle,
+		JD.JobLocation,
+		JD.JobType,
+		JD.CompanyName,
+		JD.PostedBy,
+		JD.PostedDate,
+		JD.JobURL,
+		JD.RowInsertDate,
+		JD.RowInsertBy,
+		JD.RowUpdateDate,
+		JD.RowUpdateBy,
+		JD.JobSearchString,
+		JD.jobURLSubstr,
+		JD.Archive,
+		(SELECT JS.JobStatus FROM jobsstatus JS where JS.JobID = JD.JobID) AS JobStatus,
+		(SELECT GROUP_CONCAT(JS.AppliedBy ORDER BY JS.AppliedOn DESC SEPARATOR ', ') FROM jobsstatus JS where JS.JobID = JD.JobID) AS AppliedBy,
+		(SELECT JS.AppliedOn FROM jobsstatus JS where JS.JobID = JD.JobID order by JS.AppliedOn desc LIMIT 1) AS AppliedOn
+	FROM jobsdetails JD
+	WHERE JD.RowInsertDate >= lastBusinessDateTime order by JD.RowInsertDate Desc;
+END //
+DELIMITER ;

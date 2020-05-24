@@ -34,10 +34,10 @@ namespace rest_api_jobs.Repository
         /// </summary>
         /// <param name="whereCondition">The where condition.</param>
         /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <param name="jobSearchString">The job search string.</param>
+        /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, DateTime lastBusinessDateTime);
-
-        //Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, string lastBusinessDateTime, string jobSearchString, string filteredBy);
+        Task<List<JobDetailsModel>> GetFilteredJobsAsync(string whereCondition, DateTime lastBusinessDateTime, string jobSearchString, string filteredBy);
 
         /// <summary>
         /// Adds the or update job status.

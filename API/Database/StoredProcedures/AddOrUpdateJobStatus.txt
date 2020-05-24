@@ -1,0 +1,19 @@
+﻿DELIMITER //
+CREATE PROCEDURE AddOrUpdateJobStatus (
+	IN SelectedJobID INT,
+	IN SelectedJobStatus VARCHAR(15),
+	IN AppliedByThe NVARCHAR(100)
+)
+BEGIN
+    IF (SELECT count(*) FROM jobsstatus WHERE JobID = SelectedJobID AND AppliedBy = AppliedByThe) > 0 THEN
+		BEGIN
+			UPDATE jobsstatus SET AppliedOn = SYSDATE(), JobStatus = SelectedJobStatus WHERE JobID = SelectedJobID and AppliedBy = AppliedByThe;
+		END;
+		ELSE 
+		BEGIN
+			INSERT INTO jobsstatus (JobID, JobStatus, AppliedBy, AppliedOn)
+				VALUES (SelectedJobID, SelectedJobStatus, AppliedByThe, SYSDATE());
+		END;
+    END IF;
+END //
+DELIMITER ;

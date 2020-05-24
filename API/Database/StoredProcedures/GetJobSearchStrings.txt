@@ -1,0 +1,6 @@
+﻿DELIMITER //
+CREATE PROCEDURE GetJobSearchStrings()
+BEGIN
+	SELECT DISTINCT jobsearchstring FROM jobssearchstrings;
+END //
+DELIMITER ;

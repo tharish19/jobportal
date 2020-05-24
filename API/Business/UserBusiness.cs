@@ -70,8 +70,9 @@ namespace rest_api_jobs.Business
         /// Gets the filtered jobs asynchronous.
         /// </summary>
         /// <param name="jobSearchString">The job search string.</param>
+        /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString)
+        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
         {
             holidayList = new List<DateTime>();
             holidayList = await userRepository.GetHolidayListAsync().ConfigureAwait(false);
@@ -80,28 +81,13 @@ namespace rest_api_jobs.Business
             string whereCondition = "";
             foreach (var str in filters)
             {
-                whereCondition = whereCondition + " OR JobSearchString like '" + str + "'";
+                whereCondition = whereCondition + " OR JD.JobSearchString like '%" + str + "%'";
             }
-            whereCondition = Regex.Replace(whereCondition, "^ OR (.*)", " $1" + " order by JD.RowInsertDate Desc");
 
-            return await userRepository.GetFilteredJobsAsync(whereCondition, lastBusinessDateTime).ConfigureAwait(false);
+            whereCondition = Regex.Replace(whereCondition, "^ OR (.*)", " AND ($1)" + " order by JD.RowInsertDate Desc");
+
+            return await userRepository.GetFilteredJobsAsync(whereCondition, lastBusinessDateTime, jobSearchString, filteredBy).ConfigureAwait(false);
         }
-
-        //public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
-        //{
-        //    holidayList = new List<DateTime>();
-        //    holidayList = await userRepository.GetHolidayListAsync().ConfigureAwait(false);
-        //    DateTime lastBusinessDateTime = GetLastBusinessDay(DateTime.Today);
-        //    string[] filters = jobSearchString.Split(',');
-        //    string whereCondition = "";
-        //    foreach (var str in filters)
-        //    {
-        //        whereCondition = whereCondition + " OR JobSearchString like '" + str + "'";
-        //    }
-        //    whereCondition = Regex.Replace(whereCondition, "^ OR (.*)", " $1" + " order by JD.RowInsertDate Desc");
-
-        //    return await userRepository.GetFilteredJobsAsync(whereCondition, lastBusinessDateTime, jobSearchString, filteredBy).ConfigureAwait(false);
-        //}
 
         /// <summary>
         /// Adds the or update job status.

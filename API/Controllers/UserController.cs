@@ -49,22 +49,18 @@ namespace rest_api_jobs.Controllers
             return await userBusiness.GetJobSearchStringsAsync().ConfigureAwait(false);
         }
 
+
         /// <summary>
         /// Gets the filtered jobs asynchronous.
         /// </summary>
         /// <param name="jobSearchString">The job search string.</param>
+        /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        [HttpGet("filter/jobs/{jobSearchString}")]
-        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString)
+        [HttpGet("filter/jobs/{jobSearchString}/{filteredBy}")]
+        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
         {
-            return await userBusiness.GetFilteredJobsAsync(jobSearchString).ConfigureAwait(false);
+            return await userBusiness.GetFilteredJobsAsync(jobSearchString, filteredBy).ConfigureAwait(false);
         }
-
-        //[HttpGet("filter/jobs/{jobSearchString}/{filteredBy}")]
-        //public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
-        //{
-        //    return await userBusiness.GetFilteredJobsAsync(jobSearchString, filteredBy).ConfigureAwait(false);
-        //}
 
         /// <summary>
         /// Adds the or update job status.
