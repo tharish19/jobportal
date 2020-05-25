@@ -3,6 +3,8 @@ import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } 
 import { CompositeFilterDescriptor, filterBy, process, State } from '@progress/kendo-data-query';
 import { AppComponent } from '../app.component';
 import { JobsService } from '../services/jobs.service';
+import { JobDetailsModel } from '../Interfaces/jobs';
+import { FormControl } from '@angular/forms';
 declare var $: any;
 @Component({
   templateUrl: 'jobs.component.html',
@@ -25,19 +27,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   public type: 'numeric' | 'input' = 'numeric';
   public pageSizes = false;
   public previousNext = true;
-  filterGridData;
-  //  = [
-  //   { sNo: 1, name: 'aaaa', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 2, name: 'bbb', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 3, name: 'cccc', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 4, name: 'dddd', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 5, name: 'eeee', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 6, name: 'ffff', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 7, name: 'gggg', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 8, name: 'hhhh', city: 'Hyderabad', skill: 'Angular' },
-  //   { sNo: 9, name: 'iiii', city: 'Hyderabad', skill: 'Angular' },
-  // ];
-
+  filterGridData: JobDetailsModel[] = [];
+  searchTerms: any[] = [];
 
   constructor(
     private rootComp: AppComponent,
@@ -51,10 +42,17 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       console.log(err);
     });
   }
+  getSearchTerms() {
+    this.jobsService.GetJobSearchTerms().subscribe(res => {
+      this.searchTerms = res;
+      console.log(res);
+    });
+  }
 
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
+    this.getSearchTerms();
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
