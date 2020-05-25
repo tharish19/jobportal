@@ -1,51 +1,42 @@
 <div class="container-fluid">
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-9">
-            <form method="post" class="search-jobs-form">
-                <div class="row ">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+    <form class="Search-from">
+        <div class="row align-items-center justify-content-center mb-10">
+            <div class="col-md-1">
+                <div class="allJobsLabel">
+                    <span>all Jobs</span>
+                </div>
+            </div>
+            <div class="col-md-2 text-left">
+                <button type="button" class="btn btn-refresh">
+                    <span>
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="col-md-9">
+
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-4">
                         <div class="input-group inputfieldscustom">
                             <span class="input-group-prepend">
                                 <div class="input-group-text bg-transparent "><i class="fa fa-briefcase"
                                         aria-hidden="true"></i></div>
                             </span>
-                            <mat-form-field class="example-full-width">
-                                <mat-placeholder>Skills </mat-placeholder>
-                                <mat-select #departmentSelect>
-                                    <!-- <perfect-scrollbar style="max-width: 100%;" class="CustomMatSelectDropDown_Scroll perfectScroll_custom"> -->
-                                        <mat-option *ngFor ="let term of searchTerms">{{term}}</mat-option>
-                                    <!-- </perfect-scrollbar> -->
-                                </mat-select>
-                            </mat-form-field>
-                            <!-- <input class="form-control py-2 border-left-0 border" type="text"
-                                placeholder="Skills" id="example-jobtitle-input"> -->
+                            <input class="form-control py-2 border-left-0 border" type="text" placeholder="Skills"
+                                id="example-jobtitle-input">
                         </div>
                     </div>
-                    <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <div class="input-group inputfieldscustom">
-                            <span class="input-group-prepend">
-                                <div class="input-group-text bg-transparent"><i class="fa fa-map-marker"
-                                        aria-hidden="true"></i></div>
-                            </span>
-                            <input class="form-control py-2 border-left-0 border" type="text"
-                                placeholder="Enter Locations…" id="example-location-input">
-                        </div>
-                    </div> -->
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-2">
+                    <div class="col-md-2 text-right">
                         <button type="submit" class="btn  btn-md  text-white btn-search"><span
                                 class="icon-search icon"></span>Search Job</button>
                     </div>
                 </div>
-            </form>
+
+            </div>
+
         </div>
-        <div class="col-md-3 text-right">
-            <button type="button" class="btn btn-refresh">
-                <span>
-                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                </span>
-            </button>
-        </div>
-    </div>
+    </form>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">

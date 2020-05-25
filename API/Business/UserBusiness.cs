@@ -26,35 +26,43 @@ namespace rest_api_jobs.Business
         public UserBusiness(IUserRepository _userRepository)
         {
             userRepository = _userRepository;
+            holidayList = new List<DateTime>();
         }
 
         /// <summary>
         /// Gets the latest jobs asynchronous.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetLatestJobsAsync()
+        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(string userId = null)
         {
-            int counter = 0;
-            bool isNotDataSufficient = true;
-            holidayList = new List<DateTime>();
-            holidayList = await userRepository.GetHolidayListAsync().ConfigureAwait(false);
-            List<JobDetailsModel> jobs = new List<JobDetailsModel>();
-            DateTime date = DateTime.Today;
+            string userJobSearchString = (userId != null && userId != "") ? await userRepository.GetUserJobSearchStringsAsync(userId).ConfigureAwait(false) : "";
 
-            do
+            if (userJobSearchString != null && userJobSearchString != "")
             {
-                DateTime lastBusinessDateTime = GetLastBusinessDay(date);
-                jobs = await userRepository.GetLatestJobsAsync(lastBusinessDateTime).ConfigureAwait(false);
+                return await GetFilteredJobsAsync(userJobSearchString, userId);
+            }
+            else
+            {
+                int counter = 0;
+                bool isNotDataSufficient = true;
+                holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
+                DateTime date = DateTime.Today;
+                List<JobDetailsModel> jobs;
+                do
+                {
+                    DateTime lastBusinessDateTime = GetLastBusinessDay(date);
+                    jobs = await userRepository.GetLatestJobsAsync(lastBusinessDateTime).ConfigureAwait(false);
 
-                counter++;
-                date = date.AddDays(-1);
+                    counter++;
+                    date = date.AddDays(-1);
 
-                if (jobs.Count > 100 || counter >= 5)
-                    isNotDataSufficient = false;
+                    if (jobs.Count > 100 || counter >= 4)
+                        isNotDataSufficient = false;
 
-            } while (isNotDataSufficient);
+                } while (isNotDataSufficient);
+                return jobs;
+            }
 
-            return jobs;
         }
 
         /// <summary>
@@ -74,8 +82,7 @@ namespace rest_api_jobs.Business
         /// <returns></returns>
         public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
         {
-            holidayList = new List<DateTime>();
-            holidayList = await userRepository.GetHolidayListAsync().ConfigureAwait(false);
+            holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
             DateTime lastBusinessDateTime = GetLastBusinessDay(DateTime.Today);
             string[] filters = jobSearchString.Split(',');
             string whereCondition = "";

@@ -7,7 +7,7 @@ CREATE PROCEDURE GetFilteredJobs (
 )
 BEGIN
 	
-	IF (SELECT count(*) FROM usersearchfilter usf WHERE usf.SearchedFilter = JobSearchString AND usf.UserId = FilteredBy) > 0 THEN
+	IF (SELECT count(*) FROM usersearchfilter usf WHERE usf.UserId = FilteredBy) > 0 THEN
 		BEGIN
 			UPDATE usersearchfilter SET SearchedFilter = JobSearchString, SearchedOn = sysdate() WHERE UserId = FilteredBy;
 		END;

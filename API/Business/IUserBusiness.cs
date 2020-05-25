@@ -12,8 +12,9 @@ namespace rest_api_jobs.Business
         /// <summary>
         /// Gets the latest jobs.
         /// </summary>
+        /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        Task<List<JobDetailsModel>> GetLatestJobsAsync();
+        Task<List<JobDetailsModel>> GetLatestJobsAsync(string userId = null);
 
         /// <summary>
         /// Gets the job search strings.
