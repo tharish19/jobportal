@@ -5,54 +5,54 @@ import { Injectable } from '@angular/core';
 
 import { adal } from 'adal-angular';
 declare var AuthenticationContext: adal.AuthenticationContextStatic;
-let createAuthContextFn: adal.AuthenticationContextStatic = AuthenticationContext;
+const createAuthContextFn: adal.AuthenticationContextStatic = AuthenticationContext;
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class AdalService {
 
-private context: adal.AuthenticationContext;
+    private context: adal.AuthenticationContext;
 
-constructor(private configService: ApiService) {
+    constructor(private configService: ApiService) {
 
-this.context = new createAuthContextFn(configService.getAdalConfig);
-
-    }
-
-login() {
-
-this.context.login();
+        this.context = new createAuthContextFn(configService.getAdalConfig);
 
     }
 
-logout() {
+    login() {
 
-this.context.logOut();
-
-    }
-
-handleCallback() {
-
-this.context.handleWindowCallback();
+        this.context.login();
 
     }
 
-public get userInfo() {
+    logout() {
 
-return this.context.getCachedUser();
-
-    }
-
-public get accessToken() {
-
-return this.context.getCachedToken(this.configService.getAdalConfig.clientId);
+        this.context.logOut();
 
     }
 
-public get isAuthenticated() {
+    handleCallback() {
 
-return this.userInfo && this.accessToken;
+        this.context.handleWindowCallback();
+
+    }
+
+    public get userInfo() {
+
+        return this.context.getCachedUser();
+
+    }
+
+    public get accessToken() {
+
+        return this.context.getCachedToken(this.configService.getAdalConfig.clientId);
+
+    }
+
+    public get isAuthenticated() {
+
+        return this.userInfo && this.accessToken;
 
     }
 

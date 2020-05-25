@@ -33,13 +33,18 @@ namespace rest_api_jobs.Business
         /// Gets the latest jobs asynchronous.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(string userId = null)
+        public async Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string userId = null)
         {
+            UserJobDetailsAndSearchStringsModel userJobDetailsAndSearchStrings = new UserJobDetailsAndSearchStringsModel();
+
             string userJobSearchString = (userId != null && userId != "") ? await userRepository.GetUserJobSearchStringsAsync(userId).ConfigureAwait(false) : "";
+
+            userJobDetailsAndSearchStrings.UserJobSearchString = userJobSearchString;
 
             if (userJobSearchString != null && userJobSearchString != "")
             {
-                return await GetFilteredJobsAsync(userJobSearchString, userId);
+                userJobDetailsAndSearchStrings.JobDetails = await GetFilteredJobsAsync(userJobSearchString, userId);
+                return userJobDetailsAndSearchStrings;
             }
             else
             {
@@ -60,9 +65,9 @@ namespace rest_api_jobs.Business
                         isNotDataSufficient = false;
 
                 } while (isNotDataSufficient);
-                return jobs;
+                userJobDetailsAndSearchStrings.JobDetails = jobs;
+                return userJobDetailsAndSearchStrings;
             }
-
         }
 
         /// <summary>

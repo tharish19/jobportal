@@ -34,7 +34,7 @@ namespace rest_api_jobs.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("jobsposted/{userid?}")]
-        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(string userId = null)
+        public async Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string userId = null)
         {
             return await userBusiness.GetLatestJobsAsync(userId).ConfigureAwait(false);
         }
