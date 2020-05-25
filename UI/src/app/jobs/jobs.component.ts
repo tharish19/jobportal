@@ -5,6 +5,7 @@ import { AppComponent } from '../app.component';
 import { JobsService } from '../services/jobs.service';
 import { JobDetailsModel } from '../Interfaces/jobs';
 import { FormControl } from '@angular/forms';
+import { AdalService } from '../shared/services/adal.service';
 declare var $: any;
 @Component({
   templateUrl: 'jobs.component.html',
@@ -31,11 +32,12 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   searchTerms: any[] = [];
 
   constructor(
+    private adalService: AdalService,
     private rootComp: AppComponent,
     private jobsService: JobsService
   ) { }
-  getJobsData() {
-    this.jobsService.GetJobDetails().subscribe(response => {
+  getJobsData(userid?) {
+    this.jobsService.GetJobDetails(userid).subscribe(response => {
       this.filterGridData = response;
 
     }, (err) => {
@@ -48,11 +50,15 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       console.log(res);
     });
   }
+  onSearch() {
+    // this.getJobsData('userid');
+  }
 
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
-    this.getJobsData();
+    this.getJobsData(this.adalService.userInfo.profile.name);
     this.getSearchTerms();
+    console.log(this.adalService.userInfo.profile.name);
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {

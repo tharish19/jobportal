@@ -9,8 +9,8 @@ export class JobsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  GetJobDetails(): Observable<any> {
-    return this.httpClient.get<any>('http://localhost:53138/api/user/jobsposted');
+  GetJobDetails(userid): Observable<any> {
+    return this.httpClient.get<any>('http://localhost:53138/api/user/jobsposted' + userid);
   }
 
   GetJobSearchTerms(): Observable<any> {

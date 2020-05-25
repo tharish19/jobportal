@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="col-md-2 text-left">
-                <button type="button" class="btn btn-refresh">
+                <button (click)="getJobsData()" type="button" class="btn btn-refresh">
                     <span>
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                     </span>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-2 text-right">
                         <button type="submit" class="btn  btn-md  text-white btn-search"><span
-                                class="icon-search icon"></span>Search Job</button>
+                               (click)="onSearch()" class="icon-search icon"></span>Search Job</button>
                     </div>
                 </div>
 
