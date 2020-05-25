@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row align-items-center justify-content-center">
         <div class="col-md-9">
-            <form method="post" class="search-jobs-form">
+            <form class="search-jobs-form">
                 <div class="row ">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
                         <div class="input-group inputfieldscustom">
@@ -13,16 +13,6 @@
                                 placeholder="Skills" id="example-jobtitle-input">
                         </div>
                     </div>
-                    <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                        <div class="input-group inputfieldscustom">
-                            <span class="input-group-prepend">
-                                <div class="input-group-text bg-transparent"><i class="fa fa-map-marker"
-                                        aria-hidden="true"></i></div>
-                            </span>
-                            <input class="form-control py-2 border-left-0 border" type="text"
-                                placeholder="Enter Locations…" id="example-location-input">
-                        </div>
-                    </div> -->
                     <div class="col-12 col-sm-6 col-md-6 col-lg-2">
                         <button type="submit" class="btn  btn-md  text-white btn-search"><span
                                 class="icon-search icon"></span>Search Job</button>
@@ -41,20 +31,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <!-- <kendo-grid #grid id="GridID" class="CustomGrid KendoCustomScroll GridScroll" [pageable]="{
-                buttonCount: buttonCount,
-                info: info,
-                type: type,
-                pageSizes: pageSizes,
-                previousNext: previousNext
-              }" [pageSize]="pageSize"
-                [ngClass]=" applyDynamicClass == true ? 'scrollH' : 'scrollV'" [skip]="state.skip" [skip]="state.skip"
-                [sort]="state.sort" [sortable]="{allowUnsort: true}" [pageSize]="pageSize"
-                (pageChange)="pageChange($event)" [kendoGridBinding]="filterGridData"
-                (dataStateChange)="dataStateChange($event)" [selectable]="true" [scrollable]="'virtual'" [rowHeight]="20"
-                style="width: 100%;" [filter]="filter" filterable="menu" (filterChange)="filterChange($event)"> -->
-
-
                 <kendo-grid #grid class="CustomGrid KendoCustomScroll GridScroll"
                     [ngClass]=" applyDynamicClass == true ? 'scrollH' : 'scrollV'" [kendoGridBinding]="filterGridData"
                     filterable="menu" [skip]="skip" [pageable]="{
@@ -63,8 +39,7 @@
                         type: type,
                         pageSizes: pageSizes,
                         previousNext: previousNext
-                      }" [pageSize]="pageSize" (pageChange)="pageChange($event)" [reorderable]="true"
-                    class="PayrollReviewKendogrid" [resizable]="true" [sort]="[{
+                      }" [pageSize]="pageSize" (pageChange)="pageChange($event)" [reorderable]="true" [resizable]="true" [sort]="[{
                             field: 'name',
                             dir: 'asc'
                           }]" [sortable]="{
@@ -82,7 +57,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="companyName" title="Comapny Name" filterable="true" sortable="true"
+                    <kendo-grid-column field="companyName" title="Company Name" filterable="true" sortable="true"
                         width="150">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
