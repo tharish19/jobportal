@@ -12,4 +12,8 @@ export class JobsService {
   GetJobDetails(): Observable<any> {
     return this.httpClient.get<any>('http://localhost:53138/api/user/jobsposted');
   }
+
+  GetJobSearchTerms(): Observable<any> {
+    return this.httpClient.get<any>('http://localhost:53138/api/user/searchstrings');
+  }
 }
