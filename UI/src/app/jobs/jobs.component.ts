@@ -11,6 +11,7 @@ declare var $: any;
 })
 export class JobsComponent implements OnInit, AfterViewChecked {
   @ViewChild(GridComponent, { static: false }) grid: GridComponent;
+
   applyDynamicClass = false;
   public gridView: GridDataResult;
   public filter: CompositeFilterDescriptor;

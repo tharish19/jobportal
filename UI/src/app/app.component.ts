@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
         //       body.classList.remove('modal-open');
         //       modalBackdrop.remove();
         //     }
-            this.cssClass = 'DefaultClass';
+            // this.cssClass = 'DefaultClass';
         //   });
     }
 
