@@ -26,7 +26,10 @@
                                         <mat-icon matPrefix style="margin-right: 8px;"><i class="fa fa-briefcase"
                                                 aria-hidden="true"></i></mat-icon>  
                                         <mat-select  [formControl]="searchQuery" multiple>
-                                            <mat-option *ngFor="let term of searchTerms" [value]="term">{{term}}</mat-option>
+                                            <input matInput
+                                            (input)="onInputChange($event.target.value)"
+                                            placeholder="Search here" class="customInputField"/>
+                                            <mat-option *ngFor="let term of filteredSearchTerms" [value]="term">{{term}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -96,6 +99,9 @@
                         </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="rowInsertDate" title="Posted On" sortable="true" width="150">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <span>{{dataItem.rowInsertDate | dateAgo}}</span>
+                          </ng-template>
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -131,7 +137,7 @@
                     <kendo-grid-column field="appliedOn" title="Applied Date" sortable="true" width="150">
                         <ng-template kendoGridCellTemplate let-dataItem>
                         <ng-container *ngIf="dataItem.appliedBy"> 
-                            {{dataItem.appliedOn}}
+                            {{dataItem.appliedOn|dateAgo}}
                         </ng-container>
                         </ng-template>
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"

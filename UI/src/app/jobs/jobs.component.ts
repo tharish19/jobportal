@@ -10,9 +10,10 @@ import { FormControl } from '@angular/forms';
 
 declare var $: any;
 @Component({
-  templateUrl: 'jobs.component.html',
+  selector: 'app-jobs',
+  templateUrl: './jobs.component.html',
+  styleUrls: ['./jobs.component.scss'],
   encapsulation: ViewEncapsulation.None
-
 })
 export class JobsComponent implements OnInit, AfterViewChecked {
   @ViewChild(GridComponent, { static: false }) grid: GridComponent;
@@ -32,6 +33,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   public previousNext = true;
   filterGridData: JobDetailsModel[] = [];
   searchTerms: any[] = [];
+  filteredSearchTerms: any[] = [];
   searchQuery = new FormControl();
   currrentUserName;
 
@@ -49,7 +51,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
   getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
-      this.searchTerms = res;
+      this.filteredSearchTerms = this.searchTerms = res;
       console.log(res);
     });
   }
@@ -58,7 +60,11 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       this.filterGridData = res;
     });
   }
-
+  onInputChange(event: string = '') {
+    this.filteredSearchTerms = this.searchTerms.filter(
+      employee => String(employee.toLowerCase()).startsWith(
+        event.toLowerCase()));
+  }
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData(this.adalService.userInfo.profile.name);

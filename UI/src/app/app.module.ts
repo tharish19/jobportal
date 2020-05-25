@@ -22,6 +22,7 @@ import { SharedModule } from './shared/shared.module';
 import { SideNavComponent } from './template/side-nav/side-nav.component';
 import { SidePanelComponent } from './template/side-panel/side-panel.component';
 import { TemplateModule } from './template/template.module';
+import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
 
 
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -38,10 +39,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     exports: [
         PerfectScrollbarModule,
         GridModule,
-        AppMaterialModule
+        AppMaterialModule,
+        DateAgoPipe
     ],
     imports: [PerfectScrollbarModule],
-    declarations: [],
+    declarations: [DateAgoPipe],
     providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

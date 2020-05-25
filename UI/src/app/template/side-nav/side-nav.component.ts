@@ -7,7 +7,7 @@ import { AdalService } from 'src/app/shared/services/adal.service';
     selector: 'app-side-nav',
     templateUrl: './side-nav.component.html'
 })
-export class SideNavComponent  {
+export class SideNavComponent {
 
     isCollapse: boolean;
     user;
@@ -26,7 +26,9 @@ export class SideNavComponent  {
     ngOnInit() {
         this.tplSvc.isSideNavCollapseChanges.subscribe(isCollapse => this.isCollapse = isCollapse);
     }
-
+    logout() {
+        this.adalService.logout();
+    }
     toggleSideNavCollapse() {
         this.isCollapse = !this.isCollapse;
         this.tplSvc.toggleSideNavCollapse(this.isCollapse);
