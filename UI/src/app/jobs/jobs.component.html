@@ -3,12 +3,12 @@
         <div class="row align-items-center justify-content-center mb-10">
             <div class="col-md-1 pr-0">
                 <div class="allJobsLabel">
-                    <span>All Jobs</span>
+                    <span>ALL JOBS</span>
                 </div>
             </div>
             <div class="col-md-2 text-left pl-0">
                 <button (click)="getJobsData()" type="button" class="btn btn-refresh">
-                    <span>
+                    <span  matTooltip="Refresh All" matTooltipClass="custom-tooltip">
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                     </span>
                 </button>
@@ -25,17 +25,14 @@
                                         <mat-placeholder>Skills</mat-placeholder>
                                         <mat-icon matPrefix style="margin-right: 8px;"><i class="fa fa-briefcase"
                                                 aria-hidden="true"></i></mat-icon>  
-                                        <mat-select  multiple>
-                                            <mat-option>None</mat-option>
-                                            <mat-option value="option1">Option 1</mat-option>
-                                            <mat-option value="option2">Option 2</mat-option>
-                                            <mat-option value="option3">Option 3</mat-option>
+                                        <mat-select  [formControl]="searchQuery" multiple>
+                                            <mat-option *ngFor="let term of searchTerms" [value]="term">{{term}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
                             </li>
                             <li>
-                                <button type="submit" class="btn  btn-md  text-white btn-search"><span (click)="onSearch()"
+                                <button type="button" (click)="onSearch()" class="btn  btn-md  text-white btn-search"><span 
                                     class="icon-search icon"></span>Search Job</button>
                             </li>
                         </ul>
@@ -65,8 +62,7 @@
                           }]" [sortable]="{
                             allowUnsort: true
                             }">
-                    <kendo-grid-column field="jobTitle" title="Job title" sortable="true" width="300">
-
+                    <kendo-grid-column field="jobTitle" title="Job title" sortable="true" width="250">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -77,7 +73,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="companyName" title="Comapny Name" sortable="true" width="300">
+                    <kendo-grid-column field="companyName" title="Comapny Name" sortable="true" width="250">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -88,7 +84,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="jobLocation" title="Location" sortable="true" width="300">
+                    <kendo-grid-column field="jobLocation" title="Location" sortable="true" width="170">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -99,7 +95,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="rowInsertDate" title="Posted On" sortable="true" width="300">
+                    <kendo-grid-column field="rowInsertDate" title="Posted On" sortable="true" width="150">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -110,7 +106,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="postedBy" title="Posted By" sortable="true" width="300">
+                    <kendo-grid-column field="postedBy" title="Posted By" sortable="true" width="150">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -121,7 +117,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="appliedBy" title="Applied By" sortable="true" width="300">
+                    <kendo-grid-column field="appliedBy" title="Applied By" sortable="true" width="250">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -132,7 +128,12 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="appliedOn" title="Applied Date" sortable="true" width="300">
+                    <kendo-grid-column field="appliedOn" title="Applied Date" sortable="true" width="150">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                        <ng-container *ngIf="dataItem.appliedBy"> 
+                            {{dataItem.appliedOn}}
+                        </ng-container>
+                        </ng-template>
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -143,7 +144,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="jobType" title="Type" sortable="true" width="100">
+                    <kendo-grid-column field="jobType" title="Type" sortable="true" width="150">
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"

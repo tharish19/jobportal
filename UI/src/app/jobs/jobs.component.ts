@@ -6,6 +6,7 @@ import { AppComponent } from '../app.component';
 import { JobDetailsModel } from '../Interfaces/jobs';
 import { JobsService } from '../services/jobs.service';
 import { AdalService } from '../shared/services/adal.service';
+import { FormControl } from '@angular/forms';
 
 declare var $: any;
 @Component({
@@ -19,7 +20,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   applyDynamicClass = false;
   public gridView: GridDataResult;
   public filter: CompositeFilterDescriptor;
-  public pageSize = 20;
+  public pageSize = 100;
   public state: State = {
     skip: 0
   };
@@ -31,16 +32,17 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   public previousNext = true;
   filterGridData: JobDetailsModel[] = [];
   searchTerms: any[] = [];
+  searchQuery = new FormControl();
+  currrentUserName;
 
   constructor(
     private adalService: AdalService,
     private rootComp: AppComponent,
     private jobsService: JobsService
   ) { }
-  getJobsData(userid?) {
+  getJobsData(userid= null) {
     this.jobsService.GetJobDetails(userid).subscribe(response => {
       this.filterGridData = response.jobDetails;
-
     }, (err) => {
       console.log(err);
     });
@@ -52,14 +54,16 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     });
   }
   onSearch() {
-    // this.getJobsData('userid');
+    this.jobsService.GetJobSearchResults(this.searchQuery.value, this.currrentUserName).subscribe(res => {
+      this.filterGridData = res;
+    });
   }
 
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData(this.adalService.userInfo.profile.name);
     this.getSearchTerms();
-    console.log(this.adalService.userInfo.profile.name);
+    this.currrentUserName = this.adalService.userInfo.profile.name;
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {

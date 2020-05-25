@@ -9,11 +9,15 @@ export class JobsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  GetJobDetails(userid): Observable<any> {
-    return this.httpClient.get<any>('http://localhost:53138/api/user/jobsposted/' + userid);
+  GetJobDetails(userId= null): Observable<any> {
+    const relativeUrl = userId ? 'http://localhost:53138/api/user/jobsposted/' + userId : 'http://localhost:53138/api/user/jobsposted';
+    return this.httpClient.get<any>(relativeUrl);
   }
 
   GetJobSearchTerms(): Observable<any> {
     return this.httpClient.get<any>('http://localhost:53138/api/user/searchstrings');
+  }
+  GetJobSearchResults(searchTerm, userId): Observable<any> {
+    return this.httpClient.get<any>(`http://localhost:53138/api/user/filter/jobs/${searchTerm}/${userId}`);
   }
 }

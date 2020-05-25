@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TemplateService } from '../../shared/services/template.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { AdalService } from 'src/app/shared/services/adal.service';
 
 @Component({
     selector: 'app-side-nav',
@@ -8,21 +9,23 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 })
 export class SideNavComponent  {
 
-    isCollapse: boolean
+    isCollapse: boolean;
+    user;
 
-    constructor(private tplSvc: TemplateService, private router: Router) {
+    constructor(private tplSvc: TemplateService, private router: Router, private adalService: AdalService) {
         router.events.subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
                 if (window.innerWidth < 992) {
                     this.tplSvc.toggleSideNavCollapse(false);
-                } 
+                }
             }
-        })
+        });
+        this.user = adalService.userInfo;
     }
 
     ngOnInit() {
         this.tplSvc.isSideNavCollapseChanges.subscribe(isCollapse => this.isCollapse = isCollapse);
-    }    
+    }
 
     toggleSideNavCollapse() {
         this.isCollapse = !this.isCollapse;
