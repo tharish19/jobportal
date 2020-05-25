@@ -1,11 +1,12 @@
-import { Component, ViewEncapsulation, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor, filterBy, process, State } from '@progress/kendo-data-query';
+
 import { AppComponent } from '../app.component';
-import { JobsService } from '../services/jobs.service';
 import { JobDetailsModel } from '../Interfaces/jobs';
-import { FormControl } from '@angular/forms';
+import { JobsService } from '../services/jobs.service';
 import { AdalService } from '../shared/services/adal.service';
+
 declare var $: any;
 @Component({
   templateUrl: 'jobs.component.html',
@@ -38,7 +39,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   ) { }
   getJobsData(userid?) {
     this.jobsService.GetJobDetails(userid).subscribe(response => {
-      this.filterGridData = response;
+      this.filterGridData = response.jobDetails;
 
     }, (err) => {
       console.log(err);
