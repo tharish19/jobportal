@@ -8,8 +8,14 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit {
     @HostBinding('class') public cssClass = 'DefaultClass';
 
-    constructor() {}
+    constructor() { }
     ngOnInit() {
+        const html = document.getElementsByTagName('html')[0];
+        if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+            html.classList.add('perfect-scrollbar-on');
+        } else {
+            html.classList.add('perfect-scrollbar-off');
+        }
         // this.router.events.filter(event => event instanceof NavigationEnd).subscribe((_event: NavigationEnd) => {
         //     const body = document.getElementsByTagName('body')[0];
         //     const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
@@ -17,8 +23,15 @@ export class AppComponent implements OnInit {
         //       body.classList.remove('modal-open');
         //       modalBackdrop.remove();
         //     }
-            // this.cssClass = 'DefaultClass';
+        // this.cssClass = 'DefaultClass';
         //   });
     }
+    isMac(): boolean {
+        let bool = false;
+        if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
+          bool = true;
+        }
+        return bool;
+      }
 
 }
