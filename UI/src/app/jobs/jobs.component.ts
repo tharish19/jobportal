@@ -37,22 +37,22 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   searchQuery = new FormControl();
   currrentUserName;
 
-  constructor(
-    private adalService: AdalService,
+  constructor(private adalService: AdalService,
     private rootComp: AppComponent,
-    private jobsService: JobsService
-  ) { }
-  getJobsData(userid= null) {
-    this.jobsService.GetJobDetails(userid).subscribe(response => {
+    private jobsService: JobsService) { }
+
+  getJobsData() {
+    this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
       this.filterGridData = response.jobDetails;
+      this.searchQuery.setValue(response.userJobSearchString.split(','));
     }, (err) => {
-      console.log(err);
+      // console.log(err);
     });
   }
   getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
       this.filteredSearchTerms = this.searchTerms = res;
-      console.log(res);
+      // console.log(res);
     });
   }
   onSearch() {
@@ -67,7 +67,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
-    this.getJobsData(this.adalService.userInfo.profile.name);
+    this.getJobsData();
     this.getSearchTerms();
     this.currrentUserName = this.adalService.userInfo.profile.name;
   }
