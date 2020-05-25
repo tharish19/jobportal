@@ -33,10 +33,10 @@ namespace rest_api_jobs.Controllers
         /// Gets the latest jobs posted.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("jobsposted")]
-        public async Task<List<JobDetailsModel>> GetLatestJobsAsync()
+        [HttpGet("jobsposted/{userid?}")]
+        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(string userId = null)
         {
-            return await userBusiness.GetLatestJobsAsync().ConfigureAwait(false);
+            return await userBusiness.GetLatestJobsAsync(userId).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -17,6 +17,13 @@ namespace rest_api_jobs.Repository
         Task<List<DateTime>> GetHolidayListAsync();
 
         /// <summary>
+        /// Gets the user job search strings asynchronous.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
+        Task<string> GetUserJobSearchStringsAsync(string userId);
+
+        /// <summary>
         /// Gets the latest jobs.
         /// </summary>
         /// <param name="lastBusinessDateTime">The last business date time.</param>

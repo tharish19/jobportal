@@ -49,6 +49,23 @@ namespace rest_api_jobs.Repository
         }
 
         /// <summary>
+        /// Gets the user job search strings.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
+        public async Task<string> GetUserJobSearchStringsAsync(string userId)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                return (await connection.QueryAsync<string>("GetUserJobSearchStrings",
+                    new
+                    {
+                        userId
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false)).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
         /// Gets the latest jobs which are posted after the 4 pm of last business date.
         /// </summary>
         /// <param name="lastBusinessDateTime">The last business date time.</param>
