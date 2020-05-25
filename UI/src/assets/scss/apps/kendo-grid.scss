@@ -84,7 +84,7 @@
       padding: 8px 16px;
       background: #999 !important;
       &:last-child {
-        background: #ff6000 !important;
+        background: #0a6a80 !important;
       }
     }
     .k-checkbox-label::before {
@@ -327,20 +327,20 @@
       width: calc(3px + 1.428571em);
       height: calc(3px + 1.42857143em);
       top: 7px;
-      color: #ff6000;
+      color: #0a6a80;
       right: 0px;
       &.k-state-active {
         background-color: rgb(232, 232, 232);
-        color: #ff6000;
+        color: #0a6a80;
       }
       .k-icon.k-i-filter {
         font-size: 12px;
         font-size: 13px;
         position: relative;
         top: 1px;
-        &::before {
-          content: "\e015";
-        }
+        // &::before {
+        //   content: "\e015";
+        // }
       }
     }
   }
@@ -414,6 +414,9 @@
 }
 .k-i-add::before, .k-i-plus::before, .k-plus::before {
   color:transparent;
+}
+.k-list .k-item.k-state-selected {
+  background-color: #0a6a80;
 }
 
 /*--Kendo Grid Pagination Type Custom modified Styling---\\*/
