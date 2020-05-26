@@ -32,7 +32,7 @@
 					background-position: center left;
 				    display: inline-block;
 				    width: 100%;
-				    min-height: calc(#{$header-height} - 1px); 
+				    min-height: calc(#{$header-height} - 4px); 
 
 				    &.logo-white {
 				    	display: none;
@@ -174,7 +174,7 @@
 				> a{
 					position: relative;
 					display: block;
-					padding: 10px 15px;
+					padding:10px 15px 10px 9px;
 					font-weight: 500;
 					font-size: 15px;
 					white-space: nowrap;
@@ -210,11 +210,12 @@
 					
 					.logo {
 						width: $collapsed-size;
-						background-position: center center;
+						background-position: left;
 					}
 
 					.logo-dark {
 						background-image: url('../images/logo/logo-sm.png') !important;
+						background-size: 85% 92%;
 					}
 
 					.logo-white {
@@ -259,18 +260,19 @@
 			.side-nav-inner {
 			
 				.side-nav-logo {
-					padding: 0px 20px;
+					padding: 0px 3px;
 					border-bottom: 1px solid $border-color;
 					
 					a {
 						
 						.logo {
-							width: 150px;
+							width: 165px;
 							background-position: center left;
 						}
 
 						.logo-dark {
 							background-image: url('../images/logo/logo.png') !important;
+							background-size: 100% 65%;
 						}
 
 						.logo-white {
@@ -449,11 +451,11 @@
 						}
 
 						.logo-dark {
-							background-image: url('../images/logo/logo.png') !important;
+							background-image: url('../images/logo/Artboard_full.png') !important;
 						}
 
 						.logo-white {
-							background-image: url('../images/logo/logo-white.png') !important;
+							background-image: url('../images/logo/Artboard_full.png') !important;
 						}
 					}
 				}

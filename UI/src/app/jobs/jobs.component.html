@@ -28,8 +28,11 @@
                                         <mat-select [formControl]="searchQuery" multiple>
                                             <input matInput (input)="onInputChange($event.target.value)"
                                                 placeholder="Search here" class="customInputField" autocomplete="off" />
-                                            <mat-option *ngFor="let term of filteredSearchTerms" [value]="term">{{term}}
-                                            </mat-option>
+                                            <perfect-scrollbar class="perfect_customscroll">
+                                                <mat-option *ngFor="let term of filteredSearchTerms" [value]="term">
+                                                    {{term}}
+                                                </mat-option>
+                                            </perfect-scrollbar>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
