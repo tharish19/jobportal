@@ -23,7 +23,7 @@
                     <span class="title">JOBS</span>
                 </a>
             </li>
-            <li clas="nav-item" routerLinkActive="active">
+            <!-- <li clas="nav-item" routerLinkActive="active">
                 <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
                     <span class="icon-holder">
                         <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
@@ -58,19 +58,33 @@
                     </span>
                     <span class="title">REPORTING</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
-        <ul class="side-nav-menu scrollable navbarhover">
+        <ul class="side-nav-menu scrollable navbarhover" style="position: relative;">
             <li clas="nav-item" routerLinkActive="active">
                 <a class="dropdown-toggle" (click)="logout()">
                     <span class="icon-holder">
                         <img shape="rounded"
                             src="https://ui-avatars.com/api/?name=K1&amp;color=ffffff&amp;bold=true&amp;background=8779B3&amp;size=60"
-                            class="lq5a4r-2 kFQnoa">
+                            class="">
                     </span>
                     <span class="title">{{user.profile.name}}</span>
                 </a>
             </li>
         </ul>
+        <div class="profiledropdown">
+            <div class="row innercard">
+                <div class="col-md-12">
+                    <span class="icon-holder">
+                        <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
+                            <path fill="#13292d" color="#13292d"
+                                d="M426.667 896h-213.333c-25.6 0-42.667-17.067-42.667-42.667v-682.667c0-25.6 17.067-42.667 42.667-42.667h213.333c25.6 0 42.667-17.067 42.667-42.667s-17.067-42.667-42.667-42.667h-213.333c-72.533 0-128 55.467-128 128v682.667c0 72.533 55.467 128 128 128h213.333c25.6 0 42.667-17.067 42.667-42.667s-17.067-42.667-42.667-42.667z M934.4 529.067c4.267-8.533 4.267-21.333 0-34.133-4.267-4.267-4.267-8.533-8.533-12.8l-170.667-170.667c-17.067-17.067-42.667-17.067-59.733 0s-17.067 42.667 0 59.733l98.133 98.133h-409.6c-25.6 0-42.667 17.067-42.667 42.667s17.067 42.667 42.667 42.667h409.6l-98.133 98.133c-17.067 17.067-17.067 42.667 0 59.733 8.533 8.533 21.333 12.8 29.867 12.8s21.333-4.267 29.867-12.8l170.667-170.667c4.267-4.267 8.533-8.533 8.533-12.8z"
+                                class="sc-13tn5xx-1 bYEgBO"></path>
+                        </svg>
+                    </span>
+                    <span class="title">logout</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

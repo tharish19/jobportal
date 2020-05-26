@@ -274,16 +274,17 @@
   .k-grid-header {
     th {
       font-weight: 500;
+      font-family: "Post Grotesk", sans-serif;
       font-size: 13px;
       color: #484848;
-      border-right: 0px solid #f3f3f3;
+      border-right: 1px solid #ececec;
       padding: 10px 5px 10px 5px;
       /*height: 43px;*/
       line-height: normal;
       vertical-align: top;
       border-left: 0px;
       border-bottom: 1px solid #f3f3f3;
-      border-right-width: 0px;
+      border-right-width: 1px;
       &.k-filterable {
         padding-right: 32px;
         .k-i-sort-desc-sm,
@@ -346,16 +347,19 @@
   }
   &.k-grid {
     td {
-      font-size: 11px;
+      font-size: 13px;
       color: #484848;
       line-height: initial;
-      padding: 10px 5px 10px 5px;
+      padding: 14px 5px 14px 5px;
       vertical-align: middle;
       border-color: transparent;
       border-bottom: 1px solid #f3f3f3;
+      font-family: "Post Grotesk", sans-serif;
+      white-space: nowrap;
     }
     .k-grid-header .k-header {
       white-space: normal;
+      font-weight: 600;
     }
   }
   &.scrollH .k-grid-header .k-grid-header-wrap table {
@@ -417,6 +421,14 @@
 }
 .k-list .k-item.k-state-selected {
   background-color: #0a6a80;
+}
+.k-grid td{
+  text-overflow: clip !important;
+}
+.k-grid td:first-child{
+  color: rgb(11, 116, 140);
+  font-weight: 700;
+  font-size: 13px;
 }
 
 /*--Kendo Grid Pagination Type Custom modified Styling---\\*/
