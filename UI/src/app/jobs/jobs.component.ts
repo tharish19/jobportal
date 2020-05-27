@@ -7,6 +7,9 @@ import { JobDetailsModel } from '../Interfaces/jobs';
 import { JobsService } from '../services/jobs.service';
 import { AdalService } from '../shared/services/adal.service';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { JobSelectionComponent } from '../dialogs/job-selection/job-selection.component';
+import { JobStatus } from '../Interfaces/JobStatus';
 
 declare var $: any;
 @Component({
@@ -38,8 +41,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   currrentUserName;
 
   constructor(private adalService: AdalService,
-    private rootComp: AppComponent,
-    private jobsService: JobsService) { }
+              public dialog: MatDialog,
+              private rootComp: AppComponent,
+              private jobsService: JobsService) { }
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
@@ -49,23 +53,55 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       // console.log(err);
     });
   }
-  getSearchTerms() {
+  showPopup(dataItem) {
+    const statusDetails = new JobStatus();
+    const dialogRef = this.dialog.open(JobSelectionComponent, {
+      panelClass: 'RolePopUp_Custom'
+    });
+    dialogRef.afterClosed().subscribe(_result => {
+      statusDetails.jobStatus = dialogRef.componentInstance.selectedValue;
+      statusDetails.jobID = dataItem.jobID;
+      statusDetails.appliedBy = this.currrentUserName;
+      statusDetails.AppliedOn = new Date();
+      this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
+        alert('sucess');
+        dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
+        +this.currrentUserName : this.currrentUserName   ;
+      });
+    });
+  }
+copyInputMessage(val) {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val.jobURL;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.showPopup(val);
+  }
+
+getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
       this.filteredSearchTerms = this.searchTerms = res;
       // console.log(res);
     });
   }
-  onSearch() {
+onSearch() {
     this.jobsService.GetJobSearchResults(this.searchQuery.value, this.currrentUserName).subscribe(res => {
       this.filterGridData = res;
     });
   }
-  onInputChange(event: string = '') {
+onInputChange(event: string = '') {
     this.filteredSearchTerms = this.searchTerms.filter(
       employee => String(employee.toLowerCase()).startsWith(
         event.toLowerCase()));
   }
-  ngOnInit() {
+ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
     this.getSearchTerms();
@@ -84,7 +120,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.filter = filter;
     this.grid.data = filterBy(this.filterGridData, filter);
   }
-  filterData(data: any[]): any[] {
+filterData(data: any[]): any[] {
     return process(
       data,
       {
@@ -93,8 +129,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
         filter: this.filter
       }).data;
   }
-  ngAfterViewChecked(): void {
-    if (this.grid !== undefined && this.grid !== null) {
+ngAfterViewChecked(): void {
+    if (this.grid !== undefined && this.grid !== null) { } {
       const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
       const _refChildHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight;
       if (_refParentHeight < _refChildHeight) {

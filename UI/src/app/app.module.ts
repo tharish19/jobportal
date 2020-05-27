@@ -23,6 +23,7 @@ import { SideNavComponent } from './template/side-nav/side-nav.component';
 import { SidePanelComponent } from './template/side-panel/side-panel.component';
 import { TemplateModule } from './template/template.module';
 import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
+import { JobSelectionComponent } from './dialogs/job-selection/job-selection.component';
 
 
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -33,7 +34,7 @@ import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: false
-  };
+};
 
 @NgModule({
     exports: [
@@ -45,11 +46,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     imports: [PerfectScrollbarModule],
     declarations: [DateAgoPipe],
     providers: [{
-    provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  } ]
-  })
-  export class CommonExternalModules { }
+        provide: PERFECT_SCROLLBAR_CONFIG,
+        useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }]
+})
+export class CommonExternalModules { }
 
 
 @NgModule({
@@ -69,19 +70,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AppComponent,
         SignInComponent,
         JobsComponent,
+        JobSelectionComponent,
         CommonLayoutComponent,
         OAuthCallbackComponent,
         NoRightClickDirective,
         SideNavComponent,
         SidePanelComponent
     ],
-     providers: [{
-            provide: HTTP_INTERCEPTORS,
-            useClass: AdminInterceptor,
-            multi: true
-        },  ColumnResizingService,
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: AdminInterceptor,
+        multi: true
+    }, ColumnResizingService,
         ColumnInfoService,
-         TemplateService],
+        TemplateService],
+    entryComponents: [JobSelectionComponent],
     bootstrap: [AppComponent]
 })
 

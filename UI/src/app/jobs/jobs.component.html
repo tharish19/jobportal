@@ -3,7 +3,7 @@
         <div class="row align-items-center justify-content-center mb-10">
             <div class="col-md-1 pr-0">
                 <div class="allJobsLabel">
-                    <span>ALL JOBS</span>
+                    <span>JOBS</span>
                 </div>
             </div>
             <div class="col-md-2 text-left pl-1">
@@ -66,7 +66,24 @@
                           }]" [sortable]="{
                             allowUnsort: true
                             }">
+                    <kendo-grid-column field="" title="S.No" sortable="true" width="40">
+                        <ng-template  kendoGridCellTemplate let-dataItem let-i="rowIndex">
+                            <span [ngClass]="(dataItem.jobStatus == 2 && dataItem.appliedBy == currrentUserName)? 'red':(dataItem.appliedBy ? 'green' :'')">{{i+1}}</span>
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="" title="S.No" sortable="true" width="40">
+                        <ng-template  kendoGridCellTemplate let-dataItem  let-i="rowIndex">
+                            <div (click)="copyInputMessage(dataItem)">
+                                <span>cpy</span>
+                            </div>
+                        </ng-template>
+                    </kendo-grid-column>
                     <kendo-grid-column field="jobTitle" title="Job title" sortable="true" width="250">
+                        <ng-template  kendoGridCellTemplate let-dataItem  let-i="rowIndex">
+                            <div (click)="showPopup(dataItem)">
+                                <a href="{{dataItem.jobURL}}" target="_blank">{{dataItem.jobTitle}}</a>
+                            </div>
+                        </ng-template>
                         <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
                             <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -135,7 +152,7 @@
                             </kendo-grid-string-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="appliedOn" title="Applied On" sortable="true" width="125">
+                    <!-- <kendo-grid-column field="appliedOn" title="Applied On" sortable="true" width="125">
                         <ng-template kendoGridCellTemplate let-dataItem>
                             <ng-container *ngIf="dataItem.appliedBy">
                                 {{dataItem.appliedOn|dateAgo}}
@@ -161,7 +178,7 @@
                                 <kendo-filter-eq-operator></kendo-filter-eq-operator>
                             </kendo-grid-string-filter-menu>
                         </ng-template>
-                    </kendo-grid-column>
+                    </kendo-grid-column> -->
                 </kendo-grid>
             </div>
         </div>
