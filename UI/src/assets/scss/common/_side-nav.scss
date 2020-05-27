@@ -18,7 +18,7 @@
 		.side-nav-logo {
 			padding: 0px 20px;
 			border-bottom: 1px solid $border-color;
-			border-right: 1px solid $border-color;
+			// border-right: 1px solid $border-color;
 			line-height: 0;
 			@include transition(all 0.2s ease); 
 
@@ -32,7 +32,7 @@
 					background-position: center left;
 				    display: inline-block;
 				    width: 100%;
-				    min-height: calc(#{$header-height} - 4px); 
+				    min-height: calc(#{$header-height} - 14px); 
 
 				    &.logo-white {
 				    	display: none;
@@ -214,8 +214,8 @@
 					}
 
 					.logo-dark {
-						background-image: url('../images/logo/logo-sm.png') !important;
-						background-size: 85% 92%;
+						background-image: url('../images/logo/logo-white-sm.png') !important;
+						background-size: 69% 100%;
 					}
 
 					.logo-white {
@@ -271,8 +271,8 @@
 						}
 
 						.logo-dark {
-							background-image: url('../images/logo/logo.png') !important;
-							background-size: 100% 65%;
+							background-image: url('../images/logo/full_logo.png') !important;
+							background-size: 100% 45%;
 						}
 
 						.logo-white {
