@@ -114,10 +114,16 @@
 .side-nav {
 	.side-nav-inner {
 		.side-nav-logo {
-			background-color: #fff;
+			background-color: #696969;
 		}
 		.icon-holder {
 			img {
+				height: 30px;
+				width: 30px;
+			}
+		}
+		.profileIcons{
+			img{
 				height: 30px;
 				width: 30px;
 				border-radius: 50%;
@@ -127,7 +133,7 @@
 }
 .side-nav .side-nav-inner .side-nav-menu li a {
 	box-shadow: rgba(255, 255, 255, 0.25) 0px -1px 0px inset;
-	color: #000;
+	color: #fff;
 	font-weight: 500;
 	font-size: 14px;
 	letter-spacing: 1px;
@@ -136,11 +142,8 @@
 	:active,
 	:visited {
 		text-decoration: none;
-		color: rgb(10, 175, 196);
-		background-color: rgb(8, 42, 61);
-		svg path {
-			fill: rgb(10, 175, 196);
-		}
+		color: #ffffff;
+		background-color: #2b2b2b;
 	}
 }
 
@@ -151,6 +154,9 @@
 @media only screen and (max-width: 1440px) and (min-width: 992px) {
 	.side-nav:hover {
 		width: 175px;
+		.side-nav-inner .side-nav-logo {
+			background-color: #696969;
+		}
 		.profiledropdown {
 			left: 180px;
 		}
@@ -158,7 +164,10 @@
 }
 @media only screen and (max-width: 1440px) and (min-width: 992px) {
 	.side-nav {
-		width: 60px;
+		width: 50px;
+		.side-nav-inner .side-nav-logo {
+			background-color: #fff;
+		}
 	}
 	.profiledropdown {
 		left: 75;
@@ -166,7 +175,8 @@
 }
 
 .side-nav {
-	background-color: #cacaca;
+	background-color: #696969;
+    border-right: 1px solid #cacaca;
 }
 .side-nav .side-nav-inner .side-nav-menu {
 	height: calc(100vh - 21%);
@@ -359,11 +369,11 @@ body::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	background-color: #f5f5f5;
 }
-.k-grid-content,
-.k-grid-content-locked,
-.k-pager-wrap {
-	overflow-y: hidden;
-}
+// .k-grid-content,
+// .k-grid-content-locked,
+// .k-pager-wrap {
+// 	overflow-y: hidden;
+// }
 div.k-grid-header {
 	padding: 0px !important;
 }
@@ -416,9 +426,6 @@ div.k-grid-header {
 	}
 }
 
-.sum {
-	display: block !important;
-}
 .perfect_customscroll {
 	max-height: calc(100vh - 425px);
 	overflow: hidden;
@@ -437,4 +444,11 @@ input.mat-input-element {
 	.page-container {
 		padding-left: 54px;
 	}
+}
+
+.GridScroll .k-grid-container .k-grid-content {
+    max-height: calc(100vh - 160px);
+  }
+  .side-nav .side-nav-inner .side-nav-menu li a:focus {
+    color: #ffffff;
 }
