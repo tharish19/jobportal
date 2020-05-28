@@ -50,18 +50,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
+<<<<<<< HEAD
                 <kendo-grid #grid id="GridID" [kendoGridBinding]="filterGridData" [rowClass]="rowCallback"
                     class="CustomGrid GridScroll KendoCustomScroll" filterable="menu" [filter]="filter"
                     (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort" [pageSize]="pageSize"
                     (pageChange)="pageChange($event)" (dataStateChange)="dataStateChange($event)" [reorderable]="true"
                     [resizable]="true" [sortable]="{allowUnsort: true}"
                     [pageable]="{ buttonCount: buttonCount, info: info, type: type, pageSizes: pageSizes, previousNext: previousNext }">
-                    <kendo-grid-column field="jobTitle" title="No." sortable="true" width="40">
+                    <kendo-grid-column field="jobID" title="No." sortable="true" width="40  filterable="false"">
                         <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
                             {{i+1}}
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="jobTitle" title="" sortable="true" width="40">
+                    <kendo-grid-column field="jobID" title="" sortable="true" width="40" filterable="false">
                         <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
                             <div (click)="copyInputMessage(dataItem)">
                                 <span>cpy</span>
