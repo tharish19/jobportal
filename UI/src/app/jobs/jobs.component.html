@@ -68,13 +68,15 @@
                             }">
                     <kendo-grid-column field="jobID" title="No." sortable="true" width="40" filterable="false">
                         <ng-template  kendoGridCellTemplate let-dataItem let-i="rowIndex">
-                            <span [ngClass]="(dataItem.jobStatus == 2 && dataItem.appliedBy == currrentUserName)? 'red':(dataItem.appliedBy ? 'green' :'')">{{i+1}}</span>
+                            <span>{{i+1}}</span>
                         </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="jobID" title="" sortable="true" width="40" filterable="false">
                         <ng-template  kendoGridCellTemplate let-dataItem  let-i="rowIndex">
                             <div (click)="copyInputMessage(dataItem)">
-                                <span>cpy</span>
+                                <span>
+                                    <img src="../../assets/images/postedby/portable-document-format.svg" height="20" width="20" />
+                                </span>
                             </div>
                         </ng-template>
                     </kendo-grid-column>
