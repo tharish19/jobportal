@@ -56,7 +56,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   showPopup(dataItem) {
     const statusDetails = new JobStatus();
     const dialogRef = this.dialog.open(JobSelectionComponent, {
-      panelClass: 'RolePopUp_Custom'
+      panelClass: 'RolePopUp_Custom',
+      width: '50%',
+      height: 'auto',
     });
     dialogRef.afterClosed().subscribe(_result => {
       statusDetails.jobStatus = dialogRef.componentInstance.selectedValue;

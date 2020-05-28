@@ -426,9 +426,16 @@
   text-overflow: clip !important;
 }
 .k-grid td:first-child{
-  color: rgb(11, 116, 140);
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
+  text-align: center;
+}
+.k-grid td:nth-child(3){
+  color: rgb(11, 116, 140);
+  font-weight: bold;
+}
+.k-grid-header .k-header:first-child {
+  text-align: center;
 }
 
 /*--Kendo Grid Pagination Type Custom modified Styling---\\*/
