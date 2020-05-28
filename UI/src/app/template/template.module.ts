@@ -12,17 +12,14 @@ import { Sidebar_Directives } from '../shared/directives/side-nav.directive';
     imports: [
         SharedModule,
         RouterModule
-        
     ],
     exports: [
         HeaderComponent,
-      
         FooterComponent,
         Sidebar_Directives
     ],
     declarations: [
         HeaderComponent,
-        
         FooterComponent,
         Sidebar_Directives
     ],

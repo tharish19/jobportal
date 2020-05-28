@@ -1,0 +1,21 @@
+<div class="filter_list">
+    <perfect-scrollbar style="max-width: 100%;" name="filterControlData">
+        <ul>
+            <li *ngIf="showTextFilter">
+                <input class="k-textbox" [(ngModel)]="currentText" (input)="onFilterInput()" />
+            </li>
+            <li *ngIf="showFilter">
+                <input class="k-textbox" (input)="onInput($event)" />
+            </li>
+            <li #itemElement *ngFor="let item of currentData; let i = index;"
+                (click)="onSelectionChange(valueAccessor(item),itemElement)"
+                [ngClass]="{'k-state-selected': isItemSelected(item)}">
+                <input type="checkbox" id="chk-{{valueAccessor(item)}}" class="k-checkbox"
+                    [checked]="isItemSelected(item)" />
+                <label class="k-multiselect-checkbox k-checkbox-label labelColor" for="chk-{{valueAccessor(item)}}">
+                    {{ (textAccessor(item) !== '-' || textAccessor(item) !== '' || textAccessor(item) !== null) ? textAccessor(item) : 'None' }}
+                </label>
+            </li>
+        </ul>
+    </perfect-scrollbar>
+</div>

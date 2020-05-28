@@ -1,0 +1,22 @@
+ul {
+  list-style-type: none;
+  height: auto;
+  padding: 0;
+  > li {
+    padding: 5px 5px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: none;
+    &:last-of-type {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+.k-multiselect-checkbox {
+  pointer-events: none;
+}
+perfect-scrollbar {
+  max-height: 150px;
+}
+.labelColor{
+  color: #484848;
+}
