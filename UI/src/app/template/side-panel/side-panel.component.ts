@@ -7,7 +7,7 @@ import { TemplateService } from '../../shared/services/template.service';
 })
 export class SidePanelComponent  {
 
-    isOpen: boolean
+    isOpen: boolean;
 
     constructor(private tplSvc: TemplateService) {
     }

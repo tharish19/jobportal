@@ -7,23 +7,23 @@ import { AdalService } from './../../shared/services/adal.service';
 })
 export class HeaderComponent  {
 
-    searchModel : string;
+    searchModel: string;
     isCollapse: boolean;
     isOpen: boolean;
-    searchActived: boolean = false;
-    user:any;
-    constructor(private tplSvc: TemplateService,private adal:AdalService) {
-        this.user=this.adal.userInfo;
-        console.log(this.user)
+    searchActived = false;
+    user: any;
+    constructor(private tplSvc: TemplateService, private adal: AdalService) {
+        this.user = this.adal.userInfo;
+        // console.log(this.user);
     }
-    logout()
-    {
+    logout() {
         this.adal.logout();
     }
+
     ngOnInit(): void {
         this.tplSvc.isSideNavCollapseChanges.subscribe(isCollapse => this.isCollapse = isCollapse);
         this.tplSvc.isSidePanelOpenChanges.subscribe(isOpen => this.isOpen = isOpen);
-    }    
+    }
 
     toggleSideNavCollapse() {
         this.isCollapse = !this.isCollapse;
@@ -35,8 +35,8 @@ export class HeaderComponent  {
         this.tplSvc.toggleSidePanelOpen(this.isOpen);
     }
 
-    toggleSearch () {
+    toggleSearch() {
         this.searchActived = !this.searchActived;
-        console.log(this.searchActived)
+        console.log(this.searchActived);
     }
 }

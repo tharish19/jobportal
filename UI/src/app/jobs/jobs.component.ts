@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { CompositeFilterDescriptor, filterBy, process, State } from '@progress/kendo-data-query';
+import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, filterBy, process, State, distinct } from '@progress/kendo-data-query';
 
 import { AppComponent } from '../app.component';
 import { JobDetailsModel } from '../Interfaces/jobs';
@@ -41,17 +41,31 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   currrentUserName;
 
   constructor(private adalService: AdalService,
-              public dialog: MatDialog,
-              private rootComp: AppComponent,
-              private jobsService: JobsService) { }
+    public dialog: MatDialog,
+    private rootComp: AppComponent,
+    private jobsService: JobsService) { }
+
+  rowCallback(context: RowClassArgs) {
+    const user = window.sessionStorage.getItem('currrentUserName');
+    if (context.dataItem.jobStatus === '2' && context.dataItem.appliedBy.indexOf(user) >= 0) {
+      return {
+        notrelaventClass: true,
+        submittedClass: false
+      };
+    }
+    if (context.dataItem.appliedBy !== null && context.dataItem.appliedBy !== '') {
+      return {
+        notrelaventClass: false,
+        submittedClass: true
+      };
+    }
+  }
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
       this.filterGridData = response.jobDetails;
       this.searchQuery.setValue(response.userJobSearchString.split(','));
-    }, (err) => {
-      // console.log(err);
-    });
+    }, (_err) => { });
   }
   showPopup(dataItem) {
     const statusDetails = new JobStatus();
@@ -68,11 +82,11 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
         alert('sucess');
         dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
-        +this.currrentUserName : this.currrentUserName   ;
+          +this.currrentUserName : this.currrentUserName;
       });
     });
   }
-copyInputMessage(val) {
+  copyInputMessage(val) {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -87,27 +101,28 @@ copyInputMessage(val) {
     this.showPopup(val);
   }
 
-getSearchTerms() {
+  getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
       this.filteredSearchTerms = this.searchTerms = res;
       // console.log(res);
     });
   }
-onSearch() {
+  onSearch() {
     this.jobsService.GetJobSearchResults(this.searchQuery.value, this.currrentUserName).subscribe(res => {
       this.filterGridData = res;
     });
   }
-onInputChange(event: string = '') {
+  onInputChange(event: string = '') {
     this.filteredSearchTerms = this.searchTerms.filter(
       employee => String(employee.toLowerCase()).startsWith(
         event.toLowerCase()));
   }
-ngOnInit() {
+  ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
     this.getSearchTerms();
     this.currrentUserName = this.adalService.userInfo.profile.name;
+    window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
@@ -120,9 +135,9 @@ ngOnInit() {
   }
   public filterChange(filter: CompositeFilterDescriptor): void {
     this.filter = filter;
-    this.grid.data = filterBy(this.filterGridData, filter);
+    // this.grid.data = filterBy(this.filterGridData, filter);
   }
-filterData(data: any[]): any[] {
+  filterData(data: any[]): any[] {
     return process(
       data,
       {
@@ -131,7 +146,7 @@ filterData(data: any[]): any[] {
         filter: this.filter
       }).data;
   }
-ngAfterViewChecked(): void {
+  ngAfterViewChecked(): void {
     if (this.grid !== undefined && this.grid !== null) { } {
       const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
       const _refChildHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight;
@@ -139,5 +154,24 @@ ngAfterViewChecked(): void {
         this.applyDynamicClass = true;
       }
     }
+  }
+
+  public distinctPrimitive(fieldName: string): any {
+    if (this.filter) {
+      return distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName])
+        .sort(this.compareFields());
+    }
+    return distinct(this.filterGridData, fieldName).map(item => item[fieldName]).sort(this.compareFields());
+  }
+  compareFields(): (a: any, b: any) => number {
+    return (n1, n2) => {
+      if (n1 > n2) {
+        return 1;
+      }
+      if (n1 < n2) {
+        return -1;
+      }
+      return 0;
+    };
   }
 }

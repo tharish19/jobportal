@@ -5,23 +5,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 @NgModule({
     exports: [
         CommonModule,
         FormsModule,
         HttpClientModule,
-
+        FilterDropdownComponent,
         NgbModule
     ],
     imports: [
         RouterModule,
         CommonModule,
-
-        NgbModule
+        NgbModule,
+        PerfectScrollbarModule
     ],
     declarations: [
-
+        FilterDropdownComponent
     ],
     providers: [
     ]

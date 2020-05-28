@@ -4,9 +4,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class TemplateService {
 
-    isSideNavCollapse: boolean = false;
-    isSidePanelOpen: boolean = false;
-    rtlActived: boolean = false;
+    isSideNavCollapse = false;
+    isSidePanelOpen = false;
+    rtlActived = false;
 
     private isSideNavCollapseActived = new BehaviorSubject<boolean>(this.isSideNavCollapse);
     isSideNavCollapseChanges: Observable<boolean> = this.isSideNavCollapseActived.asObservable();
