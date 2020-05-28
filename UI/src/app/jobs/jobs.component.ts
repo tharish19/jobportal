@@ -53,7 +53,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
         submittedClass: false
       };
     }
-    if (context.dataItem.appliedBy !== null && context.dataItem.appliedBy !== '') {
+    if (context.dataItem.jobStatus === '1' && context.dataItem.appliedBy !== null && context.dataItem.appliedBy !== '') {
       return {
         notrelaventClass: false,
         submittedClass: true

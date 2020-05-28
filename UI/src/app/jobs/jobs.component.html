@@ -1,19 +1,19 @@
 <div class="container-fluid">
     <form class="Search-from">
         <div class="row align-items-center justify-content-center mb-10">
-            <div class="col-md-1 pr-0">
+            <div class="col-md-1">
                 <div class="allJobsLabel">
                     <span>JOBS</span>
                 </div>
             </div>
-            <div class="col-md-2 text-left pl-1">
-                <button (click)="getJobsData()" type="button" class="btn btn-refresh">
+            <div class="col-md-1 text-left pl-1">
+                <button (click)="getJobsData()" type="button" style="margin-left: -35px;" class="btn btn-refresh">
                     <span matTooltip="Refresh All" matTooltipClass="custom-tooltip">
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                     </span>
                 </button>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-6"></div>
                     <div class="col-md-6">
@@ -47,7 +47,7 @@
             </div>
         </div>
     </form>
-    <div class="row">
+    <div class="row" style="margin-top: -10px;">
         <div class="col-md-12">
             <div class="table-responsive">
                 <kendo-grid #grid id="GridID" [kendoGridBinding]="filterGridData" [rowClass]="rowCallback"
