@@ -83,6 +83,7 @@ export class CommonExternalModules { }
         multi: true
     }, ColumnResizingService,
         ColumnInfoService,
+        DateAgoPipe,
         TemplateService],
     entryComponents: [JobSelectionComponent],
     bootstrap: [AppComponent]

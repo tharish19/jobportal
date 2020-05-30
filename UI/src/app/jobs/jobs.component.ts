@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { JobSelectionComponent } from '../dialogs/job-selection/job-selection.component';
 import { JobStatus } from '../Interfaces/JobStatus';
+import { DateAgoPipe } from '../shared/pipes/date-ago.pipe';
 
 declare var $: any;
 @Component({
@@ -38,10 +39,12 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   searchTerms: any[] = [];
   filteredSearchTerms: any[] = [];
   searchQuery = new FormControl();
-  currrentUserName;
+  currrentUserName: any;
+  postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
     public dialog: MatDialog,
+    private dateAgoPipe: DateAgoPipe,
     private rootComp: AppComponent,
     private jobsService: JobsService) { }
 
@@ -61,9 +64,22 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  reviewFilterGridData(data: JobDetailsModel[]) {
+    this.filterGridData = data;
+    this.filterGridData.map((_x, i) => {
+      this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
+      this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
+      this.filterGridData[i].postedByIcon = this.postedByIconArray
+        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value;
+
+      this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
+        ? (this.filterGridData[i].appliedBy + ', Test User') : '';
+    });
+  }
+
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
-      this.filterGridData = response.jobDetails;
+      this.reviewFilterGridData(response.jobDetails);
       this.searchQuery.setValue(response.userJobSearchString.split(','));
     }, (_err) => { });
   }
@@ -109,7 +125,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
   onSearch() {
     this.jobsService.GetJobSearchResults(this.searchQuery.value, this.currrentUserName).subscribe(res => {
-      this.filterGridData = res;
+      this.reviewFilterGridData(res);
     });
   }
   onInputChange(event: string = '') {
@@ -123,6 +139,18 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.getSearchTerms();
     this.currrentUserName = this.adalService.userInfo.profile.name;
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
+    this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
+    this.postedByIconArray.push({ key: 'Collabera', value: 'collabera.png' });
+    this.postedByIconArray.push({ key: 'randstadusa', value: 'randstadusa.jpg' });
+    this.postedByIconArray.push({ key: 'careerbuilder', value: 'careerbuilder.png' });
+    this.postedByIconArray.push({ key: 'addisongroup', value: 'addisongroup.png' });
+    this.postedByIconArray.push({ key: 'nttdata', value: 'nttdata.jfif' });
+    this.postedByIconArray.push({ key: 'dice', value: 'dice.png' });
+    this.postedByIconArray.push({ key: 'indeed', value: 'indeed.ico' });
+    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
+    this.postedByIconArray.push({ key: 'kforce', value: 'kforce.png' });
+    this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
+    this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
@@ -158,10 +186,32 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   public distinctPrimitive(fieldName: string): any {
     if (this.filter) {
-      return distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName])
-        .sort(this.compareFields());
+      if (fieldName === 'appliedBy') {
+        const resArr: any[] = [];
+        const result = distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName]);
+        result.forEach(_obj => {
+          _obj.split(',').forEach(_e => {
+            resArr.push(_e);
+          });
+        });
+        return resArr.sort(this.compareFields());
+      } else {
+        return distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName])
+          .sort(this.compareFields());
+      }
     }
-    return distinct(this.filterGridData, fieldName).map(item => item[fieldName]).sort(this.compareFields());
+    if (fieldName === 'appliedBy') {
+      const resArr: any[] = [];
+      const result = distinct(this.filterGridData, fieldName).map(item => item[fieldName]);
+      result.forEach(_obj => {
+        _obj.split(',').forEach(_e => {
+          resArr.push(_e);
+        });
+      });
+      return resArr.sort(this.compareFields());
+    } else {
+      return distinct(this.filterGridData, fieldName).map(item => item[fieldName]).sort(this.compareFields());
+    }
   }
   compareFields(): (a: any, b: any) => number {
     return (n1, n2) => {

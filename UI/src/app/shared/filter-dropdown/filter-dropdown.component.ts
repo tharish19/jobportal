@@ -41,10 +41,15 @@ export class FilterDropdownComponent implements AfterViewInit {
       this.value.push(item);
     }
 
+    let _operator = 'eq';
+    if (this.field === 'appliedBy') {
+      _operator = 'contains';
+    }
+
     this.filterService.filter({
       filters: this.value.map(value => ({
         field: this.field,
-        operator: 'eq',
+        operator: _operator,
         value
       })),
       logic: 'or'
