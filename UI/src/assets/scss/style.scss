@@ -125,7 +125,8 @@
 		.profileIcons {
 			border: 1px solid #0a6a80;
 			border-radius: 50% !important;
-			background-color: #0a6a80;
+			// background-color: #0a6a80;
+			background-color: #fd6d26;
 		}
 	}
 }
@@ -484,5 +485,5 @@ input.mat-input-element {
 }
 
 #nav > .active > a {
-   background-color: red;
+   background-color: #fd6d26;
 }

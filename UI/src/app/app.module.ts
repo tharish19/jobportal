@@ -24,6 +24,8 @@ import { SidePanelComponent } from './template/side-panel/side-panel.component';
 import { TemplateModule } from './template/template.module';
 import { DateAgoPipe } from './shared/pipes/date-ago.pipe';
 import { JobSelectionComponent } from './dialogs/job-selection/job-selection.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { JobSearchDataComponent } from './jobsearchdata/job-search-data.component';
 
 
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -75,7 +77,9 @@ export class CommonExternalModules { }
         OAuthCallbackComponent,
         NoRightClickDirective,
         SideNavComponent,
-        SidePanelComponent
+        SidePanelComponent,
+        DashboardComponent,
+        JobSearchDataComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
