@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TemplateService } from '../../shared/services/template.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { AdalService } from 'src/app/shared/services/adal.service';s
+import { AdalService } from 'src/app/shared/services/adal.service';
 @Component({
     selector: 'app-side-nav',
     templateUrl: './side-nav.component.html'
