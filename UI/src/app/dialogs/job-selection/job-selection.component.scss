@@ -23,15 +23,15 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .submittedcolor{
-    border:1px solid #B5EAD7;
-    &:hover,&:active,&:visited,&:focus{
+    border:1px solid rgb(109, 233, 187);
+    &:hover{
         background-color: #B5EAD7;
         color:#000;
     }
 }
 .notrelavent{
-    border:1px solid #F7F3E7;
-    &:hover,&:active,&:visited,&:focus{
+    border:1px solid rgb(243, 224, 169);
+    &:hover{
         background-color: #F7F3E7;
         color:#000;
     }

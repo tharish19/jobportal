@@ -12,7 +12,7 @@ namespace rest_api_jobs.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserController : ControllerBase
     {
         /// <summary>
