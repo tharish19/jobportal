@@ -15,8 +15,8 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-7"></div>
+                    <div class="col-md-5">
                         <ul class="ComboFields">
                             <li>
                                 <div class="inputfieldscustom">
@@ -56,7 +56,7 @@
                     (pageChange)="pageChange($event)" (dataStateChange)="dataStateChange($event)" [reorderable]="true"
                     [resizable]="true" [sortable]="{allowUnsort: true}"
                     [pageable]="{ buttonCount: buttonCount, info: info, type: type, pageSizes: pageSizes, previousNext: previousNext }">
-                    <kendo-grid-column field="jobID" title="No." sortable="true" width="40"  filterable="false">
+                    <kendo-grid-column field="jobID" title="No." sortable="true" width="40" filterable="false">
                         <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
                             {{i+1}}
                         </ng-template>
@@ -65,7 +65,8 @@
                         <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
                             <div (click)="copyInputMessage(dataItem)">
                                 <span>
-                                    <img src="../../assets/images/postedby/portable-document-format.svg" style="cursor: pointer;" height="18" width="18" />
+                                    <img src="../../assets/images/postedby/portable-document-format.svg"
+                                        style="cursor: pointer;" height="18" width="18" />
                                 </span>
                             </div>
                         </ng-template>
@@ -105,8 +106,12 @@
                     <kendo-grid-column field="appliedBy" title="Applied By" sortable="true" width="225">
                         <ng-template kendoGridFilterMenuTemplate let-column="column" let-filter="filter"
                             let-filterService="filterService">
+
                             <filter-dropdown [isPrimitive]="true" [field]="column.field" [filterService]="filterService"
                                 [currentFilter]="filter" [data]="distinctPrimitive(column.field)"></filter-dropdown>
+                        </ng-template>
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <span class="font11">{{dataItem.appliedBy}}</span>
                         </ng-template>
                         <!-- <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                             let-filterService="filterService">
