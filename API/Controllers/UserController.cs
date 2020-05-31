@@ -44,7 +44,7 @@ namespace rest_api_jobs.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("searchstrings")]
-        public async Task<List<string>> GetJobSearchStringsAsync()
+        public async Task<List<JobRolesModel>> GetJobSearchStringsAsync()
         {
             return await userBusiness.GetJobSearchStringsAsync().ConfigureAwait(false);
         }

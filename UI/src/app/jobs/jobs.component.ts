@@ -87,7 +87,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
       this.reviewFilterGridData(response.jobDetails);
       this.searchQuery = (response.userJobSearchString.split(','));
-      this.getSearchTerms(response.jobSearchStrings);
+      this.getSearchTerms(response.jobSearchStrings.map(o => o.jobRole));
     });
   }
   showPopup(dataItem) {

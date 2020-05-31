@@ -39,28 +39,29 @@ export class JobRolesDataComponent implements OnInit {
     ngOnInit() {
         this.rootComp.cssClass = 'KendoCustomFilter_list';
         this.jobsService.GetJobSearchTerms().subscribe(res => {
-            this.gridData = res.map(ele => {
-                return {
-                    jobRole: ele
-                };
-            });
+            this.gridData = res;
         });
     }
 
-    OpenEditJobRole() {
+    OpenEditJobRole(jobRoleId: number) {
         const dialogRef = this.dialog.open(AddJobRoleComponent, {
             width: '35%',
             panelClass: 'AddJobSearchData',
             data: {
-                jobsearchstring: { jobRole: 'Test' },
-                jobRoleId: 1
+                jobRoleData: this.gridData.filter(x => x.jobRoleId === jobRoleId)[0],
             }
         });
         dialogRef.afterClosed().subscribe(_result => {
-            // this.getDocumentData();
+            if (_result) {
+                this.gridData.filter(x => x.jobRoleId === _result.jobRoleId)[0].jobRole = _result.jobRole;
+            }
         });
     }
 
+    delete(jobRoleId: number) {
+        const position = this.gridData.indexOf(this.gridData.filter(x => x.jobRoleId === jobRoleId)[0]);
+        this.gridData.splice(position, 1);
+    }
 
     public dataStateChange(state: DataStateChangeEvent): void {
         this.state = state;

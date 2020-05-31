@@ -1,6 +1,9 @@
 ﻿DELIMITER //
 CREATE PROCEDURE GetJobSearchStrings()
 BEGIN
-	SELECT DISTINCT JobRole FROM jobssearchstrings;
+	SELECT 
+		DISTINCT jobsearchid AS JobRoleId,
+		JobRole
+	FROM jobssearchstrings;
 END //
 DELIMITER ;

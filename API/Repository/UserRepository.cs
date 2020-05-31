@@ -87,11 +87,11 @@ namespace rest_api_jobs.Repository
         /// Gets the job search strings.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> GetJobSearchStringsAsync()
+        public async Task<List<JobRolesModel>> GetJobSearchStringsAsync()
         {
             using (MySqlConnection connection = GetConnection())
             {
-                var dbResult = await connection.QueryAsync<string>("GetJobSearchStrings",
+                var dbResult = await connection.QueryAsync<JobRolesModel>("GetJobSearchStrings",
                     null, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return dbResult.ToList();
             }

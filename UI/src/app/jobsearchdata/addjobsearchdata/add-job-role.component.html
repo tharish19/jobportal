@@ -1,22 +1,22 @@
 <form [formGroup]="addJobRoleForm">
     <div class="row">
         <div class="col-md-8 mb5">
-            <p *ngIf="data && !data.edit" class="page_title uppercase orange_clr d-inline">Add Job Role</p>
-            <p *ngIf="data && data.edit === true " class="page_title uppercase orange_clr d-inline">
+            <p *ngIf="!jobRoleData" class="page_title uppercase orange_clr d-inline">Add Job Role</p>
+            <p *ngIf="jobRoleData && jobRoleData.jobRoleId" class="page_title uppercase orange_clr d-inline">
                 Update Job Role</p>
         </div>
         <div class="col-md-4">
             <div class="PopCloseIcon cursor-pointer" (click)="close()"><i class="material-icons">x</i></div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-10">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 doc_name">
                     <mat-form-field class="example-full-width">
                         <mat-placeholder>Job Role </mat-placeholder>
                         <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                        <input pattern="^[A-Za-z][A-Za-z\s\-]*" matInput formControlName="jobRole" maxlength="100" />
+                        <input pattern="^[A-Za-z][A-Za-z\s\-]*" matInput formControlName="jobRole" maxlength="200" />
                         <!-- <mat-error *ngIf="documentForm.controls['docName'].errors?.required">
                         {{this.appMessagesService.customRequiredMessages("document name")}}
                     </mat-error>
@@ -33,7 +33,7 @@
         </div>
         <div class="container editclosewrap">
             <div class="td-actions text-right">
-                <button (click)="close()" type="button" rel="tooltip" class="btn btn-danger btn-round btn-fab btn-sm"
+                <button (click)="cancel()" type="button" rel="tooltip" class="btn btn-danger btn-round btn-fab btn-sm"
                     title="">
                     <i class="material-icons">Cancel</i>
                 </button>

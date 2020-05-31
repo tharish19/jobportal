@@ -14,9 +14,15 @@
                     (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort" [pageSize]="pageSize"
                     (pageChange)="pageChange($event)" (dataStateChange)="dataStateChange($event)" [reorderable]="true"
                     [resizable]="true" [sortable]="{allowUnsort: true}" [pageable]="false">
-                    <kendo-grid-column field="jobRole" title="No." sortable="true" width="50" filterable="false">
-                        <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
-                            {{i+1}}
+                    <kendo-grid-column field="jobRoleId" title="Role Id" sortable="true" width="50">
+                        <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                            let-filterService="filterService">
+                            <kendo-grid-numeric-filter-menu [column]="column" [filter]="filter" format="g"
+                                [extra]="false" operator="eq" [filterService]="filterService">
+                                <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                                <kendo-filter-lte-operator></kendo-filter-lte-operator>
+                                <kendo-filter-gte-operator></kendo-filter-gte-operator>
+                            </kendo-grid-numeric-filter-menu>
                         </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="jobRole" title="Job Role" sortable="true" width="300">
@@ -34,11 +40,11 @@
                         [sortable]="false">
                         <ng-template kendoGridCellTemplate let-dataItem>
                             <div class="datatableactions">
-                                <button type="button" (click)="OpenEditJobRole()" class="cu_but_icon">
+                                <button type="button" (click)="OpenEditJobRole(dataItem.jobRoleId)" class="cu_but_icon">
                                     <mat-icon class="svgclass21  cursor-pointer text-yellow circleForIcon"
                                         svgIcon="icon_edit"></mat-icon>
                                 </button>
-                                <button type="button" (click)="delete()" class="cu_but_icon">
+                                <button type="button" (click)="delete(dataItem.jobRoleId)" class="cu_but_icon">
                                     <mat-icon class="svgclass21 text-danger cursor-pointer circleForIcon"
                                         svgIcon="icon_close"></mat-icon>
                                 </button>

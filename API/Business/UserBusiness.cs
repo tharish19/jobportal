@@ -37,7 +37,7 @@ namespace rest_api_jobs.Business
         {
             UserJobDetailsAndSearchStringsModel userJobDetailsAndSearchStrings = new UserJobDetailsAndSearchStringsModel();
 
-            List<string> jobSearchStrings = await userRepository.GetJobSearchStringsAsync().ConfigureAwait(false);
+            List<JobRolesModel> jobSearchStrings = await userRepository.GetJobSearchStringsAsync().ConfigureAwait(false);
             string userJobSearchString = (userId != null && userId != "") ? await userRepository.GetUserJobSearchStringsAsync(userId).ConfigureAwait(false) : "";
 
             userJobDetailsAndSearchStrings.UserJobSearchString = userJobSearchString;
@@ -76,7 +76,7 @@ namespace rest_api_jobs.Business
         /// Gets the job search strings.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> GetJobSearchStringsAsync()
+        public async Task<List<JobRolesModel>> GetJobSearchStringsAsync()
         {
             return await userRepository.GetJobSearchStringsAsync().ConfigureAwait(false);
         }
