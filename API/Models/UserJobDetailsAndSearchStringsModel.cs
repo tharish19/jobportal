@@ -22,5 +22,13 @@ namespace rest_api_jobs.Models
         /// The job details.
         /// </value>
         public List<JobDetailsModel> JobDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets the job search strings.
+        /// </summary>
+        /// <value>
+        /// The job search strings.
+        /// </value>
+        public List<string> JobSearchStrings { get; set; }
     }
 }

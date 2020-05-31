@@ -71,7 +71,7 @@
                             </div>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="jobTitle" title="Job title" sortable="true" width="250">
+                    <kendo-grid-column field="jobTitle" title="Job Title" sortable="true" width="250">
                         <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
                             <div (click)="showPopup(dataItem)">
                                 <a href="{{dataItem.jobURL}}" target="_blank">{{dataItem.jobTitle}}</a>

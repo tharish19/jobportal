@@ -86,9 +86,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
       this.reviewFilterGridData(response.jobDetails);
-      this.searchQuery = (response.userJobSearchString.split(',')); 
-    }, (err) => {
-      // console.log(err);
+      this.searchQuery = (response.userJobSearchString.split(','));
+      this.getSearchTerms(response.jobSearchStrings);
     });
   }
   showPopup(dataItem) {
@@ -98,7 +97,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       width: '35%',
       height: 'auto',
     });
-    dialogRef.afterClosed().subscribe(_result => {
+    dialogRef.afterClosed().subscribe(() => {
       statusDetails.jobStatus = dialogRef.componentInstance.selectedValue;
       statusDetails.jobID = dataItem.jobID;
       statusDetails.appliedBy = this.currrentUserName;
@@ -123,68 +122,47 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     document.body.removeChild(selBox);
     this.showPopup(val);
   }
-  selectAll(selectedStaffNumber) {
-    if (selectedStaffNumber === 'All' && this.searchQuery.includes('All')) {
+  selectAll(selectedJob) {
+    if (selectedJob === 'All' && this.searchQuery.includes('All')) {
       this.searchQuery = [];
       this.filteredSearchTerms.forEach(element => {
         this.searchQuery.push(element);
       });
-    } else if (
-      selectedStaffNumber === 'All' &&
-      this.searchQuery.length ===
-      this.filteredSearchTerms.length - 1
-    ) {
+    } else if (selectedJob === 'All' && this.searchQuery.length === this.filteredSearchTerms.length - 1) {
       this.searchQuery = [];
-    } else if (
-      !this.searchQuery.includes('All') &&
-      this.searchQuery.length ===
-      this.filteredSearchTerms.length - 1
-    ) {
+    } else if (!this.searchQuery.includes('All') && this.searchQuery.length === this.filteredSearchTerms.length - 1) {
       this.searchQuery = [];
       this.filteredSearchTerms.forEach(element => {
         this.searchQuery.push(element);
       });
-    } else if (
-      this.searchQuery.includes('All') &&
-      this.searchQuery.length ===
-      this.filteredSearchTerms.length - 1
-    ) {
+    } else if (this.searchQuery.includes('All') && this.searchQuery.length === this.filteredSearchTerms.length - 1) {
       this.searchQuery = [];
       this.filteredSearchTerms.forEach(element => {
-        if (element !== 'All' && element !== selectedStaffNumber) {
+        if (element !== 'All' && element !== selectedJob) {
           this.searchQuery.push(element);
         }
       });
+    } else if (!this.searchQuery.includes('All') && this.filteredSearchTerms.length !== this.searchTerms.length) {
+      if (this.searchQuery.includes(selectedJob)) {
+        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
+        this.searchQuery.push(selectedJob);
+        if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
+          this.searchQuery.push('All');
+        }
+      } else if (!this.searchQuery.includes(selectedJob)) {
+        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedJob
+          && staffNumber !== 'All');
+      }
     }
-    // else if (
-    //   !this.searchQuery.includes('All') &&
-    //   this.filteredStaffNumberList.length !==
-    //   this.filteredSearchTerms.length
-    // ) {
-    //   if (this.searchQuery.includes(selectedStaffNumber)) {
-    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
-    //     this.searchQuery.push(selectedStaffNumber);
-    //     if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
-    //       this.searchQuery.push('All');
-    //     }
-    //   } else if (!this.searchQuery.includes(selectedStaffNumber)) {
-    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedStaffNumber
-    //       && staffNumber !== 'All');
-    //   }
-    // }
-    // this.previousQuery = this.searchQuery;
+    this.previousQuery = this.searchQuery;
   }
-
-  getSearchTerms() {
-    this.jobsService.GetJobSearchTerms().subscribe(res => {
-      // this.filteredSearchTerms();
-      this.filteredSearchTerms.push('All');
-      this.searchTerms = res;
-      res.forEach(el => {
-        this.filteredSearchTerms.push(el);
-      });
-      // console.log(res);
+  getSearchTerms(response: any) {
+    this.filteredSearchTerms = [];
+    this.filteredSearchTerms.push('All');
+    response.forEach(el => {
+      this.filteredSearchTerms.push(el);
     });
+    this.searchTerms = this.filteredSearchTerms;
   }
   onSearch() {
     const query = this.searchQuery.filter(x => x !== 'All').join();
@@ -200,7 +178,6 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
-    this.getSearchTerms();
     this.currrentUserName = this.adalService.userInfo.profile.name;
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
     this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
