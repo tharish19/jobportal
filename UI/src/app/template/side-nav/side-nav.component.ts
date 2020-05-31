@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TemplateService } from '../../shared/services/template.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { AdalService } from 'src/app/shared/services/adal.service';
+declare const $: any;
 @Component({
     selector: 'app-side-nav',
     templateUrl: './side-nav.component.html'
@@ -24,6 +25,18 @@ export class SideNavComponent {
 
     ngOnInit() {
         this.tplSvc.isSideNavCollapseChanges.subscribe(isCollapse => this.isCollapse = isCollapse);
+        $(".Profile_button").click(function(e){
+            $(".Profile_dropdown").show();
+             e.stopPropagation();
+        });
+        
+        $(".Profile_dropdown").click(function(e){
+            e.stopPropagation();
+        });
+        
+        $(document).click(function(){
+            $(".Profile_dropdown").hide();
+        });
     }
     logout() {
         this.adalService.logout();
