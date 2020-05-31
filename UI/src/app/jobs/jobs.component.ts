@@ -155,31 +155,30 @@ export class JobsComponent implements OnInit, AfterViewChecked {
           this.searchQuery.push(element);
         }
       });
+    } else if (
+      !this.searchQuery.includes('All') &&
+      this.filteredSearchTerms.length !==
+      this.searchTerms.length
+    ) {
+      if (this.searchQuery.includes(selectedStaffNumber)) {
+        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
+        this.searchQuery.push(selectedStaffNumber);
+        if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
+          this.searchQuery.push('All');
+        }
+      } else if (!this.searchQuery.includes(selectedStaffNumber)) {
+        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedStaffNumber
+          && staffNumber !== 'All');
+      }
     }
-    // else if (
-    //   !this.searchQuery.includes('All') &&
-    //   this.filteredStaffNumberList.length !==
-    //   this.filteredSearchTerms.length
-    // ) {
-    //   if (this.searchQuery.includes(selectedStaffNumber)) {
-    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
-    //     this.searchQuery.push(selectedStaffNumber);
-    //     if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
-    //       this.searchQuery.push('All');
-    //     }
-    //   } else if (!this.searchQuery.includes(selectedStaffNumber)) {
-    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedStaffNumber
-    //       && staffNumber !== 'All');
-    //   }
-    // }
-    // this.previousQuery = this.searchQuery;
+    this.previousQuery = this.searchQuery;
   }
 
   getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
       // this.filteredSearchTerms();
       this.filteredSearchTerms.push('All');
-      this.searchTerms = res;
+      this.searchTerms = this.filteredSearchTerms;
       res.forEach(el => {
         this.filteredSearchTerms.push(el);
       });
