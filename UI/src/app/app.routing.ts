@@ -16,6 +16,11 @@ export const AppRoutes: Routes = [
         component: CommonLayoutComponent,
         children: [
             {
+                path: '',
+                component: DashboardComponent,
+                canActivate: [AuthenticationGuard]
+            },
+            {
                 path: 'login',
                 component: SignInComponent,
             },

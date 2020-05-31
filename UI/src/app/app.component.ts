@@ -1,5 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { CustomloaderComponent } from './shared/customloader/customloader.component';
+import { Spinkit } from 'ng-http-loader';
 
 @Component({
     selector: 'app-root',
@@ -7,6 +9,8 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
     @HostBinding('class') public cssClass = 'DefaultClass';
+    public customLoader = CustomloaderComponent;
+    public spinkit = Spinkit;
 
     constructor() { }
     ngOnInit() {

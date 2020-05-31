@@ -1,16 +1,21 @@
 import { AfterViewChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
-import { CompositeFilterDescriptor, filterBy, process, State, distinct } from '@progress/kendo-data-query';
+import { MatDialog } from '@angular/material';
+import {
+  DataStateChangeEvent,
+  GridComponent,
+  GridDataResult,
+  PageChangeEvent,
+  RowClassArgs,
+} from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, distinct, filterBy, process, State } from '@progress/kendo-data-query';
 
 import { AppComponent } from '../app.component';
-import { JobDetailsModel } from '../Interfaces/jobs';
-import { JobsService } from '../services/jobs.service';
-import { AdalService } from '../shared/services/adal.service';
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
 import { JobSelectionComponent } from '../dialogs/job-selection/job-selection.component';
+import { JobDetailsModel } from '../Interfaces/jobs';
 import { JobStatus } from '../Interfaces/JobStatus';
+import { JobsService } from '../services/jobs.service';
 import { DateAgoPipe } from '../shared/pipes/date-ago.pipe';
+import { AdalService } from '../shared/services/adal.service';
 
 declare var $: any;
 @Component({
@@ -40,15 +45,14 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   filteredSearchTerms: any[] = [];
   previousQuery: any;
   currrentUserName;
-  searchQuery = new FormControl();
-  currrentUserName: any;
+  searchQuery;
   postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
-    public dialog: MatDialog,
-    private dateAgoPipe: DateAgoPipe,
-    private rootComp: AppComponent,
-    private jobsService: JobsService) { }
+              public dialog: MatDialog,
+              private dateAgoPipe: DateAgoPipe,
+              private rootComp: AppComponent,
+              private jobsService: JobsService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -100,7 +104,6 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       statusDetails.appliedBy = this.currrentUserName;
       statusDetails.AppliedOn = new Date();
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
-        alert('sucess');
         dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
           +this.currrentUserName : this.currrentUserName;
       });
@@ -183,11 +186,11 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       // console.log(res);
     });
   }
-onSearch() {
-  const query = this.searchQuery.filter(x => x !== 'All').join();
-  this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
+  onSearch() {
+    const query = this.searchQuery.filter(x => x !== 'All').join();
+    this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
       this.filterGridData = res;
-    })  ;
+    });
   }
   onInputChange(event: string = '') {
     this.filteredSearchTerms = this.searchTerms.filter(

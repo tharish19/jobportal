@@ -179,9 +179,9 @@
             <li clas="nav-item user-profile dropdown" routerLinkActive="active">
                 <a class="dropdown-toggle" href="" data-toggle="dropdown">
                     <span class="icon-holder profileIcons">
-                        {{user.profile.name.substr(0,1)}}
+                        {{user?.profile.name.substr(0,1)}}
                     </span>
-                    <span class="title">{{user.profile.name}}</span>
+                    <span class="title">{{user?.profile.name}}</span>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
