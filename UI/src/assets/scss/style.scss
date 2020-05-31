@@ -131,11 +131,12 @@
 	}
 }
 .side-nav .side-nav-inner .side-nav-menu li a {
-	box-shadow: rgba(255, 255, 255, 0.25) 0px -1px 0px inset;
+	// box-shadow: rgba(255, 255, 255, 0.25) 0px -1px 0px inset;
 	color: #fff;
 	font-weight: 500;
-	font-size: 14px;
+	font-size: 13px;
 	letter-spacing: 1px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 	&:hover,
 	:focus,
 	:active,
@@ -153,7 +154,7 @@
 		}
 	}
 }
-.side-nav .side-nav-inner .side-nav-menu_profile li .card_profile{
+.side-nav .side-nav-inner .side-nav-menu_profile li .card_profile {
 	color: #fff;
 	font-weight: 500;
 	font-size: 14px;
@@ -168,12 +169,14 @@
 	}
 }
 
-.user-profile{
-	&:hover,&:active,&:visited,&:focus{
+.user-profile {
+	&:hover,
+	&:active,
+	&:visited,
+	&:focus {
 		background-color: red !important;
 	}
 }
-
 
 .side-nav .side-nav-inner .side-nav-menu,
 .side-nav .side-nav-inner .side-nav-menu_profile {
@@ -186,9 +189,6 @@
 		.side-nav-inner .side-nav-logo {
 			background-color: #696969;
 		}
-		.dropdown {
-			left: 180px;
-		}
 	}
 }
 @media only screen and (max-width: 1440px) and (min-width: 992px) {
@@ -198,9 +198,6 @@
 			background-color: #fff;
 		}
 	}
-	.dropdown {
-		left: 75;
-	}
 }
 
 .side-nav {
@@ -208,7 +205,7 @@
 	border-right: 1px solid #cacaca;
 }
 .side-nav .side-nav-inner .side-nav-menu {
-	height: calc(100vh - 17%);
+	height: calc(100vh - 27%);
 }
 //sidenavbar ends here
 
@@ -506,8 +503,8 @@ input.mat-input-element {
 		cursor: pointer;
 	}
 }
-.side-nav-menu_profile{
-	color:#FFF !important;
+.side-nav-menu_profile {
+	color: #fff !important;
 	cursor: pointer;
 }
 
@@ -528,22 +525,43 @@ input.mat-input-element {
 	}
 }
 
-.Profile_dropdown {
-    display:none;
-	background-color: #fff;
-    position: absolute;
-	bottom: 21px;
-	left:75px;
-    z-index: 999;
-    padding: 10px;
-    width: 100px;
-    border-radius: 6px;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	.logout{
-		cursor: pointer;
+#logoutbtn {
+	display: none;
+	overflow: hidden;
+	height: 40px;
+	background-color: #dedede;
+	width: 70%;
+	margin: auto;
+	color: #2b2b2b;
+	box-shadow: 1px 1px 6px 1px #949494;
+	border-radius: 5px;
+	.title {
+		color: #2b2b2b !important;
 	}
-	.title{
-		color:#0a6a80;
-		font-size: 14px;
+	.card_profile {
+		padding: 4px;
+		.icon-holder {
+			line-height: 30px;
+			text-align: left;
+			padding-left: 6px;
+		}
+		&:hover {
+			background-color: #fff;
+			color: #2b2b2b;
+		}
 	}
+	&:hover,
+	&:active,
+	&:visited,
+	&:focus {
+		svg path {
+			stroke: #2b2b2b;
+			fill: #2b2b2b;
+		}
+	}
+}
+
+.logoutbtn {
+	height: 58px;
+	padding-top: 10px;
 }
