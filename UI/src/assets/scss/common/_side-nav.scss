@@ -60,7 +60,9 @@
 			}
 		}
 		
-		.side-nav-menu {
+		.side-nav-menu,
+		.side-nav-menu_profile
+		 {
 			position: relative;
 			list-style: none;
 			margin: 0;
@@ -116,7 +118,7 @@
 					}
 				}
 				
-				a {
+				a,.card_profile {
 					color: $default-text-color;
 					@include transition(all 0.3s ease); 
 					
@@ -171,14 +173,14 @@
 					}
 				}
 				
-				> a{
+				> a,.card_profile{
 					position: relative;
 					display: block;
 					padding:10px 15px 10px 9px;
 					font-weight: 500;
 					font-size: 15px;
 					white-space: nowrap;
-					
+					color:#fff !important;
 					.icon-holder {
 						display: inline-block;
 						height: 35px;
@@ -224,7 +226,8 @@
 				}
 			}
 
-			.side-nav-menu {
+			.side-nav-menu,
+			.side-nav-menu_profile {
 				overflow-x: hidden;
 
 				> li {
@@ -281,11 +284,12 @@
 					}
 				}
 
-				.side-nav-menu {
+				.side-nav-menu,
+				.side-nav-menu_profile {
 
 					> li {
 
-						> a {
+						> a ,.card_profile{
 							.title {
 								display: inline-block;
 							}
@@ -347,12 +351,13 @@
 					}
 				}
 
-				.side-nav-menu {
+				.side-nav-menu,
+				.side-nav-menu_profile {
 					overflow-x: hidden;
 
 					> li {
 
-						> a {
+						> a,.card_profile {
 							.title {
 								display: none;
 							}
@@ -403,11 +408,12 @@
 						}
 					}
 
-					.side-nav-menu {
+					.side-nav-menu,
+					.side-nav-menu_profile {
 
 						> li {
 
-							> a {
+							> a ,.card_profile{
 								.title {
 									display: inline-block;
 								}
@@ -460,11 +466,12 @@
 					}
 				}
 
-				.side-nav-menu {
+				.side-nav-menu,
+				.side-nav-menu_profile {
 
 					> li {
 
-						> a {
+						> a,.card_profile {
 							.title {
 								display: inline-block;
 							}
@@ -522,12 +529,13 @@
 
 		 .side-nav-inner {
 
-		 	.side-nav-menu {
+			 .side-nav-menu,
+			 .side-nav-menu_profile {
 		 		border-right: 1px solid transparent;
 
 		 		li {
 
-		 			a {
+		 			a,.card_profile {
 		 				color: $side-nav-dark-font;
 		 				font-weight: normal
 		 			}
