@@ -122,12 +122,11 @@
 				width: 30px;
 			}
 		}
-		.profileIcons{
-			img{
-				height: 30px;
-				width: 30px;
-				border-radius: 50%;
-			}
+		.profileIcons {
+			border: 1px solid #0a6a80;
+			border-radius: 50% !important;
+			// background-color: #0a6a80;
+			background-color: #fd6d26;
 		}
 	}
 }
@@ -144,6 +143,14 @@
 		text-decoration: none;
 		color: #ffffff;
 		background-color: #2b2b2b;
+		svg path {
+			stroke: #fff;
+			fill: #fff;
+		}
+		svg g rect{
+			stroke: #fff;
+			fill: #fff;
+		}
 	}
 }
 
@@ -176,7 +183,7 @@
 
 .side-nav {
 	background-color: #696969;
-    border-right: 1px solid #cacaca;
+	border-right: 1px solid #cacaca;
 }
 .side-nav .side-nav-inner .side-nav-menu {
 	height: calc(100vh - 21%);
@@ -316,10 +323,10 @@
 	list-style-type: none;
 	padding-left: 0px;
 	li:nth-child(1) {
-		width: 70%;
+		width: 65%;
 	}
 	li:nth-child(2) {
-		margin-left: 30px;
+		width: 33%;
 		margin: auto;
 	}
 }
@@ -427,7 +434,7 @@ div.k-grid-header {
 }
 
 .perfect_customscroll {
-	max-height: calc(100vh - 425px);
+	max-height: calc(100vh - 367px);
 	overflow: hidden;
 }
 input.mat-input-element {
@@ -447,8 +454,36 @@ input.mat-input-element {
 }
 
 .GridScroll .k-grid-container .k-grid-content {
-    max-height: calc(100vh - 160px);
-  }
-  .side-nav .side-nav-inner .side-nav-menu li a:focus {
-    color: #ffffff;
+	max-height: calc(100vh - 150px);
+}
+.side-nav .side-nav-inner .side-nav-menu li a:focus {
+	color: #ffffff;
+}
+::ng-deep .k-grid {
+	background-color: #fff;
+}
+
+.mat-select-panel {
+	margin-top: 36px;
+    margin-left: 10px;
+    min-width: calc(100% + 33px) !important;
+}
+.k-grid tr.k-alt{
+	background-color: rgba(255, 255, 255, 0.04);
+}
+.k-grid tr{
+	box-shadow: 0px 0px 2px 2px rgba(230, 230, 230, 0.42), 0px 0px 0px 0px rgb(255, 255, 255);
+    outline: 0.5px solid #ffffff0d;
+}
+.font11{
+	font-size: 11px;
+}
+.side-nav .side-nav-inner .side-nav-menu li a:hover{
+	.profileIcons{
+		color:#fff;
+	}
+}
+
+#nav > .active > a {
+   background-color: #fd6d26;
 }

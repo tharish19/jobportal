@@ -14,25 +14,25 @@ export class CommonLayoutComponent implements OnInit {
     headerThemes = ['header-default', 'header-primary', 'header-info', 'header-success', 'header-danger', 'header-dark'];
     sidenavThemes = ['sidenav-default', 'side-nav-dark'];
     headerSelected: HeaderType;
-    sidenavSelected : SideNavType;
-    isCollapse : boolean;
-    rtlActived: boolean = false;
-    
-    themeConfigOpen: boolean = false;
+    sidenavSelected: SideNavType;
+    isCollapse: boolean;
+    rtlActived = false;
+
+    themeConfigOpen = false;
 
     constructor(private tplSvc: TemplateService) {
-        
+
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.tplSvc.isSideNavCollapseChanges.subscribe(isCollapse => this.isCollapse = isCollapse);
     }
 
-    changeHeader(headerTheme:HeaderType) {
+    changeHeader(headerTheme: HeaderType) {
         this.headerSelected = headerTheme;
     }
 
-    changeSidenav(sidenavTheme:SideNavType) {
+    changeSidenav(sidenavTheme: SideNavType) {
         this.sidenavSelected = sidenavTheme;
     }
 

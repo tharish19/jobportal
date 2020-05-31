@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
-import { CompositeFilterDescriptor, filterBy, process, State } from '@progress/kendo-data-query';
+import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, filterBy, process, State, distinct } from '@progress/kendo-data-query';
 
 import { AppComponent } from '../app.component';
 import { JobDetailsModel } from '../Interfaces/jobs';
@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { JobSelectionComponent } from '../dialogs/job-selection/job-selection.component';
 import { JobStatus } from '../Interfaces/JobStatus';
+import { DateAgoPipe } from '../shared/pipes/date-ago.pipe';
 
 declare var $: any;
 @Component({
@@ -37,14 +38,46 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   filterGridData: JobDetailsModel[] = [];
   searchTerms: any[] = [];
   filteredSearchTerms: any[] = [];
-  searchQuery: any;
   previousQuery: any;
   currrentUserName;
+  searchQuery = new FormControl();
+  currrentUserName: any;
+  postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
-              public dialog: MatDialog,
-              private rootComp: AppComponent,
-              private jobsService: JobsService) { }
+    public dialog: MatDialog,
+    private dateAgoPipe: DateAgoPipe,
+    private rootComp: AppComponent,
+    private jobsService: JobsService) { }
+
+  rowCallback(context: RowClassArgs) {
+    const user = window.sessionStorage.getItem('currrentUserName');
+    if (context.dataItem.jobStatus === '2' && context.dataItem.appliedBy.indexOf(user) >= 0) {
+      return {
+        notrelaventClass: true,
+        submittedClass: false
+      };
+    }
+    if (context.dataItem.jobStatus === '1' && context.dataItem.appliedBy !== null && context.dataItem.appliedBy !== '') {
+      return {
+        notrelaventClass: false,
+        submittedClass: true
+      };
+    }
+  }
+
+  reviewFilterGridData(data: JobDetailsModel[]) {
+    this.filterGridData = data;
+    this.filterGridData.map((_x, i) => {
+      this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
+      this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
+      this.filterGridData[i].postedByIcon = this.postedByIconArray
+        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value;
+
+      this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
+        ? (this.filterGridData[i].appliedBy + ', Test User') : '';
+    });
+  }
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
@@ -57,7 +90,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   showPopup(dataItem) {
     const statusDetails = new JobStatus();
     const dialogRef = this.dialog.open(JobSelectionComponent, {
-      panelClass: 'RolePopUp_Custom'
+      panelClass: 'RolePopUp_Custom',
+      width: '35%',
+      height: 'auto',
     });
     dialogRef.afterClosed().subscribe(_result => {
       statusDetails.jobStatus = dialogRef.componentInstance.selectedValue;
@@ -67,11 +102,11 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
         alert('sucess');
         dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
-        +this.currrentUserName : this.currrentUserName   ;
+          +this.currrentUserName : this.currrentUserName;
       });
     });
   }
-copyInputMessage(val) {
+  copyInputMessage(val) {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -137,7 +172,7 @@ copyInputMessage(val) {
     // this.previousQuery = this.searchQuery;
   }
 
-getSearchTerms() {
+  getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
       // this.filteredSearchTerms();
       this.filteredSearchTerms.push('All');
@@ -154,16 +189,29 @@ onSearch() {
       this.filterGridData = res;
     })  ;
   }
-onInputChange(event: string = '') {
+  onInputChange(event: string = '') {
     this.filteredSearchTerms = this.searchTerms.filter(
       employee => String(employee.toLowerCase()).startsWith(
         event.toLowerCase()));
   }
-ngOnInit() {
+  ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
     this.getSearchTerms();
     this.currrentUserName = this.adalService.userInfo.profile.name;
+    window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
+    this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
+    this.postedByIconArray.push({ key: 'Collabera', value: 'collabera.png' });
+    this.postedByIconArray.push({ key: 'randstadusa', value: 'randstadusa.jpg' });
+    this.postedByIconArray.push({ key: 'careerbuilder', value: 'careerbuilder.png' });
+    this.postedByIconArray.push({ key: 'addisongroup', value: 'addisongroup.png' });
+    this.postedByIconArray.push({ key: 'nttdata', value: 'nttdata.jfif' });
+    this.postedByIconArray.push({ key: 'dice', value: 'dice.png' });
+    this.postedByIconArray.push({ key: 'indeed', value: 'indeed.ico' });
+    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
+    this.postedByIconArray.push({ key: 'kforce', value: 'kforce.png' });
+    this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
+    this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
@@ -176,9 +224,9 @@ ngOnInit() {
   }
   public filterChange(filter: CompositeFilterDescriptor): void {
     this.filter = filter;
-    this.grid.data = filterBy(this.filterGridData, filter);
+    // this.grid.data = filterBy(this.filterGridData, filter);
   }
-filterData(data: any[]): any[] {
+  filterData(data: any[]): any[] {
     return process(
       data,
       {
@@ -187,7 +235,7 @@ filterData(data: any[]): any[] {
         filter: this.filter
       }).data;
   }
-ngAfterViewChecked(): void {
+  ngAfterViewChecked(): void {
     if (this.grid !== undefined && this.grid !== null) { } {
       const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
       const _refChildHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight;
@@ -195,5 +243,46 @@ ngAfterViewChecked(): void {
         this.applyDynamicClass = true;
       }
     }
+  }
+
+  public distinctPrimitive(fieldName: string): any {
+    if (this.filter) {
+      if (fieldName === 'appliedBy') {
+        const resArr: any[] = [];
+        const result = distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName]);
+        result.forEach(_obj => {
+          _obj.split(',').forEach(_e => {
+            resArr.push(_e);
+          });
+        });
+        return resArr.sort(this.compareFields());
+      } else {
+        return distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName])
+          .sort(this.compareFields());
+      }
+    }
+    if (fieldName === 'appliedBy') {
+      const resArr: any[] = [];
+      const result = distinct(this.filterGridData, fieldName).map(item => item[fieldName]);
+      result.forEach(_obj => {
+        _obj.split(',').forEach(_e => {
+          resArr.push(_e);
+        });
+      });
+      return resArr.sort(this.compareFields());
+    } else {
+      return distinct(this.filterGridData, fieldName).map(item => item[fieldName]).sort(this.compareFields());
+    }
+  }
+  compareFields(): (a: any, b: any) => number {
+    return (n1, n2) => {
+      if (n1 > n2) {
+        return 1;
+      }
+      if (n1 < n2) {
+        return -1;
+      }
+      return 0;
+    };
   }
 }

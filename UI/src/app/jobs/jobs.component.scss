@@ -8,9 +8,10 @@
   border-bottom: 1px solid #464646;
   padding-left: 15px;
 }
-.green {
-  background-color: palegreen;
+.k-grid tr.submittedClass {
+  background-color: #B5EAD7 !important;
 }
-.red {
-  background-color: red;
+.k-grid tr.notrelaventClass {
+  background-color: #F7F3E7 !important;
 }
+  

@@ -5,7 +5,9 @@
        jobType: string;
        companyName: string;
        postedBy: string;
+       postedByIcon: string;
        postedDate: Date;
+       postedOn: string;
        jobURL: string;
        rowInsertDate: Date;
        rowInsertBy: string;
