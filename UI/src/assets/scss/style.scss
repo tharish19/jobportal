@@ -512,8 +512,8 @@ input.mat-input-element {
 }
 
 #nav > .active > a {
-	background-color: #fd6d26;
-	box-shadow: rgb(10, 175, 196) 3px 0px 0px inset;
+	// background-color: #fd6d26;
+	box-shadow: #fd6d26 3px 0px 0px inset;
 	svg {
 		path {
 			stroke: #fff;

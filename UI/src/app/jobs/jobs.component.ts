@@ -49,10 +49,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
-              public dialog: MatDialog,
-              private dateAgoPipe: DateAgoPipe,
-              private rootComp: AppComponent,
-              private jobsService: JobsService) { }
+    public dialog: MatDialog,
+    private dateAgoPipe: DateAgoPipe,
+    private rootComp: AppComponent,
+    private jobsService: JobsService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -78,15 +78,15 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       this.filterGridData[i].postedByIcon = this.postedByIconArray
         .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value;
 
-      this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
-        ? (this.filterGridData[i].appliedBy + ', Test User') : '';
+      // this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
+      //   ? (this.filterGridData[i].appliedBy + ', Test User') : '';
     });
   }
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
-      this.filterGridData = response.jobDetails;
-      this.searchQuery = (response.userJobSearchString.split(','));
+      this.reviewFilterGridData(response.jobDetails);
+      this.searchQuery = (response.userJobSearchString.split(',')); 
     }, (err) => {
       // console.log(err);
     });
@@ -189,7 +189,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   onSearch() {
     const query = this.searchQuery.filter(x => x !== 'All').join();
     this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
-      this.filterGridData = res;
+      this.reviewFilterGridData(res);
     });
   }
   onInputChange(event: string = '') {

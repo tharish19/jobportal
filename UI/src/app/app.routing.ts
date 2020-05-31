@@ -12,6 +12,11 @@ import { JobSearchDataComponent } from './jobsearchdata/job-search-data.componen
 // Layouts
 export const AppRoutes: Routes = [
     {
+        path: 'login',
+        component: SignInComponent,
+    },
+    { path: 'id_token', component: OAuthCallbackComponent, canActivate: [OAuthCallbackHandler] },
+    {
         path: '',
         component: CommonLayoutComponent,
         children: [
@@ -19,10 +24,6 @@ export const AppRoutes: Routes = [
                 path: '',
                 component: DashboardComponent,
                 canActivate: [AuthenticationGuard]
-            },
-            {
-                path: 'login',
-                component: SignInComponent,
             },
             {
                 path: 'dashboard',
@@ -41,8 +42,7 @@ export const AppRoutes: Routes = [
                 path: 'jobsearchdata',
                 component: JobSearchDataComponent,
                 canActivate: [AuthenticationGuard]
-            },
-            { path: 'id_token', component: OAuthCallbackComponent, canActivate: [OAuthCallbackHandler] }
+            }
         ]
     }
 
