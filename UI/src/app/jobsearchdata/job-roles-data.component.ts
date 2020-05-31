@@ -45,8 +45,8 @@ export class JobRolesDataComponent implements OnInit {
 
     OpenEditJobRole(jobRoleId: number) {
         const dialogRef = this.dialog.open(AddJobRoleComponent, {
-            width: '35%',
             panelClass: 'AddJobSearchData',
+            width: '35%',
             data: {
                 jobRoleData: this.gridData.filter(x => x.jobRoleId === jobRoleId)[0],
             }
