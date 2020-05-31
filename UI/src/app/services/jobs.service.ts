@@ -18,7 +18,8 @@ export class JobsService {
     return this.httpClient.get<any>('http://localhost:53138/api/user/searchstrings');
   }
   GetJobSearchResults(searchTerm, userId): Observable<any> {
-    return this.httpClient.get<any>(`http://localhost:53138/api/user/filter/jobs/${searchTerm}/${userId}`);
+    const data = {SearchQuery: searchTerm};
+    return this.httpClient.post<any>(`http://localhost:53138/api/user/filter/jobs/${userId}`, data);
   }
   SubmitFeedBack(data): Observable<any> {
     return this.httpClient.post<any>('http://localhost:53138/api/user/update/job/status', data);

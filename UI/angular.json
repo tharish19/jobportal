@@ -29,11 +29,9 @@
             ],
             "styles": [
               "./node_modules/bootstrap/scss/bootstrap.scss",
-              "./node_modules/pace-js/themes/black/pace-theme-minimal.css",
               "src/assets/scss/style.scss"
             ],
             "scripts": [
-              "./node_modules/pace-js/pace.min.js",
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/popper.js/dist/umd/popper.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.js",

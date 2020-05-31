@@ -56,10 +56,10 @@ namespace rest_api_jobs.Controllers
         /// <param name="jobSearchString">The job search string.</param>
         /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        [HttpGet("filter/jobs/{jobSearchString}/{filteredBy}")]
-        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
+        [HttpPost("filter/jobs/{filteredBy}")]
+        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(SearchQueryClientModel jobSearchString, string filteredBy)
         {
-            return await userBusiness.GetFilteredJobsAsync(jobSearchString, filteredBy).ConfigureAwait(false);
+            return await userBusiness.GetFilteredJobsAsync(jobSearchString.SearchQuery, filteredBy).ConfigureAwait(false);
         }
 
         /// <summary>
