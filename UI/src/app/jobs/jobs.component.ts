@@ -1,16 +1,21 @@
 import { AfterViewChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
-import { CompositeFilterDescriptor, filterBy, process, State, distinct } from '@progress/kendo-data-query';
+import { MatDialog } from '@angular/material';
+import {
+  DataStateChangeEvent,
+  GridComponent,
+  GridDataResult,
+  PageChangeEvent,
+  RowClassArgs,
+} from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor, distinct, filterBy, process, State } from '@progress/kendo-data-query';
 
 import { AppComponent } from '../app.component';
-import { JobDetailsModel } from '../Interfaces/jobs';
-import { JobsService } from '../services/jobs.service';
-import { AdalService } from '../shared/services/adal.service';
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
 import { JobSelectionComponent } from '../dialogs/job-selection/job-selection.component';
+import { JobDetailsModel } from '../Interfaces/jobs';
 import { JobStatus } from '../Interfaces/JobStatus';
+import { JobsService } from '../services/jobs.service';
 import { DateAgoPipe } from '../shared/pipes/date-ago.pipe';
+import { AdalService } from '../shared/services/adal.service';
 
 declare var $: any;
 @Component({
@@ -38,15 +43,16 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   filterGridData: JobDetailsModel[] = [];
   searchTerms: any[] = [];
   filteredSearchTerms: any[] = [];
-  searchQuery = new FormControl();
-  currrentUserName: any;
+  previousQuery: any;
+  currrentUserName;
+  searchQuery;
   postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
-    public dialog: MatDialog,
-    private dateAgoPipe: DateAgoPipe,
-    private rootComp: AppComponent,
-    private jobsService: JobsService) { }
+              public dialog: MatDialog,
+              private dateAgoPipe: DateAgoPipe,
+              private rootComp: AppComponent,
+              private jobsService: JobsService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -79,9 +85,11 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
-      this.reviewFilterGridData(response.jobDetails);
-      this.searchQuery.setValue(response.userJobSearchString.split(','));
-    }, (_err) => { });
+      this.filterGridData = response.jobDetails;
+      this.searchQuery = (response.userJobSearchString.split(','));
+    }, (err) => {
+      // console.log(err);
+    });
   }
   showPopup(dataItem) {
     const statusDetails = new JobStatus();
@@ -96,7 +104,6 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       statusDetails.appliedBy = this.currrentUserName;
       statusDetails.AppliedOn = new Date();
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
-        alert('sucess');
         dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
           +this.currrentUserName : this.currrentUserName;
       });
@@ -116,16 +123,73 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     document.body.removeChild(selBox);
     this.showPopup(val);
   }
+  selectAll(selectedStaffNumber) {
+    if (selectedStaffNumber === 'All' && this.searchQuery.includes('All')) {
+      this.searchQuery = [];
+      this.filteredSearchTerms.forEach(element => {
+        this.searchQuery.push(element);
+      });
+    } else if (
+      selectedStaffNumber === 'All' &&
+      this.searchQuery.length ===
+      this.filteredSearchTerms.length - 1
+    ) {
+      this.searchQuery = [];
+    } else if (
+      !this.searchQuery.includes('All') &&
+      this.searchQuery.length ===
+      this.filteredSearchTerms.length - 1
+    ) {
+      this.searchQuery = [];
+      this.filteredSearchTerms.forEach(element => {
+        this.searchQuery.push(element);
+      });
+    } else if (
+      this.searchQuery.includes('All') &&
+      this.searchQuery.length ===
+      this.filteredSearchTerms.length - 1
+    ) {
+      this.searchQuery = [];
+      this.filteredSearchTerms.forEach(element => {
+        if (element !== 'All' && element !== selectedStaffNumber) {
+          this.searchQuery.push(element);
+        }
+      });
+    }
+    // else if (
+    //   !this.searchQuery.includes('All') &&
+    //   this.filteredStaffNumberList.length !==
+    //   this.filteredSearchTerms.length
+    // ) {
+    //   if (this.searchQuery.includes(selectedStaffNumber)) {
+    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
+    //     this.searchQuery.push(selectedStaffNumber);
+    //     if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
+    //       this.searchQuery.push('All');
+    //     }
+    //   } else if (!this.searchQuery.includes(selectedStaffNumber)) {
+    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedStaffNumber
+    //       && staffNumber !== 'All');
+    //   }
+    // }
+    // this.previousQuery = this.searchQuery;
+  }
 
   getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
-      this.filteredSearchTerms = this.searchTerms = res;
+      // this.filteredSearchTerms();
+      this.filteredSearchTerms.push('All');
+      this.searchTerms = res;
+      res.forEach(el => {
+        this.filteredSearchTerms.push(el);
+      });
       // console.log(res);
     });
   }
   onSearch() {
-    this.jobsService.GetJobSearchResults(this.searchQuery.value, this.currrentUserName).subscribe(res => {
-      this.reviewFilterGridData(res);
+    const query = this.searchQuery.filter(x => x !== 'All').join();
+    this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
+      this.filterGridData = res;
     });
   }
   onInputChange(event: string = '') {

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form class="Search-from">
+    <div class="Search-from">
         <div class="row align-items-center justify-content-center mb-10">
             <div class="col-md-1">
                 <div class="allJobsLabel">
@@ -24,11 +24,11 @@
                                         <mat-placeholder>Skills</mat-placeholder>
                                         <mat-icon matPrefix style="margin-right: 8px;"><i class="fa fa-briefcase"
                                                 aria-hidden="true"></i></mat-icon>
-                                        <mat-select [formControl]="searchQuery" multiple>
+                                        <mat-select [(ngModel)]="searchQuery" multiple>
                                             <input matInput (input)="onInputChange($event.target.value)"
                                                 placeholder="Search here" class="customInputField" autocomplete="off" />
                                             <perfect-scrollbar class="perfect_customscroll">
-                                                <mat-option *ngFor="let term of filteredSearchTerms" [value]="term">
+                                                <mat-option (click)="selectAll(term)" *ngFor="let term of filteredSearchTerms" [value]="term">
                                                     {{term}}
                                                 </mat-option>
                                             </perfect-scrollbar>
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
     <div class="row" style="margin-top: -10px;">
         <div class="col-md-12">
             <div class="table-responsive">
