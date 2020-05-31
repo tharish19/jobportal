@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="Search-from">
+        <div class="row align-items-center justify-content-center mb-10">
+            <div class="allJobsLabel">
+                <span>JOBS SEARCH DATA</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: -10px;">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <kendo-grid #grid id="GridID" [kendoGridBinding]="gridData"
+                    class="CustomGrid GridScroll KendoCustomScroll" filterable="menu" [filter]="filter"
+                    (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort" [pageSize]="pageSize"
+                    (pageChange)="pageChange($event)" (dataStateChange)="dataStateChange($event)" [reorderable]="true"
+                    [resizable]="true" [sortable]="{allowUnsort: true}" [pageable]="false">
+                    <kendo-grid-column field="jobRole" title="No." sortable="true" width="50" filterable="false">
+                        <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
+                            {{i+1}}
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="jobRole" title="Job Role" sortable="true" width="300">
+                        <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
+                            let-filterService="filterService">
+                            <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
+                                operator="contains" [filterService]="filterService">
+                                <kendo-filter-contains-operator></kendo-filter-contains-operator>
+                                <kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+                                <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                            </kendo-grid-string-filter-menu>
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="actions" title="Actions" width="100" filterable="false"
+                        [sortable]="false">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <div class="datatableactions">
+                                <button type="button" (click)="OpenEditJobRole()" class="cu_but_icon">
+                                    <mat-icon class="svgclass21  cursor-pointer text-yellow circleForIcon"
+                                        svgIcon="icon_edit"></mat-icon>
+                                </button>
+                                <button type="button" (click)="delete()" class="cu_but_icon">
+                                    <mat-icon class="svgclass21 text-danger cursor-pointer circleForIcon"
+                                        svgIcon="icon_close"></mat-icon>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </kendo-grid-column>
+                </kendo-grid>
+            </div>
+        </div>
+    </div>
+</div>

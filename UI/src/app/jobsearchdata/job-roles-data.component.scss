@@ -1,0 +1,40 @@
+.datatableactions .mat-icon-button {
+    height: auto;
+    line-height: normal;
+    width: auto;
+  }
+  .datatableactions button {
+    border: 0px;
+    background: transparent;
+    padding: 0px;
+  }
+.datatableactions a {
+    color: #b7b7b7 !important;
+    font-size: 16px;
+    padding: 0 2px;
+    &:hover {
+      color: #ff6000 !important;
+    }
+  }
+  .cu_but_icon {
+    border: none;
+    background-color: transparent;
+    height: 25px;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .circleForIcon {
+    border-radius: 100%;
+    border: 1px solid #ff6000;
+    padding: 2px;
+    outline: none;
+    &.text-yellow {
+      border: 1px solid #ffbb2f;
+      &:hover {
+        color: #ffbb2f !important;
+      }
+    }
+  }
