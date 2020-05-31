@@ -37,7 +37,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   filterGridData: JobDetailsModel[] = [];
   searchTerms: any[] = [];
   filteredSearchTerms: any[] = [];
-  searchQuery = new FormControl();
+  searchQuery: any;
+  previousQuery: any;
   currrentUserName;
 
   constructor(private adalService: AdalService,
@@ -48,7 +49,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
       this.filterGridData = response.jobDetails;
-      this.searchQuery.setValue(response.userJobSearchString.split(','));
+      this.searchQuery = (response.userJobSearchString.split(','));
     }, (err) => {
       // console.log(err);
     });
@@ -84,17 +85,74 @@ copyInputMessage(val) {
     document.body.removeChild(selBox);
     this.showPopup(val);
   }
+  selectAll(selectedStaffNumber) {
+    if (selectedStaffNumber === 'All' && this.searchQuery.includes('All')) {
+      this.searchQuery = [];
+      this.filteredSearchTerms.forEach(element => {
+        this.searchQuery.push(element);
+      });
+    } else if (
+      selectedStaffNumber === 'All' &&
+      this.searchQuery.length ===
+      this.filteredSearchTerms.length - 1
+    ) {
+      this.searchQuery = [];
+    } else if (
+      !this.searchQuery.includes('All') &&
+      this.searchQuery.length ===
+      this.filteredSearchTerms.length - 1
+    ) {
+      this.searchQuery = [];
+      this.filteredSearchTerms.forEach(element => {
+        this.searchQuery.push(element);
+      });
+    } else if (
+      this.searchQuery.includes('All') &&
+      this.searchQuery.length ===
+      this.filteredSearchTerms.length - 1
+    ) {
+      this.searchQuery = [];
+      this.filteredSearchTerms.forEach(element => {
+        if (element !== 'All' && element !== selectedStaffNumber) {
+          this.searchQuery.push(element);
+        }
+      });
+    }
+    // else if (
+    //   !this.searchQuery.includes('All') &&
+    //   this.filteredStaffNumberList.length !==
+    //   this.filteredSearchTerms.length
+    // ) {
+    //   if (this.searchQuery.includes(selectedStaffNumber)) {
+    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
+    //     this.searchQuery.push(selectedStaffNumber);
+    //     if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
+    //       this.searchQuery.push('All');
+    //     }
+    //   } else if (!this.searchQuery.includes(selectedStaffNumber)) {
+    //     this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedStaffNumber
+    //       && staffNumber !== 'All');
+    //   }
+    // }
+    // this.previousQuery = this.searchQuery;
+  }
 
 getSearchTerms() {
     this.jobsService.GetJobSearchTerms().subscribe(res => {
-      this.filteredSearchTerms = this.searchTerms = res;
+      // this.filteredSearchTerms();
+      this.filteredSearchTerms.push('All');
+      this.searchTerms = res;
+      res.forEach(el => {
+        this.filteredSearchTerms.push(el);
+      });
       // console.log(res);
     });
   }
 onSearch() {
-    this.jobsService.GetJobSearchResults(this.searchQuery.value, this.currrentUserName).subscribe(res => {
+  const query = this.searchQuery.filter(x => x !== 'All').join();
+  this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
       this.filterGridData = res;
-    });
+    })  ;
   }
 onInputChange(event: string = '') {
     this.filteredSearchTerms = this.searchTerms.filter(
