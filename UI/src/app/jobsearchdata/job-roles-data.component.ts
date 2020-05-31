@@ -49,8 +49,8 @@ export class JobRolesDataComponent implements OnInit {
 
     OpenEditJobRole() {
         const dialogRef = this.dialog.open(AddJobRoleComponent, {
-            width: '35%',
             panelClass: 'AddJobSearchData',
+            width: '35%',
             data: {
                 jobsearchstring: { jobRole: 'Test' },
                 jobRoleId: 1

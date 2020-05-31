@@ -25,6 +25,10 @@
     vertical-align: middle;
     margin-right: 5px;
     cursor: pointer;
+    svg{
+      height:21px;
+      width: 21px;
+    }
   }
   .circleForIcon {
     border-radius: 100%;
@@ -33,8 +37,18 @@
     outline: none;
     &.text-yellow {
       border: 1px solid #ffbb2f;
+      color:#ffbb2f;
+      fill:#ffbb2f;
       &:hover {
         color: #ffbb2f !important;
+      }
+    }
+    &.text-danger{
+      border: 1px solid #c82333;
+      color:#c82333 ;
+      fill:#c82333 ;
+      &:hover{
+        color:#c82333 !important;
       }
     }
   }

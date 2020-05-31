@@ -1,47 +1,39 @@
-<form [formGroup]="addJobRoleForm">
-    <div class="row">
-        <div class="col-md-8 mb5">
-            <p *ngIf="data && !data.edit" class="page_title uppercase orange_clr d-inline">Add Job Role</p>
-            <p *ngIf="data && data.edit === true " class="page_title uppercase orange_clr d-inline">
-                Update Job Role</p>
-        </div>
-        <div class="col-md-4">
-            <div class="PopCloseIcon cursor-pointer" (click)="close()"><i class="material-icons">x</i></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 doc_name">
-                    <mat-form-field class="example-full-width">
-                        <mat-placeholder>Job Role </mat-placeholder>
-                        <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                        <input pattern="^[A-Za-z][A-Za-z\s\-]*" matInput formControlName="jobRole" maxlength="100" />
-                        <!-- <mat-error *ngIf="documentForm.controls['docName'].errors?.required">
-                        {{this.appMessagesService.customRequiredMessages("document name")}}
-                    </mat-error>
-                    <span class="customErr"
-                        *ngIf="isDocumentExists && !(documentForm.controls['docName'].errors?.required) && !(documentForm.controls['docName'].errors?.pattern)">
-                        {{this.appMessagesService.appStaticMessages.Admin.DocumentNameExists}}
-                    </span>
-                    <mat-error *ngIf="documentForm.controls['docName'].errors?.pattern">
-                        {{this.appMessagesService.customValidator("document name")}}
-                    </mat-error> -->
-                    </mat-form-field>
+<div class="container-fluid">
+    <form [formGroup]="addJobRoleForm">
+        <div class="row mb-30">
+            <div class="col-md-8">
+                <p *ngIf="data && !data.edit" class="page_title uppercase title_clr d-inline">Add Job Role</p>
+                <p *ngIf="data && data.edit === true " class="page_title uppercase orange_clr d-inline">
+                    Update Job Role</p>
+            </div>
+            <div class="col-md-4 text-right">
+                <div class="cursor-pointer" (click)="close()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 24 24" width="21" class="text-danger cursor-pointer circleForIcon">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
                 </div>
             </div>
         </div>
-        <div class="container editclosewrap">
-            <div class="td-actions text-right">
-                <button (click)="close()" type="button" rel="tooltip" class="btn btn-danger btn-round btn-fab btn-sm"
-                    title="">
-                    <i class="material-icons">Cancel</i>
+        <div class="row mb-30">
+            <div class="col-md-12">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Job Role </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <input pattern="^[A-Za-z][A-Za-z\s\-]*" matInput formControlName="jobRole" maxlength="100" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" (click)="save()" class="btn btn-success cursor-pointer">
+                    Ok
                 </button>
-                <button type="button" rel="tooltip" (click)="save()"
-                    class="btn btn-success btn-round btn-fab btn-sm cursor-pointer">
-                    <i class="material-icons">Ok</i>
+                <button (click)="save()" type="button" class="btn btn-danger cursor-pointer">
+                    Cancel
                 </button>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

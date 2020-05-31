@@ -25,8 +25,12 @@ export class SideNavComponent {
 
     ngOnInit() {
         this.tplSvc.isSideNavCollapseChanges.subscribe(isCollapse => this.isCollapse = isCollapse);
-        $(".Profile_button").click(function () {
+        $(".Profile_button").click(function (e) {
             $("#logoutbtn").toggle();
+            e.stopPropagation();
+        });
+        $(document).click(function (e) {
+            $("#logoutbtn").hide();
         });
     }
     logout() {
