@@ -104,8 +104,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       statusDetails.appliedBy = this.currrentUserName;
       statusDetails.AppliedOn = new Date();
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
+        dataItem.jobStatus = statusDetails.jobStatus.toString();
         dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
           +this.currrentUserName : this.currrentUserName;
+        // this.rowCallback(dataItem);
       });
     });
   }
