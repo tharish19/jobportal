@@ -37,9 +37,11 @@ namespace rest_api_jobs.Business
         {
             UserJobDetailsAndSearchStringsModel userJobDetailsAndSearchStrings = new UserJobDetailsAndSearchStringsModel();
 
+            List<JobRolesModel> jobSearchStrings = await userRepository.GetJobSearchStringsAsync().ConfigureAwait(false);
             string userJobSearchString = (userId != null && userId != "") ? await userRepository.GetUserJobSearchStringsAsync(userId).ConfigureAwait(false) : "";
 
             userJobDetailsAndSearchStrings.UserJobSearchString = userJobSearchString;
+            userJobDetailsAndSearchStrings.JobSearchStrings = jobSearchStrings;
 
             if (userJobSearchString != null && userJobSearchString != "")
             {
@@ -74,7 +76,7 @@ namespace rest_api_jobs.Business
         /// Gets the job search strings.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> GetJobSearchStringsAsync()
+        public async Task<List<JobRolesModel>> GetJobSearchStringsAsync()
         {
             return await userRepository.GetJobSearchStringsAsync().ConfigureAwait(false);
         }
@@ -109,6 +111,16 @@ namespace rest_api_jobs.Business
         public async Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus)
         {
             return await userRepository.AddOrUpdateJobStatusAsync(jobStatus).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Adds the or update job roles asynchronous.
+        /// </summary>
+        /// <param name="jobRoles">The job roles.</param>
+        /// <returns></returns>
+        public async Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles)
+        {
+            return await userRepository.AddOrUpdateJobRolesAsync(jobRoles).ConfigureAwait(false);
         }
 
         #region Private Methods

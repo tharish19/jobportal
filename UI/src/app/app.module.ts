@@ -17,7 +17,7 @@ import { CommonLayoutComponent } from './common/common-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobSelectionComponent } from './dialogs/job-selection/job-selection.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { JobSearchDataComponent } from './jobsearchdata/job-search-data.component';
+import { JobRolesDataComponent } from './jobsearchdata/job-roles-data.component';
 import { OAuthCallbackComponent } from './login-callback/oauth-callback.component';
 import { SignInComponent } from './login-callback/sign-in/sign-in.component';
 import { NoRightClickDirective } from './shared/directives/no-right-click.directive';
@@ -30,6 +30,7 @@ import { SidePanelComponent } from './template/side-panel/side-panel.component';
 import { TemplateModule } from './template/template.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomloaderComponent } from './shared/customloader/customloader.component';
+import { AddJobRoleComponent } from './jobsearchdata/addjobsearchdata/add-job-role.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient);
@@ -88,8 +89,9 @@ export class CommonExternalModules { }
         SideNavComponent,
         SidePanelComponent,
         DashboardComponent,
-        JobSearchDataComponent,
-        CustomloaderComponent
+        JobRolesDataComponent,
+        CustomloaderComponent,
+        AddJobRoleComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

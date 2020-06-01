@@ -34,7 +34,7 @@ namespace rest_api_jobs.Repository
         /// Gets the job search strings.
         /// </summary>
         /// <returns></returns>
-        Task<List<string>> GetJobSearchStringsAsync();
+        Task<List<JobRolesModel>> GetJobSearchStringsAsync();
 
         /// <summary>
         /// Gets the filtered jobs.
@@ -52,5 +52,12 @@ namespace rest_api_jobs.Repository
         /// <param name="jobStatus">The job status.</param>
         /// <returns></returns>
         Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus);
+
+        /// <summary>
+        /// Adds the or update job roles asynchronous.
+        /// </summary>
+        /// <param name="jobRoles">The job roles.</param>
+        /// <returns></returns>
+        Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles);
     }
 }

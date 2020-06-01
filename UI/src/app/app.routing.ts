@@ -7,10 +7,15 @@ import { SignInComponent } from './login-callback/sign-in/sign-in.component';
 import { AuthenticationGuard } from './shared/services/authenticated.guard';
 import { OAuthCallbackHandler } from './shared/services/oauth-callback.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { JobSearchDataComponent } from './jobsearchdata/job-search-data.component';
+import { JobRolesDataComponent } from './jobsearchdata/job-roles-data.component';
 
 // Layouts
 export const AppRoutes: Routes = [
+    {
+        path: 'login',
+        component: SignInComponent,
+    },
+    { path: 'id_token', component: OAuthCallbackComponent, canActivate: [OAuthCallbackHandler] },
     {
         path: '',
         component: CommonLayoutComponent,
@@ -19,10 +24,6 @@ export const AppRoutes: Routes = [
                 path: '',
                 component: DashboardComponent,
                 canActivate: [AuthenticationGuard]
-            },
-            {
-                path: 'login',
-                component: SignInComponent,
             },
             {
                 path: 'dashboard',
@@ -39,10 +40,9 @@ export const AppRoutes: Routes = [
             },
             {
                 path: 'jobsearchdata',
-                component: JobSearchDataComponent,
+                component: JobRolesDataComponent,
                 canActivate: [AuthenticationGuard]
-            },
-            { path: 'id_token', component: OAuthCallbackComponent, canActivate: [OAuthCallbackHandler] }
+            }
         ]
     }
 
