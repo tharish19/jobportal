@@ -43,24 +43,41 @@ export class JobRolesDataComponent implements OnInit {
         });
     }
 
-    OpenEditJobRole(jobRoleId: number) {
+    OpenEditJobRole(jobRoleId: number = null) {
         const dialogRef = this.dialog.open(AddJobRoleComponent, {
             panelClass: 'AddJobSearchData',
             width: '35%',
             data: {
-                jobRoleData: this.gridData.filter(x => x.jobRoleId === jobRoleId)[0],
+                jobRoleData: (jobRoleId ? this.gridData.filter(x => x.jobRoleId === jobRoleId)[0] : null),
             }
         });
         dialogRef.afterClosed().subscribe(_result => {
             if (_result) {
-                this.gridData.filter(x => x.jobRoleId === _result.jobRoleId)[0].jobRole = _result.jobRole;
+                if (_result.jobRoleId !== 0 && _result.jobRoleId !== -1) {
+                    this.gridData.push(_result);
+                } else {
+                    this.gridData.filter(x => x.jobRoleId === _result.jobRoleId)[0].jobRole = _result.jobRole;
+                }
+                this.gridData = this.gridData;
             }
         });
     }
 
-    delete(jobRoleId: number) {
-        const position = this.gridData.indexOf(this.gridData.filter(x => x.jobRoleId === jobRoleId)[0]);
-        this.gridData.splice(position, 1);
+    delete(_jobRoleId: number) {
+        const updatedJobRole = {
+            jobRoleId: _jobRoleId,
+            jobRole: this.gridData.filter(x => x.jobRoleId === _jobRoleId)[0].jobRole,
+            isDeleted: true
+        };
+        this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
+            if (response !== null) {
+                const position = this.gridData.indexOf(this.gridData.filter(x => x.jobRoleId === _jobRoleId)[0]);
+                this.gridData.splice(position, 1);
+            } else {
+
+            }
+            this.gridData = this.gridData;
+        });
     }
 
     public dataStateChange(state: DataStateChangeEvent): void {

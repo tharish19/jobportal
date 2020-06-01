@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { IJobRoles } from 'src/app/Interfaces/IJobRoles';
+import { JobsService } from 'src/app/services/jobs.service';
 
 @Component({
     selector: 'app-add-job-role',
@@ -14,7 +15,8 @@ export class AddJobRoleComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<AddJobRoleComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        public formBuilder: FormBuilder) {
+        public formBuilder: FormBuilder,
+        private jobsService: JobsService) {
         this.jobRoleData = data.jobRoleData;
     }
     createFormGroup() {
@@ -29,7 +31,21 @@ export class AddJobRoleComponent implements OnInit {
         }
     }
     save() {
-        this.dialogRef.close({ jobRoleId: this.jobRoleData.jobRoleId, jobRole: this.addJobRoleForm.controls.jobRole.value });
+        const updatedJobRole = {
+            jobRoleId: (this.jobRoleData) ? this.jobRoleData.jobRoleId : 0,
+            jobRole: this.addJobRoleForm.controls.jobRole.value,
+            isDeleted: false
+        };
+        this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
+            if (response !== null) {
+                this.dialogRef.close({
+                    jobRoleId: (response === 0) ? this.jobRoleData.jobRoleId : response,
+                    jobRole: this.addJobRoleForm.controls.jobRole.value
+                });
+            } else {
+
+            }
+        });
     }
     cancel() {
         this.addJobRoleForm.controls.jobRole.setValue('');

@@ -139,5 +139,24 @@ namespace rest_api_jobs.Repository
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
             }
         }
+
+        /// <summary>
+        /// Adds the or update job roles asynchronous.
+        /// </summary>
+        /// <param name="jobRoles">The job roles.</param>
+        /// <returns></returns>
+        public async Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                return await connection.ExecuteScalarAsync<int>("AddOrUpdateJobRoles",
+                    new
+                    {
+                        jobRoleId = jobRoles.JobRoleId,
+                        jobRole = jobRoles.JobRole,
+                        isDeleted = jobRoles.IsDeleted
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+            }
+        }
     }
 }

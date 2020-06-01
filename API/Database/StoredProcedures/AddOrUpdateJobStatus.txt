@@ -9,7 +9,7 @@ BEGIN
 		BEGIN
 			UPDATE jobsstatus SET AppliedOn = SYSDATE(), JobStatus = SelectedJobStatus WHERE JobID = SelectedJobID and AppliedBy = AppliedByThe;
 		END;
-		ELSE 
+	ELSE 
 		BEGIN
 			INSERT INTO jobsstatus (JobID, JobStatus, AppliedBy, AppliedOn)
 				VALUES (SelectedJobID, SelectedJobStatus, AppliedByThe, SYSDATE());

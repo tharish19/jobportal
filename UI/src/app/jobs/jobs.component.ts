@@ -75,8 +75,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.filterGridData.map((_x, i) => {
       this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
       this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
-      this.filterGridData[i].postedByIcon = this.postedByIconArray
-        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value;
+      this.filterGridData[i].postedByIcon = (this.postedByIconArray
+        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0).length > 0)
+        ? this.postedByIconArray.filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value
+        : null;
 
       // this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
       //   ? (this.filterGridData[i].appliedBy + ', Test User') : '';
@@ -85,9 +87,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
-      this.reviewFilterGridData(response.jobDetails);
       this.searchQuery = (response.userJobSearchString.split(','));
       this.getSearchTerms(response.jobSearchStrings.map(o => o.jobRole));
+      this.reviewFilterGridData(response.jobDetails);
     });
   }
   showPopup(dataItem) {
@@ -180,16 +182,16 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.getJobsData();
     this.currrentUserName = this.adalService.userInfo.profile.name;
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
-    this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
+    this.postedByIconArray.push({ key: 'addison group', value: 'addisongroup.png' });
+    this.postedByIconArray.push({ key: 'career builder', value: 'careerbuilder.png' });
     this.postedByIconArray.push({ key: 'Collabera', value: 'collabera.png' });
-    this.postedByIconArray.push({ key: 'randstadusa', value: 'randstadusa.jpg' });
-    this.postedByIconArray.push({ key: 'careerbuilder', value: 'careerbuilder.png' });
-    this.postedByIconArray.push({ key: 'addisongroup', value: 'addisongroup.png' });
-    this.postedByIconArray.push({ key: 'nttdata', value: 'nttdata.jfif' });
     this.postedByIconArray.push({ key: 'dice', value: 'dice.png' });
     this.postedByIconArray.push({ key: 'indeed', value: 'indeed.ico' });
-    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
     this.postedByIconArray.push({ key: 'kforce', value: 'kforce.png' });
+    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
+    this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
+    this.postedByIconArray.push({ key: 'ntt data', value: 'nttdata.jfif' });
+    this.postedByIconArray.push({ key: 'randstad', value: 'randstadusa.jpg' });
     this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
     this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
   }

@@ -1,18 +1,18 @@
 <div class="container-fluid">
     <div class="Search-from">
         <div class="row align-items-center justify-content-center mb-10">
-            <div class=" col-md-10 allJobsLabel">
+            <div class="col-md-12 allJobsLabel">
                 <h4>JOBS SEARCH DATA</h4>
             </div>
-            <div class="col-md-2 text-right">
-                <button type="button" class="btn  btn-md  text-white btn-search">
-                    <span class="icon-search icon"></span>Add New Jobs</button>
-            </div>
+            <!-- <div class="col-md-3 text-left">
+                <button type="button" class="btn  btn-md  text-white btn-search" (click)="OpenEditJobRole(null)">
+                    <span class="icon-search icon"></span>New Job Role</button>
+            </div> -->
         </div>
     </div>
     <div class="row mb-10">
         <div class="col-md-12">
-            <div class="table-responsive">
+            <div class="table-responsive" style="width: 90%; padding-left: 100px;">
                 <kendo-grid #grid id="GridID" [kendoGridBinding]="gridData"
                     class="CustomGrid GridScroll KendoCustomScroll" filterable="menu" [filter]="filter"
                     (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort" [pageSize]="pageSize"
@@ -44,7 +44,7 @@
                         [sortable]="false">
                         <ng-template kendoGridCellTemplate let-dataItem>
                             <div class="datatableactions">
-                                <button type="button" (click)="OpenEditJobRole(dataItem.jobRoleId)"
+                                <button type="button" [disabled]="1 === 1" (click)="OpenEditJobRole(dataItem.jobRoleId)"
                                     class="cu_but_icon cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 24 24" width="21"
                                         class="text-yellow circleForIcon">
@@ -53,7 +53,7 @@
                                             d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
                                     </svg>
                                 </button>
-                                <button type="button" (click)="delete(dataItem.jobRoleId)"
+                                <button type="button" [disabled]="1 === 1" (click)="delete(dataItem.jobRoleId)"
                                     class="cu_but_icon cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 24 24" width="21"
                                         class="text-danger cursor-pointer circleForIcon">
@@ -69,15 +69,15 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 text-right" style="width: 90%;">
                 <button type="button" class="btn btn-danger buttoncolor cursor-pointer mb-0">
                     Cancel
                 </button>
                 <button type="button" class="btn btn-success buttoncolor cursor-pointer mb-0">
-                    Save Jobs
+                    Save
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->

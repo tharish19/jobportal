@@ -134,10 +134,10 @@
                         </ng-template>
                         <ng-template kendoGridCellTemplate let-dataItem>
                             <span>
-                                <img src="../../assets/images/postedby/{{dataItem.postedByIcon}}" class="companylogo" />
+                                <img src="../../assets/images/postedby/{{dataItem.postedByIcon}}" class="companylogo"
+                                    *ngIf="dataItem.postedByIcon !== null" />
                                 {{dataItem.postedBy}}
                             </span>
-
                         </ng-template>
                     </kendo-grid-column>
                 </kendo-grid>

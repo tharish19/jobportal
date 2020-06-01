@@ -113,6 +113,16 @@ namespace rest_api_jobs.Business
             return await userRepository.AddOrUpdateJobStatusAsync(jobStatus).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Adds the or update job roles asynchronous.
+        /// </summary>
+        /// <param name="jobRoles">The job roles.</param>
+        /// <returns></returns>
+        public async Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles)
+        {
+            return await userRepository.AddOrUpdateJobRolesAsync(jobRoles).ConfigureAwait(false);
+        }
+
         #region Private Methods
 
         /// <summary>
