@@ -2,7 +2,7 @@
     <div class="Search-from">
         <div class="row align-items-center justify-content-center mb-10">
             <div class="col-md-12 allJobsLabel">
-                <h4>JOBS SEARCH DATA</h4>
+                <h4>JOB ROLES</h4>
             </div>
             <!-- <div class="col-md-3 text-left">
                 <button type="button" class="btn  btn-md  text-white btn-search" (click)="OpenEditJobRole(null)">
@@ -18,15 +18,9 @@
                     (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort" [pageSize]="pageSize"
                     (pageChange)="pageChange($event)" (dataStateChange)="dataStateChange($event)" [reorderable]="true"
                     [resizable]="true" [sortable]="{allowUnsort: true}" [pageable]="false">
-                    <kendo-grid-column field="jobRoleId" title="Role Id" sortable="true" width="50">
-                        <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
-                            let-filterService="filterService">
-                            <kendo-grid-numeric-filter-menu [column]="column" [filter]="filter" format="g"
-                                [extra]="false" operator="eq" [filterService]="filterService">
-                                <kendo-filter-eq-operator></kendo-filter-eq-operator>
-                                <kendo-filter-lte-operator></kendo-filter-lte-operator>
-                                <kendo-filter-gte-operator></kendo-filter-gte-operator>
-                            </kendo-grid-numeric-filter-menu>
+                    <kendo-grid-column field="jobRoleId" title="No." sortable="false" width="50" filterable="false">
+                        <ng-template kendoGridCellTemplate let-dataItem let-i="rowIndex">
+                            {{i+1}}
                         </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="jobRole" title="Job Role" sortable="true" width="300">

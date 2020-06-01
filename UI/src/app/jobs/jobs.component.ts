@@ -49,10 +49,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
-              public dialog: MatDialog,
-              private dateAgoPipe: DateAgoPipe,
-              private rootComp: AppComponent,
-              private jobsService: JobsService) { }
+    public dialog: MatDialog,
+    private dateAgoPipe: DateAgoPipe,
+    private rootComp: AppComponent,
+    private jobsService: JobsService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -75,19 +75,20 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.filterGridData.map((_x, i) => {
       this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
       this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
+      this.filterGridData[i].appliedBy = (this.filterGridData[i].appliedBy !== '' && this.filterGridData[i].appliedBy !== null)
+        ? this.filterGridData[i].appliedBy : '-NA-';
       this.filterGridData[i].postedByIcon = (this.postedByIconArray
         .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0).length > 0)
         ? this.postedByIconArray.filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value
         : null;
-
-      // this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
-      //   ? (this.filterGridData[i].appliedBy + ', Test User') : '';
     });
   }
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
-      this.searchQuery = (response.userJobSearchString.split(','));
+      if (response.userJobSearchString) {
+        this.searchQuery = (response.userJobSearchString.split(','));
+      }
       this.getSearchTerms(response.jobSearchStrings.map(o => o.jobRole));
       this.reviewFilterGridData(response.jobDetails);
     });
@@ -107,9 +108,12 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
         if (res) {
           dataItem.jobStatus = statusDetails.jobStatus.toString();
+          if (dataItem.appliedBy === '-NA-') {
+            dataItem.appliedBy = '';
+          }
           dataItem.appliedBy = (dataItem.appliedBy && !dataItem.appliedBy.includes(this.currrentUserName)) ? dataItem.appliedBy + ', ' +
             this.currrentUserName : (dataItem.appliedBy && dataItem.appliedBy.includes(this.currrentUserName)) ?
-            dataItem.appliedBy : this.currrentUserName;
+              dataItem.appliedBy : this.currrentUserName;
         }
       });
     });
@@ -237,9 +241,13 @@ export class JobsComponent implements OnInit, AfterViewChecked {
         const resArr: any[] = [];
         const result = distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName]);
         result.forEach(_obj => {
-          _obj.split(',').forEach(_e => {
-            resArr.push(_e);
-          });
+          if (_obj && _obj.indexOf(',') >= 0) {
+            _obj.split(',').forEach(_e => {
+              resArr.push(_e);
+            });
+          } else {
+            resArr.push(_obj);
+          }
         });
         return resArr.sort(this.compareFields());
       } else {
@@ -251,9 +259,13 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       const resArr: any[] = [];
       const result = distinct(this.filterGridData, fieldName).map(item => item[fieldName]);
       result.forEach(_obj => {
-        _obj.split(',').forEach(_e => {
-          resArr.push(_e);
-        });
+        if (_obj && _obj.indexOf(',') >= 0) {
+          _obj.split(',').forEach(_e => {
+            resArr.push(_e);
+          });
+        } else {
+          resArr.push(_obj);
+        }
       });
       return resArr.sort(this.compareFields());
     } else {
