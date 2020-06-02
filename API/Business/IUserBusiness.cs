@@ -14,7 +14,7 @@ namespace rest_api_jobs.Business
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string userId = null);
+        Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string postedByValues, string userId = null);
 
         /// <summary>
         /// Gets the job search strings.
@@ -28,7 +28,7 @@ namespace rest_api_jobs.Business
         /// <param name="jobSearchString">The job search string.</param>
         /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy);
+        Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy, string postedByValues);
 
         /// <summary>
         /// Adds the or update job status.

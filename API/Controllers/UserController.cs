@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using rest_api_jobs.Business;
 using rest_api_jobs.Models;
 
@@ -21,12 +22,18 @@ namespace rest_api_jobs.Controllers
         private IUserBusiness userBusiness;
 
         /// <summary>
+        /// The configuration
+        /// </summary>
+        public IConfiguration Configuration;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
         /// </summary>
         /// <param name="_userBusiness">The user business.</param>
-        public UserController(IUserBusiness _userBusiness)
+        public UserController(IUserBusiness _userBusiness, IConfiguration _configuration)
         {
             userBusiness = _userBusiness;
+            Configuration = _configuration;
         }
 
         /// <summary>
@@ -36,7 +43,8 @@ namespace rest_api_jobs.Controllers
         [HttpGet("jobsposted/{userid?}")]
         public async Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string userId = null)
         {
-            return await userBusiness.GetLatestJobsAsync(userId).ConfigureAwait(false);
+            string postedByValues = Configuration["PostedBy"];
+            return await userBusiness.GetLatestJobsAsync(postedByValues, userId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -58,7 +66,8 @@ namespace rest_api_jobs.Controllers
         [HttpPost("filter/jobs/{filteredBy}")]
         public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(SearchQueryClientModel jobSearchString, string filteredBy)
         {
-            return await userBusiness.GetFilteredJobsAsync(jobSearchString.SearchQuery, filteredBy).ConfigureAwait(false);
+            string postedByValues = Configuration["PostedBy"];
+            return await userBusiness.GetFilteredJobsAsync(jobSearchString.SearchQuery, filteredBy, postedByValues).ConfigureAwait(false);
         }
 
         /// <summary>

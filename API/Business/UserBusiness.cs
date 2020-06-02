@@ -33,7 +33,7 @@ namespace rest_api_jobs.Business
         /// Gets the latest jobs asynchronous.
         /// </summary>
         /// <returns></returns>
-        public async Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string userId = null)
+        public async Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string postedByValues, string userId = null)
         {
             UserJobDetailsAndSearchStringsModel userJobDetailsAndSearchStrings = new UserJobDetailsAndSearchStringsModel();
 
@@ -45,7 +45,7 @@ namespace rest_api_jobs.Business
 
             if (userJobSearchString != null && userJobSearchString != "")
             {
-                userJobDetailsAndSearchStrings.JobDetails = await GetFilteredJobsAsync(userJobSearchString, userId);
+                userJobDetailsAndSearchStrings.JobDetails = await GetFilteredJobsAsync(userJobSearchString, userId, postedByValues);
                 return userJobDetailsAndSearchStrings;
             }
             else
@@ -87,18 +87,40 @@ namespace rest_api_jobs.Business
         /// <param name="jobSearchString">The job search string.</param>
         /// <param name="filteredBy">The filtered by.</param>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy)
+        public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy, string postedByValues)
         {
+            string whereCondition = "";
+            string postedByCondition = "";
+            string jobRoleCondition = "";
+            string[] filters;
             holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
             DateTime lastBusinessDateTime = GetLastBusinessDay(DateTime.Today);
-            string[] filters = jobSearchString.Split(',');
-            string whereCondition = "";
-            foreach (var str in filters)
+
+            if (postedByValues != null && postedByValues != "")
             {
-                whereCondition = whereCondition + " OR JD.JobSearchString like '%" + str + "%'";
+                filters = postedByValues.Split(',');
+
+                foreach (var str in filters)
+                {
+                    postedByCondition = postedByCondition + " OR JD.PostedBy like '%" + str + "%'";
+                }
+
+                postedByCondition = Regex.Replace(postedByCondition, "^ OR (.*)", " AND ($1) ");
             }
 
-            whereCondition = Regex.Replace(whereCondition, "^ OR (.*)", " AND ($1)" + " order by JD.RowInsertDate Desc");
+            if (jobSearchString != null && jobSearchString != "")
+            {
+                filters = jobSearchString.Split(',');
+
+                foreach (var str in filters)
+                {
+                    jobRoleCondition = jobRoleCondition + " OR JD.JobSearchString like '%" + str + "%'";
+                }
+
+                jobRoleCondition = Regex.Replace(jobRoleCondition, "^ OR (.*)", " AND ($1)");
+            }
+
+            whereCondition = postedByCondition + jobRoleCondition + " order by JD.RowInsertDate Desc";
 
             return await userRepository.GetFilteredJobsAsync(whereCondition, lastBusinessDateTime, jobSearchString, filteredBy).ConfigureAwait(false);
         }
