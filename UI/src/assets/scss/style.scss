@@ -607,3 +607,39 @@ input.mat-input-element {
 		border-color:#ff6000;
 	}
 }
+@media only screen and (max-width: 2840px) and (min-width: 1441px) {
+	.side-nav:hover {
+		width: 305px;
+		.side-nav-inner .side-nav-logo {
+			background-color: #696969;
+			> a{
+				max-width: 300px !important;
+			}
+		}
+		.logo-dark {
+			background-image: url('../images/logo/full_logo.png') !important;
+			background-size: 100% 60%;
+		}
+	}
+}
+@media only screen and (max-width: 2840px) and (min-width: 1441px) {
+	.side-nav {
+		width: 50px;
+		.side-nav-inner .side-nav-logo {
+			background-color: #fff;
+			padding: 0px;
+		}
+		.logo-dark {
+			background-image: url('../images/logo/logo-white-sm.png') !important;
+			background-size: 100% 100%;
+		}
+	}
+	.side-nav .side-nav-inner .side-nav-menu {
+		height: calc(100vh - 19%);
+		overflow: hidden;
+	}
+	.page-container .main-content {
+		padding: 10px 0px 0px 55px;
+	}
+	
+}

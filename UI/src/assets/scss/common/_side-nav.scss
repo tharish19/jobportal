@@ -326,7 +326,7 @@
 
 	.side-nav {
 		@include screen-laptop-above {
-			width: $collapsed-size;
+			width: 70px;
 		
 			.side-nav-inner {
 				
