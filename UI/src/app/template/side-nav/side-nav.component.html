@@ -12,7 +12,7 @@
         </div>
         <ul class="side-nav-menu scrollable navbarhover m-t30" id="nav">
             <li routerLinkActive="active">
-                <a class="dropdown-toggle" href="" [routerLink]="['/dashboard']">
+                <a class="dropdown-toggle" href="" [routerLink]="['']">
                     <span class="icon-holder">
                         <svg version="1.1" id="Capa_1" height="30" width="30" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 480.006 480.006"
@@ -116,7 +116,7 @@
                 </a>
             </li>
             <li routerLinkActive="active">
-                <a class="dropdown-toggle" href="" [routerLink]="['/jobs']">
+                <a class="dropdown-toggle"  [routerLink]="['/jobs']">
                     <span class="icon-holder">
                         <svg xmlns="http://www.w3.org/2000/svg" id="_x31__px" enable-background="new 0 0 24 24"
                             height="30" viewBox="0 0 24 24" width="30">
@@ -165,14 +165,14 @@
                                 d="m13.5 15h-10c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h10c.276 0 .5.224.5.5s-.224.5-.5.5z" />
                         </svg>
                     </span>
-                    <span class="title">SEARCH DATA</span>
+                    <span class="title">JOB ROLES</span>
                 </a>
             </li>
         </ul>
         <div class='logoutbtn'>
             <ul class="side-nav-menu_profile navbarhover" id="logoutbtn" (click)="logout()">
                 <li clas="nav-item user-profile">
-                    <div class="card_profile">
+                    <div class="card_profile card_profile_logout">
                         <span class="icon-holder">
                             <svg width="18px" height="18px" viewBox="0 0 1024 1024" class="sc-13tn5xx-0 ehbVbe">
                                 <path fill="#13292d" color="#13292d"

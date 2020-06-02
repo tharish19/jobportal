@@ -44,8 +44,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   searchTerms: any[] = [];
   filteredSearchTerms: any[] = [];
   previousQuery: any;
-  currrentUserName;
-  searchQuery;
+  currrentUserName: string;
+  searchQuery: any;
   postedByIconArray: any[] = [];
 
   constructor(private adalService: AdalService,
@@ -75,19 +75,22 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.filterGridData.map((_x, i) => {
       this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
       this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
-      this.filterGridData[i].postedByIcon = this.postedByIconArray
-        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value;
-
-      // this.filterGridData[i].appliedBy = this.filterGridData[i].appliedBy !== null
-      //   ? (this.filterGridData[i].appliedBy + ', Test User') : '';
+      this.filterGridData[i].appliedBy = (this.filterGridData[i].appliedBy !== '' && this.filterGridData[i].appliedBy !== null)
+        ? this.filterGridData[i].appliedBy : '-NA-';
+      this.filterGridData[i].postedByIcon = (this.postedByIconArray
+        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0).length > 0)
+        ? this.postedByIconArray.filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value
+        : null;
     });
   }
 
   getJobsData() {
     this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
+      if (response.userJobSearchString) {
+        this.searchQuery = (response.userJobSearchString.split(','));
+      }
+      this.getSearchTerms(response.jobSearchStrings.map(o => o.jobRole));
       this.reviewFilterGridData(response.jobDetails);
-      this.searchQuery = (response.userJobSearchString.split(','));
-      this.getSearchTerms(response.jobSearchStrings);
     });
   }
   showPopup(dataItem) {
@@ -103,8 +106,15 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       statusDetails.appliedBy = this.currrentUserName;
       statusDetails.AppliedOn = new Date();
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
-        dataItem.appliedBy = dataItem.appliedBy ? dataItem.appliedBy + ', ' +
-          +this.currrentUserName : this.currrentUserName;
+        if (res) {
+          dataItem.jobStatus = statusDetails.jobStatus.toString();
+          if (dataItem.appliedBy === '-NA-') {
+            dataItem.appliedBy = '';
+          }
+          dataItem.appliedBy = (dataItem.appliedBy && !dataItem.appliedBy.includes(this.currrentUserName)) ? dataItem.appliedBy + ', ' +
+            this.currrentUserName : (dataItem.appliedBy && dataItem.appliedBy.includes(this.currrentUserName)) ?
+              dataItem.appliedBy : this.currrentUserName;
+        }
       });
     });
   }
@@ -180,16 +190,16 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.getJobsData();
     this.currrentUserName = this.adalService.userInfo.profile.name;
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
-    this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
+    this.postedByIconArray.push({ key: 'addison group', value: 'addisongroup.png' });
+    this.postedByIconArray.push({ key: 'career builder', value: 'careerbuilder.png' });
     this.postedByIconArray.push({ key: 'Collabera', value: 'collabera.png' });
-    this.postedByIconArray.push({ key: 'randstadusa', value: 'randstadusa.jpg' });
-    this.postedByIconArray.push({ key: 'careerbuilder', value: 'careerbuilder.png' });
-    this.postedByIconArray.push({ key: 'addisongroup', value: 'addisongroup.png' });
-    this.postedByIconArray.push({ key: 'nttdata', value: 'nttdata.jfif' });
     this.postedByIconArray.push({ key: 'dice', value: 'dice.png' });
     this.postedByIconArray.push({ key: 'indeed', value: 'indeed.ico' });
-    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
     this.postedByIconArray.push({ key: 'kforce', value: 'kforce.png' });
+    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
+    this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
+    this.postedByIconArray.push({ key: 'ntt data', value: 'nttdata.jfif' });
+    this.postedByIconArray.push({ key: 'randstad', value: 'randstadusa.jpg' });
     this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
     this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
   }
@@ -231,9 +241,13 @@ export class JobsComponent implements OnInit, AfterViewChecked {
         const resArr: any[] = [];
         const result = distinct(filterBy(this.filterGridData, this.filter), fieldName).map(item => item[fieldName]);
         result.forEach(_obj => {
-          _obj.split(',').forEach(_e => {
-            resArr.push(_e);
-          });
+          if (_obj && _obj.indexOf(',') >= 0) {
+            _obj.split(',').forEach(_e => {
+              resArr.push(_e);
+            });
+          } else {
+            resArr.push(_obj);
+          }
         });
         return resArr.sort(this.compareFields());
       } else {
@@ -245,9 +259,13 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       const resArr: any[] = [];
       const result = distinct(this.filterGridData, fieldName).map(item => item[fieldName]);
       result.forEach(_obj => {
-        _obj.split(',').forEach(_e => {
-          resArr.push(_e);
-        });
+        if (_obj && _obj.indexOf(',') >= 0) {
+          _obj.split(',').forEach(_e => {
+            resArr.push(_e);
+          });
+        } else {
+          resArr.push(_obj);
+        }
       });
       return resArr.sort(this.compareFields());
     } else {

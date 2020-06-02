@@ -29,6 +29,6 @@ namespace rest_api_jobs.Models
         /// <value>
         /// The job search strings.
         /// </value>
-        public List<string> JobSearchStrings { get; set; }
+        public List<JobRolesModel> JobSearchStrings { get; set; }
     }
 }

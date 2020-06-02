@@ -22,15 +22,21 @@
                     <mat-placeholder>Job Role </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
                     <input pattern="^[A-Za-z][A-Za-z\s\-]*" matInput formControlName="jobRole" maxlength="100" />
+                     <mat-error *ngIf="addJobRoleForm.controls['jobRole'].errors?.required">
+                         Please enter Job Role.
+                    </mat-error>
+                    <mat-error *ngIf="addJobRoleForm.controls['jobRole'].errors?.pattern">
+                        Job Role does not allow any special characters.
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
                 <button type="button" (click)="save()" class="btn btn-success cursor-pointer">
-                    Ok
+                    Save
                 </button>
-                <button (click)="save()" type="button" class="btn btn-danger cursor-pointer">
+                <button (click)="cancel()" type="button" class="btn btn-danger cursor-pointer">
                     Cancel
                 </button>
             </div>

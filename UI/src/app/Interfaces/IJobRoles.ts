@@ -1,4 +1,4 @@
 export interface IJobRoles {
-    // jobRoleId: number;
+    jobRoleId: number;
     jobRole: string;
 }

@@ -44,11 +44,10 @@ namespace rest_api_jobs.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("searchstrings")]
-        public async Task<List<string>> GetJobSearchStringsAsync()
+        public async Task<List<JobRolesModel>> GetJobSearchStringsAsync()
         {
             return await userBusiness.GetJobSearchStringsAsync().ConfigureAwait(false);
         }
-
 
         /// <summary>
         /// Gets the filtered jobs asynchronous.
@@ -71,6 +70,17 @@ namespace rest_api_jobs.Controllers
         public async Task<bool> AddOrUpdateJobStatusAsync(JobStatusModel jobStatus)
         {
             return await userBusiness.AddOrUpdateJobStatusAsync(jobStatus).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Adds the or update job roles asynchronous.
+        /// </summary>
+        /// <param name="jobRoles">The job roles.</param>
+        /// <returns></returns>
+        [HttpPost("update/job/roles")]
+        public async Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles)
+        {
+            return await userBusiness.AddOrUpdateJobRolesAsync(jobRoles).ConfigureAwait(false);
         }
     }
 }

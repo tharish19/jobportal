@@ -87,11 +87,11 @@ namespace rest_api_jobs.Repository
         /// Gets the job search strings.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<string>> GetJobSearchStringsAsync()
+        public async Task<List<JobRolesModel>> GetJobSearchStringsAsync()
         {
             using (MySqlConnection connection = GetConnection())
             {
-                var dbResult = await connection.QueryAsync<string>("GetJobSearchStrings",
+                var dbResult = await connection.QueryAsync<JobRolesModel>("GetJobSearchStrings",
                     null, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return dbResult.ToList();
             }
@@ -136,6 +136,25 @@ namespace rest_api_jobs.Repository
                         selectedJobID = jobStatus.JobID,
                         selectedJobStatus = jobStatus.JobStatus,
                         appliedByThe = jobStatus.AppliedBy
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// Adds the or update job roles asynchronous.
+        /// </summary>
+        /// <param name="jobRoles">The job roles.</param>
+        /// <returns></returns>
+        public async Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                return await connection.ExecuteScalarAsync<int>("AddOrUpdateJobRoles",
+                    new
+                    {
+                        jobRoleId = jobRoles.JobRoleId,
+                        jobRole = jobRoles.JobRole,
+                        isDeleted = jobRoles.IsDeleted
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
             }
         }

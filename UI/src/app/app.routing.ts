@@ -22,7 +22,7 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: '',
-                component: DashboardComponent,
+                component: JobsComponent,
                 canActivate: [AuthenticationGuard]
             },
             {
