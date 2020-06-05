@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tn.JobPortal.Api", "Tn.JobPortal.Api\Tn.JobPortal.Api.csproj", "{7C5ED1EE-6C14-4487-8477-D75E0905725C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tn.JobPortal.Api", "Tn.JobPortal.Api\Tn.JobPortal.Api.csproj", "{7C5ED1EE-6C14-4487-8477-D75E0905725C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{E6B33B05-1B94-421D-8B90-C0EC5985D5FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{DC8C0C52-13A4-4EBD-B885-A5D137CFFE51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +22,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C5ED1EE-6C14-4487-8477-D75E0905725C} = {E6B33B05-1B94-421D-8B90-C0EC5985D5FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0A19E1A-C477-4D2F-A188-2ACFC34F6D46}
