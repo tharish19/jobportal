@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, NavigationExtras } from '@angular/router';
 import { AdalService } from './adal.service';
-import { ApiService } from './api.service';
+import { IdentityService } from './identity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
 
 export class AuthenticationGuard implements CanActivate {
 
-  constructor(private apiSer: ApiService,
+  constructor(private identityService: IdentityService,
     private router: Router,
     private adalService: AdalService) {
   }
@@ -22,7 +22,7 @@ export class AuthenticationGuard implements CanActivate {
     if (!this.adalService.userInfo) {
       this.router.navigate(['login'], navigationExtras);
     }
-    this.apiSer.token = this.adalService.accessToken;
+    this.identityService.token = this.adalService.accessToken;
     return true;
   }
 }

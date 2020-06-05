@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IJobRoles } from '../Interfaces/IJobRoles';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobsService {
-  API_URL = 'https://rest-api-jobs.azurewebsites.net/api/user/';
-  // API_URL = 'http://localhost:53138/api/user/';
+
+  API_URL = environment.userApiKey + 'user/';
 
   constructor(private httpClient: HttpClient) { }
 

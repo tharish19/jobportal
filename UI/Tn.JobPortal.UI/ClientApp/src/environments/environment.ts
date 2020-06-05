@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  tenant: 'tekninjas.com',
+  clientId: '9b9508ee-8fe2-4769-8de8-de6871c7c730',
+  userApiKey: 'http://localhost:53138/api/'
 };
 
 /*

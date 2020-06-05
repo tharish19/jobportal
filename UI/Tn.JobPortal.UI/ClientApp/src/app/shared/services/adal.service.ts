@@ -1,4 +1,4 @@
-import { ApiService } from './api.service';
+import { IdentityService } from './identity.service';
 import { Injectable } from '@angular/core';
 import { adal } from 'adal-angular';
 
@@ -12,8 +12,8 @@ export class AdalService {
 
     private context: adal.AuthenticationContext;
 
-    constructor(private configService: ApiService) {
-        this.context = new createAuthContextFn(configService.getAdalConfig);
+    constructor(private identityService: IdentityService) {
+        this.context = new createAuthContextFn(identityService.getAdalConfig);
     }
 
     login() {
@@ -33,7 +33,7 @@ export class AdalService {
     }
 
     public get accessToken() {
-        return this.context.getCachedToken(this.configService.getAdalConfig.clientId);
+        return this.context.getCachedToken(this.identityService.getAdalConfig.clientId);
     }
 
     public get isAuthenticated() {
