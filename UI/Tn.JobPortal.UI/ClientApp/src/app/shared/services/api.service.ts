@@ -6,8 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 })
 
 export class ApiService {
-  // API_KEY = 'https://rest-api-jobs.azurewebsites.net';
-  API_KEY = 'http://localhost:53138';
+  API_KEY = 'https://rest-api-jobs.azurewebsites.net';
+  // API_KEY = 'http://localhost:53138';
   token: any = 'my-auth-token';
   httpOptions = {
     headers: new HttpHeaders({

@@ -7,8 +7,8 @@ import { IJobRoles } from '../Interfaces/IJobRoles';
   providedIn: 'root'
 })
 export class JobsService {
-  // API_URL = 'https://rest-api-jobs.azurewebsites.net/api/user/';
-  API_URL = 'http://localhost:53138/api/user/';
+  API_URL = 'https://rest-api-jobs.azurewebsites.net/api/user/';
+  // API_URL = 'http://localhost:53138/api/user/';
 
   constructor(private httpClient: HttpClient) { }
 

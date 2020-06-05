@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{DC8C0C52-13A4-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tn.JobPortal.UI", "UI\Tn.JobPortal.UI\Tn.JobPortal.UI.csproj", "{5E5609FD-DF9B-43DB-B9B6-035797C8F352}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tn.JobPortal.Api", "API\Tn.JobPortal.Api\Tn.JobPortal.Api.csproj", "{9D5E052E-D769-406E-990D-124968760C79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +21,17 @@ Global
 		{5E5609FD-DF9B-43DB-B9B6-035797C8F352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E5609FD-DF9B-43DB-B9B6-035797C8F352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E5609FD-DF9B-43DB-B9B6-035797C8F352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D5E052E-D769-406E-990D-124968760C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D5E052E-D769-406E-990D-124968760C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D5E052E-D769-406E-990D-124968760C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D5E052E-D769-406E-990D-124968760C79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5E5609FD-DF9B-43DB-B9B6-035797C8F352} = {DC8C0C52-13A4-4EBD-B885-A5D137CFFE51}
+		{9D5E052E-D769-406E-990D-124968760C79} = {E6B33B05-1B94-421D-8B90-C0EC5985D5FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0A19E1A-C477-4D2F-A188-2ACFC34F6D46}
