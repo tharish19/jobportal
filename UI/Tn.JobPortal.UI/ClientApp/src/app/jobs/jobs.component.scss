@@ -1,0 +1,33 @@
+.customInputField::placeholder {
+  padding-left: 10px;
+}
+.customInputField {
+  background-color: black;
+  color: white;
+  height: 38px;
+  border-bottom: 1px solid #464646;
+  padding-left: 15px;
+}
+.k-grid tr.submittedClass {
+  background-color: #B5EAD7 !important;
+}
+.k-grid tr.notrelaventClass {
+  background-color: #F7F3E7 !important;
+}
+  
+.btn-refresh{
+  margin-left: 10px;
+}
+.prefex-brief{
+  margin-right: 8px;
+}
+.clicktocopy{
+  height:18px;
+  width:18px;
+  cursor: pointer;
+}
+.companylogo{
+  height:18px;
+  width: 18px;
+  cursor: pointer;
+}
