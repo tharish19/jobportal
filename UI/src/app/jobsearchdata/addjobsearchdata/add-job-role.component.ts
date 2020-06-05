@@ -21,7 +21,8 @@ export class AddJobRoleComponent implements OnInit {
     }
     createFormGroup() {
         return this.formBuilder.group({
-            jobRole: ['', [Validators.required, Validators.maxLength(100)]]
+            jobRole: ['', [Validators.required, Validators.maxLength(100)]],
+            extPhrase: []
         });
     }
     ngOnInit() {
@@ -31,21 +32,27 @@ export class AddJobRoleComponent implements OnInit {
         }
     }
     save() {
-        const updatedJobRole = {
-            jobRoleId: (this.jobRoleData) ? this.jobRoleData.jobRoleId : 0,
-            jobRole: this.addJobRoleForm.controls.jobRole.value,
-            isDeleted: false
-        };
-        this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
-            if (response !== null) {
-                this.dialogRef.close({
-                    jobRoleId: (response === 0) ? this.jobRoleData.jobRoleId : response,
-                    jobRole: this.addJobRoleForm.controls.jobRole.value
-                });
-            } else {
-
+        if (this.addJobRoleForm.valid) {
+            let _jobRole = this.addJobRoleForm.controls.jobRole.value;
+            if (this.addJobRoleForm.controls.extPhrase.value) {
+                _jobRole = '"' + _jobRole + '"';
             }
-        });
+            const updatedJobRole = {
+                jobRoleId: (this.jobRoleData) ? this.jobRoleData.jobRoleId : 0,
+                jobRole: _jobRole,
+                isDeleted: false
+            };
+            this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
+                if (response !== null) {
+                    this.dialogRef.close({
+                        jobRoleId: (response === 0) ? this.jobRoleData.jobRoleId : response,
+                        jobRole: _jobRole
+                    });
+                } else {
+
+                }
+            });
+        }
     }
     cancel() {
         this.addJobRoleForm.controls.jobRole.setValue('');
