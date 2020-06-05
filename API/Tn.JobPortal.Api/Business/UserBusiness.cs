@@ -58,7 +58,7 @@ namespace Tn.JobPortal.Api.Business
                 do
                 {
                     DateTime lastBusinessDateTime = GetLastBusinessDay(date);
-                    jobs = await userRepository.GetLatestJobsAsync(lastBusinessDateTime).ConfigureAwait(false);
+                    jobs = await userRepository.GetLatestJobsAsync(lastBusinessDateTime, userId).ConfigureAwait(false);
 
                     counter++;
                     date = date.AddDays(-1);
@@ -71,7 +71,6 @@ namespace Tn.JobPortal.Api.Business
                 return userJobDetailsAndSearchStrings;
             }
         }
-
         /// <summary>
         /// Gets the job search strings.
         /// </summary>

@@ -243,10 +243,14 @@ export class JobsComponent implements OnInit, AfterViewChecked {
         result.forEach(_obj => {
           if (_obj && _obj.indexOf(',') >= 0) {
             _obj.split(',').forEach(_e => {
-              resArr.push(_e);
+              if (resArr.filter(x => x === _e.trim()).length <= 0) {
+                resArr.push(_e.trim());
+              }
             });
           } else {
-            resArr.push(_obj);
+            if (resArr.filter(x => x === _obj.trim()).length <= 0) {
+              resArr.push(_obj.trim());
+            }
           }
         });
         return resArr.sort(this.compareFields());
@@ -261,10 +265,14 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       result.forEach(_obj => {
         if (_obj && _obj.indexOf(',') >= 0) {
           _obj.split(',').forEach(_e => {
-            resArr.push(_e);
+            if (resArr.filter(x => x === _e.trim()).length <= 0) {
+              resArr.push(_e.trim());
+            }
           });
         } else {
-          resArr.push(_obj);
+          if (resArr.filter(x => x === _obj.trim()).length <= 0) {
+            resArr.push(_obj.trim());
+          }
         }
       });
       return resArr.sort(this.compareFields());

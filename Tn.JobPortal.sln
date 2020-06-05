@@ -11,6 +11,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tn.JobPortal.UI", "UI\Tn.Jo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tn.JobPortal.Api", "API\Tn.JobPortal.Api\Tn.JobPortal.Api.csproj", "{9D5E052E-D769-406E-990D-124968760C79}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C92D4F1D-83D1-404E-9752-2A27B53AD627}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{714AD05D-7C1C-45FF-A664-65F31748A249}"
+	ProjectSection(SolutionItems) = preProject
+		Database\StoredProcedures\AddOrUpdateJobRoles.txt = Database\StoredProcedures\AddOrUpdateJobRoles.txt
+		Database\StoredProcedures\AddOrUpdateJobStatus.txt = Database\StoredProcedures\AddOrUpdateJobStatus.txt
+		Database\StoredProcedures\GetFilteredJobs.txt = Database\StoredProcedures\GetFilteredJobs.txt
+		Database\StoredProcedures\GetHolidayList.txt = Database\StoredProcedures\GetHolidayList.txt
+		Database\StoredProcedures\GetJobSearchStrings.txt = Database\StoredProcedures\GetJobSearchStrings.txt
+		Database\StoredProcedures\GetJobsFromLastBusinessDay.txt = Database\StoredProcedures\GetJobsFromLastBusinessDay.txt
+		Database\StoredProcedures\GetUserJobSearchStrings.txt = Database\StoredProcedures\GetUserJobSearchStrings.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +45,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5E5609FD-DF9B-43DB-B9B6-035797C8F352} = {DC8C0C52-13A4-4EBD-B885-A5D137CFFE51}
 		{9D5E052E-D769-406E-990D-124968760C79} = {E6B33B05-1B94-421D-8B90-C0EC5985D5FA}
+		{714AD05D-7C1C-45FF-A664-65F31748A249} = {C92D4F1D-83D1-404E-9752-2A27B53AD627}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0A19E1A-C477-4D2F-A188-2ACFC34F6D46}

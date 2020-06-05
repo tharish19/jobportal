@@ -69,15 +69,17 @@ namespace Tn.JobPortal.Api.Repository
         /// Gets the latest jobs which are posted after the 4 pm of last business date.
         /// </summary>
         /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <param name="user">The user.</param>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime)
+        public async Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime, string user)
         {
             using (MySqlConnection connection = GetConnection())
             {
                 var dbResult = await connection.QueryAsync<JobDetailsModel>("GetJobsFromLastBusinessDay",
                     new
                     {
-                        lastBusinessDateTime
+                        lastBusinessDateTime,
+                        user
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return dbResult.ToList();
             }

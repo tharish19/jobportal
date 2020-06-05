@@ -30,6 +30,7 @@ export class JobRolesDataComponent implements OnInit {
     public pageSizes = false;
     public previousNext = true;
     gridData: IJobRoles[] = [];
+    infoMessage: string;
 
     constructor(private rootComp: AppComponent,
         private jobsService: JobsService,
@@ -55,10 +56,18 @@ export class JobRolesDataComponent implements OnInit {
             if (_result) {
                 if (_result.jobRoleId !== 0 && _result.jobRoleId !== -1) {
                     this.gridData.push(_result);
+                    this.infoMessage = _result.jobRole + ' is added.';
                 } else {
                     this.gridData.filter(x => x.jobRoleId === _result.jobRoleId)[0].jobRole = _result.jobRole;
+                    this.infoMessage = _result.jobRole + ' is updated.';
                 }
                 this.gridData = this.gridData;
+                setTimeout(() => {
+                    // if (this.isCleared == true) {
+                        this.infoMessage = null;
+                        // this.isCleared = true;
+                    // }
+                }, 3000);
             }
         });
     }

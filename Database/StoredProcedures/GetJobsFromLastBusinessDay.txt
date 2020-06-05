@@ -1,0 +1,41 @@
+﻿DELIMITER //
+CREATE PROCEDURE GetJobsFromLastBusinessDay (
+	IN lastBusinessDateTime datetime,
+	IN User NVARCHAR(100)
+)
+BEGIN
+	SET group_concat_max_len = 2048;
+	
+	SELECT 
+		JD.JobID,
+		JD.JobTitle,
+		JD.JobLocation,
+		JD.JobType,
+		JD.CompanyName,
+		JD.PostedBy,
+		JD.PostedDate,
+		JD.JobURL,
+		JD.RowInsertDate,
+		JD.RowInsertBy,
+		JD.RowUpdateDate,
+		JD.RowUpdateBy,
+		JD.JobSearchString,
+		JD.jobURLSubstr,
+		JD.Archive,
+		CASE WHEN User IS NOT NULL AND (SELECT count(*) FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.AppliedBy = User) > 0 THEN
+				(SELECT JS.JobStatus FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.AppliedBy = User ORDER By JS.AppliedOn DESC LIMIT 1)
+			ELSE (SELECT JS.JobStatus FROM jobsstatus JS where JS.JobID = JD.JobID ORDER By JS.AppliedOn DESC LIMIT 1) 
+		END AS JobStatus,
+		(SELECT GROUP_CONCAT(JS.AppliedBy ORDER BY JS.AppliedOn DESC SEPARATOR ', ') FROM jobsstatus JS where JS.JobID = JD.JobID) AS AppliedBy,
+		CASE WHEN User IS NOT NULL AND (SELECT count(*) FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.AppliedBy = User) > 0 THEN
+				(SELECT JS.AppliedOn FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.AppliedBy = User order by JS.AppliedOn desc LIMIT 1) 
+			ELSE (SELECT JS.AppliedOn FROM jobsstatus JS where JS.JobID = JD.JobID order by JS.AppliedOn desc LIMIT 1) 
+		END AS AppliedOn
+	FROM jobsdetails JD
+	WHERE JD.RowInsertDate >= lastBusinessDateTime 
+		AND JD.JobType <> 'perm'
+		AND JobType <> 'permanent'
+		AND JD.Archive = 0
+	order by JD.RowInsertDate Desc;
+END //
+DELIMITER ;

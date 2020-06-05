@@ -27,8 +27,9 @@ namespace Tn.JobPortal.Api.Repository
         /// Gets the latest jobs.
         /// </summary>
         /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <param name="user">The user.</param>
         /// <returns></returns>
-        Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime);
+        Task<List<JobDetailsModel>> GetLatestJobsAsync(DateTime lastBusinessDateTime, string user);
 
         /// <summary>
         /// Gets the job search strings.
