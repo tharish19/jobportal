@@ -1,6 +1,0 @@
-﻿DELIMITER //
-CREATE PROCEDURE GetHolidayList()
-BEGIN
-	SELECT Date	FROM usholidays;
-END //
-DELIMITER ;

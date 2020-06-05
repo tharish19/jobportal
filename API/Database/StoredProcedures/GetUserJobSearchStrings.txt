@@ -1,8 +1,0 @@
-﻿DELIMITER //
-CREATE PROCEDURE GetUserJobSearchStrings(
-	IN UserId NVARCHAR(100)
-)
-BEGIN
-	SELECT SearchedFilter FROM usersearchfilter usf WHERE usf.UserId = UserId;
-END //
-DELIMITER ;
