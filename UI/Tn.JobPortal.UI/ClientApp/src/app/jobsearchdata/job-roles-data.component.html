@@ -5,9 +5,9 @@
                 <h4>JOB ROLES</h4>
             </div>
             <div class="col-md-6 text-right">
-                <span *ngIf="infoMessage !== null && infoMessage !== ''">{{infoMessage}}</span>
+                <span class="errormsg" *ngIf="infoMessage !== null && infoMessage !== ''">{{infoMessage}}</span>
             </div>
-            <div class="col-md-3 text-left">
+            <div class="col-md-3 text-left pl35">
                 <button type="button" class="btn  btn-md  text-white btn-search" (click)="OpenEditJobRole(null)">
                     <span class="icon-search icon"></span>New Job Role
                 </button>

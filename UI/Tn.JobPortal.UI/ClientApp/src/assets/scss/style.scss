@@ -155,7 +155,7 @@
 		background-color: #2b2b2b;
 	}
 }
-.card_profile_logout{
+.card_profile_logout {
 	&:hover,
 	:focus,
 	:active,
@@ -580,7 +580,11 @@ input.mat-input-element {
 	background-color: #dc3545;
 	border-color: #dc3545;
 	color: #fff;
-	&:hover {
+	border-radius: 0px;
+	&:hover,
+	&:active,
+	&:visited,
+	&:focus {
 		color: #fff;
 		background-color: #c82333;
 		border-color: #bd2130;
@@ -590,7 +594,11 @@ input.mat-input-element {
 	background-color: #28a745;
 	border-color: #28a745;
 	color: #fff;
-	&:hover {
+	border-radius: 0px;
+	&:hover,
+	&:active,
+	&:visited,
+	&:focus {
 		color: #fff;
 		background-color: #218838;
 		border-color: #1e7e34;
@@ -604,17 +612,20 @@ input.mat-input-element {
 .cursor-pointer {
 	cursor: pointer;
 }
-.mb-0{
+.mb-0 {
 	margin-bottom: 0px;
 }
-.buttoncolor{
+.buttoncolor {
 	background-color: #ff6000;
-	color:#fff;
-	border-color:#ff6000;
-	&:hover,&:active,&:focus,&:focus{
+	color: #fff;
+	border-color: #ff6000;
+	&:hover,
+	&:active,
+	&:focus,
+	&:focus {
 		background-color: #ff6000;
-		color:#fff;
-		border-color:#ff6000;
+		color: #fff;
+		border-color: #ff6000;
 	}
 }
 @media only screen and (max-width: 2840px) and (min-width: 1441px) {
@@ -622,12 +633,12 @@ input.mat-input-element {
 		width: 305px;
 		.side-nav-inner .side-nav-logo {
 			background-color: #696969;
-			> a{
+			> a {
 				max-width: 300px !important;
 			}
 		}
 		.logo-dark {
-			background-image: url('../images/logo/full_logo.png') !important;
+			background-image: url("../images/logo/full_logo.png") !important;
 			background-size: 100% 60%;
 		}
 	}
@@ -640,7 +651,7 @@ input.mat-input-element {
 			padding: 0px;
 		}
 		.logo-dark {
-			background-image: url('../images/logo/logo-white-sm.png') !important;
+			background-image: url("../images/logo/logo-white-sm.png") !important;
 			background-size: 100% 100%;
 		}
 	}
@@ -651,5 +662,51 @@ input.mat-input-element {
 	.page-container .main-content {
 		padding: 10px 0px 0px 55px;
 	}
-	
+}
+.inputalignment {
+	padding-left: 0px !important;
+}
+
+.pl35 {
+	padding-left: 35px;
+}
+.errormsg {
+	color: #ce3c4a;
+}
+.btn-custom {
+	width: 100px;
+}
+.font20 {
+	font-size: 20px;
+}
+.line-height50 {
+	line-height: 50px !important;
+}
+.font50 {
+	font-size: 50px !important;
+}
+.pt-10 {
+	padding-top: 10px;
+}
+.font500 {
+	font-weight: 500;
+}
+@media (min-width: 768px) {
+	.pop_dialog {
+		width: 450px;
+	}
+}
+.pt-30 {
+	padding-top: 30px;
+}
+.pb-30 {
+	padding-bottom: 30px;
+}
+.popupcloseposition{
+	position: absolute;
+    top: 3px;
+    right: 5px;
+}
+.AddJobSearchData{
+	position: relative !important;
 }

@@ -1,6 +1,6 @@
-<div class="pt30 pb30 pop_dialog" style="background:#ffffff;">
+<div class="pt-30 pb-30 pop_dialog" style="background:#ffffff;">
   <div class="swal2-icon swal2-warning pulse-warning text-center line-height50" style="display: block;">
-    <div class="font50 pt15">!</div>
+    <div class="font50 pt-10">!</div>
   </div>
   <div class="swal2-icon swal2-success" style="display: none;">
     <span class="line tip"></span>
@@ -9,12 +9,12 @@
     <div class="fix"></div>
   </div>
   <img class="swal2-image" style="display: none;">
-  <h2 align="center" class="font20 font500">{{dialogData.bodyText}}</h2>
-  <div align="center" *ngIf="dialogData.isConfirmCancel">
-    <button mat-button (click)="onCloseConfirm()" class="swal2-confirm btn btn-success">Confirm</button>
-    <button mat-button (click)="onCloseCancel()" class="mr30 swal2-cancel btn btn-danger">Cancel</button>
+  <h2 class="font20 font500 text-center">{{dialogData.bodyText}}</h2>
+  <div  *ngIf="dialogData.isConfirmCancel" class="text-center">
+    <button type="button" (click)="onCloseConfirm()" class="btn btn-success btn-sm btn-custom">Confirm</button>
+<button type="button" (click)="onCloseCancel()" class="btn btn-danger btn-sm btn-custom">Cancel</button>
   </div>
-  <div align="center" *ngIf="!dialogData.isConfirmCancel">
-    <button mat-button (click)="onCloseConfirm()" class="swal2-cancel btn btn-danger">Ok</button>
+  <div  *ngIf="!dialogData.isConfirmCancel">
+    <button  type="button" (click)="onCloseConfirm()" class="btn btn-danger btn-sm btn-custom">Ok</button>
   </div>
 </div>
