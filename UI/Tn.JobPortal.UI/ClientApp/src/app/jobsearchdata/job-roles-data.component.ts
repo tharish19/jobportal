@@ -7,6 +7,7 @@ import { JobsService } from '../services/jobs.service';
 import { MatDialog } from '@angular/material';
 import { AddJobRoleComponent } from './addjobsearchdata/add-job-role.component';
 import { DialogService } from '../services/dailog.service';
+import { AdalService } from '../shared/services/adal.service';
 
 @Component({
     selector: 'app-job-roles-data',
@@ -32,14 +33,25 @@ export class JobRolesDataComponent implements OnInit {
     public previousNext = true;
     gridData: IJobRoles[] = [];
     infoMessage: string;
+    isAuthorizedUser = false;
+    authorizedUsers: any[] = ['Vasanth@tekninjas.com',
+        'naveen@tekninjas.com',
+        'sri@tekninjas.com',
+        'vijay.y@tekninjas.com',
+        'srikanth.a@tekninjas.com'];
 
-    constructor(private rootComp: AppComponent,
+    constructor(private adalService: AdalService,
+        private rootComp: AppComponent,
         private dialogService: DialogService,
         private jobsService: JobsService,
         public dialog: MatDialog) {
     }
 
     ngOnInit() {
+        const userId = this.adalService.userInfo.userName;
+        if (this.authorizedUsers.filter(o => o.toLowerCase() === userId.toLowerCase()).length > 0) {
+            this.isAuthorizedUser = true;
+        }
         this.rootComp.cssClass = 'KendoCustomFilter_list';
         this.jobsService.GetJobSearchTerms().subscribe(res => {
             this.gridData = res;
@@ -77,7 +89,7 @@ export class JobRolesDataComponent implements OnInit {
                 }
                 setTimeout(() => {
                     this.infoMessage = null;
-                }, 3000);
+                }, 5000);
             }
         });
     }
@@ -101,7 +113,7 @@ export class JobRolesDataComponent implements OnInit {
                         }
                         setTimeout(() => {
                             this.infoMessage = null;
-                        }, 3000);
+                        }, 5000);
                     });
                 }
             });
