@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IJobRoles } from '../Interfaces/IJobRoles';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,7 +23,7 @@ export class JobsService {
     const data = { SearchQuery: searchTerm };
     return this.httpClient.post<any>(this.API_URL + `filter/jobs/${userId}`, data);
   }
-  AddOrUpdateJobRole(data: IJobRoles): Observable<any> {
+  AddOrUpdateJobRole(data: any): Observable<any> {
     return this.httpClient.post<any>(this.API_URL + 'update/job/roles', data);
   }
   SubmitFeedBack(data): Observable<any> {

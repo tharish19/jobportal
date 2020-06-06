@@ -29,6 +29,9 @@ export class AddJobRoleComponent implements OnInit {
         this.addJobRoleForm = this.createFormGroup();
         if (this.jobRoleData && this.jobRoleData.jobRoleId) {
             this.addJobRoleForm.controls.jobRole.setValue(this.jobRoleData.jobRole);
+            if (this.jobRoleData.exactPhrase) {
+                this.addJobRoleForm.controls.extPhrase.setValue(true);
+            }
         }
     }
     save() {
@@ -46,7 +49,8 @@ export class AddJobRoleComponent implements OnInit {
                 if (response !== null) {
                     this.dialogRef.close({
                         jobRoleId: (response === 0) ? this.jobRoleData.jobRoleId : response,
-                        jobRole: _jobRole
+                        jobRole: _jobRole,
+                        exactPhrase: this.addJobRoleForm.controls.extPhrase.value
                     });
                 } else {
 

@@ -31,6 +31,8 @@ import { TemplateModule } from './template/template.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomloaderComponent } from './shared/customloader/customloader.component';
 import { AddJobRoleComponent } from './jobsearchdata/addjobsearchdata/add-job-role.component';
+import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient);
@@ -91,7 +93,9 @@ export class CommonExternalModules { }
         DashboardComponent,
         JobRolesDataComponent,
         CustomloaderComponent,
-        AddJobRoleComponent
+        AddJobRoleComponent,
+        AlertDialogComponent,
+        ConfirmDialogComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
@@ -101,7 +105,11 @@ export class CommonExternalModules { }
         ColumnInfoService,
         DateAgoPipe,
         TemplateService],
-    entryComponents: [JobSelectionComponent, CustomloaderComponent],
+    entryComponents: [JobSelectionComponent,
+        CustomloaderComponent,
+        AlertDialogComponent,
+        ConfirmDialogComponent
+    ],
     bootstrap: [AppComponent]
 })
 

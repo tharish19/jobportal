@@ -1,0 +1,26 @@
+<div class="pt30 pb30 pop_dialog" style="background:#ffffff;">
+    <div class="swal2-icon swal2-warning pulse-warning text-center line-height50"
+        *ngIf="dialogData.isSuccessErrorWarning.toLowerCase() === 'warning'">
+        <div class="font50 pt15">!</div>
+    </div>
+    <div class="swal2-icon swal2-warning pulse-warning text-center line-height50"
+        *ngIf="dialogData.isSuccessErrorWarning.toLowerCase() === 'error'">
+        <div class="font50 pt15">x</div>
+    </div>
+    <div class="swal2-icon pulse-success text-center line-height50"
+        *ngIf="dialogData.isSuccessErrorWarning.toLowerCase() === 'success'">
+        <div class="font50 pt15">
+            <img src="assets/img/srcicons/success.png" />
+        </div>
+    </div>
+    <h2 align="center" class="font20 font500" [innerHTML]='dialogData.bodyText'></h2>
+    <div align="center" *ngIf="dialogData.isSuccessErrorWarning === '' || dialogData.isSuccessErrorWarning === null 
+        || (dialogData.isSuccessErrorWarning !== 'error' && dialogData.isSuccessErrorWarning !== 'warning') 
+        || dialogData.isSuccessErrorWarning.toLowerCase() === 'success'">
+        <button mat-button (click)="onCloseConfirm()" class="swal2-confirm btn btn-success">OK</button>
+    </div>
+    <div align="center"
+        *ngIf="dialogData.isSuccessErrorWarning === 'error' || dialogData.isSuccessErrorWarning === 'warning'">
+        <button mat-button (click)="onCloseConfirm()" class="swal2-confirm btn btn-danger">OK</button>
+    </div>
+</div>

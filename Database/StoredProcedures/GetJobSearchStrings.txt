@@ -4,6 +4,7 @@ BEGIN
 	SELECT 
 		DISTINCT jobsearchid AS JobRoleId,
 		JobRole
-	FROM jobssearchstrings;
+	FROM jobssearchstrings 
+	ORDER by JobRole;
 END //
 DELIMITER ;

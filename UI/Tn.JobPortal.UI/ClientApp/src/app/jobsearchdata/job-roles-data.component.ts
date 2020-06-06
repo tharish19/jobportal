@@ -6,6 +6,7 @@ import { AppComponent } from '../app.component';
 import { JobsService } from '../services/jobs.service';
 import { MatDialog } from '@angular/material';
 import { AddJobRoleComponent } from './addjobsearchdata/add-job-role.component';
+import { DialogService } from '../services/dailog.service';
 
 @Component({
     selector: 'app-job-roles-data',
@@ -33,6 +34,7 @@ export class JobRolesDataComponent implements OnInit {
     infoMessage: string;
 
     constructor(private rootComp: AppComponent,
+        private dialogService: DialogService,
         private jobsService: JobsService,
         public dialog: MatDialog) {
     }
@@ -41,10 +43,19 @@ export class JobRolesDataComponent implements OnInit {
         this.rootComp.cssClass = 'KendoCustomFilter_list';
         this.jobsService.GetJobSearchTerms().subscribe(res => {
             this.gridData = res;
+            this.gridData.map((_x, i) => {
+                if (this.gridData[i].jobRole.indexOf('"') >= 0) {
+                    this.gridData[i].jobRole = this.gridData[i].jobRole.replace(/"/ig, '');
+                    this.gridData[i].exactPhrase = true;
+                } else {
+                    this.gridData[i].exactPhrase = false;
+                }
+            });
         });
     }
 
-    OpenEditJobRole(jobRoleId: number = null) {
+    OpenEditJobRole(dataItem: any = null) {
+        const jobRoleId = (dataItem) ? dataItem.jobRoleId : null;
         const dialogRef = this.dialog.open(AddJobRoleComponent, {
             panelClass: 'AddJobSearchData',
             width: '35%',
@@ -54,39 +65,46 @@ export class JobRolesDataComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(_result => {
             if (_result) {
-                if (_result.jobRoleId !== 0 && _result.jobRoleId !== -1) {
-                    this.gridData.push(_result);
-                    this.infoMessage = _result.jobRole + ' is added.';
+                if (dataItem) {
+                    dataItem.jobRole = _result.jobRole.replace(/"/ig, '');
+                    dataItem.exactPhrase = _result.exactPhrase;
+                    this.infoMessage = 'Job Role \'' + _result.jobRole + '\' is updated.';
                 } else {
-                    this.gridData.filter(x => x.jobRoleId === _result.jobRoleId)[0].jobRole = _result.jobRole;
-                    this.infoMessage = _result.jobRole + ' is updated.';
+                    _result.jobRole = _result.jobRole.replace(/"/ig, '');
+                    this.gridData.push(_result);
+                    this.infoMessage = 'Job Role \'' + _result.jobRole + '\' is added.';
+                    this.grid.data = this.gridData;
                 }
-                this.gridData = this.gridData;
                 setTimeout(() => {
-                    // if (this.isCleared == true) {
-                        this.infoMessage = null;
-                        // this.isCleared = true;
-                    // }
+                    this.infoMessage = null;
                 }, 3000);
             }
         });
     }
 
-    delete(_jobRoleId: number) {
-        const updatedJobRole = {
-            jobRoleId: _jobRoleId,
-            jobRole: this.gridData.filter(x => x.jobRoleId === _jobRoleId)[0].jobRole,
-            isDeleted: true
-        };
-        this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
-            if (response !== null) {
-                const position = this.gridData.indexOf(this.gridData.filter(x => x.jobRoleId === _jobRoleId)[0]);
-                this.gridData.splice(position, 1);
-            } else {
-
-            }
-            this.gridData = this.gridData;
-        });
+    delete(dataItem: any) {
+        this.dialogService.openConfirmDialog('Do you wish to delete this Job Role?', true)
+            .afterClosed().subscribe(res => {
+                if (res) {
+                    const updatedJobRole = {
+                        jobRoleId: dataItem.jobRoleId,
+                        jobRole: dataItem.jobRole,
+                        isDeleted: true
+                    };
+                    this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
+                        if (response !== null) {
+                            this.gridData = this.gridData.filter(x => x.jobRoleId !== dataItem.jobRoleId);
+                            this.infoMessage = 'Job Role \'' + dataItem.jobRole + '\' is deleted.';
+                            this.grid.data = this.gridData;
+                        } else {
+                            this.infoMessage = 'An error occurred. Please try again.';
+                        }
+                        setTimeout(() => {
+                            this.infoMessage = null;
+                        }, 3000);
+                    });
+                }
+            });
     }
 
     public dataStateChange(state: DataStateChangeEvent): void {
