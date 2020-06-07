@@ -12,7 +12,7 @@ import { JobRolesDataComponent } from './jobsearchdata/job-roles-data.component'
 // Layouts
 export const AppRoutes: Routes = [
     {
-        path: 'login',
+        path: '',
         component: SignInComponent,
     },
     { path: 'id_token', component: OAuthCallbackComponent, canActivate: [OAuthCallbackHandler] },
@@ -21,22 +21,17 @@ export const AppRoutes: Routes = [
         component: CommonLayoutComponent,
         children: [
             {
-                path: '',
-                component: JobsComponent,
-                canActivate: [AuthenticationGuard]
-            },
-            {
-                path: 'dashboard',
-                component: DashboardComponent,
-                canActivate: [AuthenticationGuard]
-            },
-            {
                 path: 'jobs',
                 component: JobsComponent,
                 canActivate: [AuthenticationGuard],
                 data: {
                     title: 'Grid Table'
                 },
+            },
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+                canActivate: [AuthenticationGuard]
             },
             {
                 path: 'jobsearchdata',

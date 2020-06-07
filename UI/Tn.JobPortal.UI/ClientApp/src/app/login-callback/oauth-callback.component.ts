@@ -13,9 +13,9 @@ export class OAuthCallbackComponent implements OnInit {
 
     ngOnInit() {
         if (!this.adalService.userInfo) {
-            this.router.navigate(['/login']);
-        } else {
             this.router.navigate(['/']);
+        } else {
+            this.router.navigate(['/jobs']);
         }
     }
 }

@@ -22,7 +22,8 @@
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Job Role </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <input pattern="^[A-Za-z\.][A-Za-z\s\-\.\#]*$" matInput formControlName="jobRole" maxlength="100" class="inputalignment" />
+                    <input pattern="^[A-Za-z\.][A-Za-z\s\-\.\#]*$" matInput formControlName="jobRole" maxlength="100"
+                        class="inputalignment" />
                     <mat-error *ngIf="addJobRoleForm.controls['jobRole'].errors?.required">
                         Please enter Job Role.
                     </mat-error>
@@ -44,9 +45,10 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
-                <button type="button"  (click)="save()" class="btn btn-success btn-sm btn-custom cursor-pointer">Save</button>
+                <button type="button" (click)="save()"
+                    class="btn btn-success btn-sm btn-custom cursor-pointer">Save</button>
                 <button (click)="cancel()" type="button" class="btn btn-danger btn-sm btn-custom cursor-pointer">
-                    Cancel
+                    Clear
                 </button>
             </div>
         </div>

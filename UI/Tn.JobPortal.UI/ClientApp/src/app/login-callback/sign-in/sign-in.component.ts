@@ -13,7 +13,7 @@ export class SignInComponent {
         if (!this.adalService.userInfo) {
             this.adalService.login();
         } else {
-            this.router.navigate(['/']);
+            this.router.navigate(['/jobs']);
         }
 
     }
