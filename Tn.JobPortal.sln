@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{E6B33B05-1B9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{DC8C0C52-13A4-4EBD-B885-A5D137CFFE51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tn.JobPortal.UI", "UI\Tn.JobPortal.UI\Tn.JobPortal.UI.csproj", "{5E5609FD-DF9B-43DB-B9B6-035797C8F352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tn.JobPortal.UI", "UI\Tn.JobPortal.UI\Tn.JobPortal.UI.csproj", "{5E5609FD-DF9B-43DB-B9B6-035797C8F352}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tn.JobPortal.Api", "API\Tn.JobPortal.Api\Tn.JobPortal.Api.csproj", "{9D5E052E-D769-406E-990D-124968760C79}"
 EndProject
@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredP
 		Database\StoredProcedures\GetHolidayList.txt = Database\StoredProcedures\GetHolidayList.txt
 		Database\StoredProcedures\GetJobSearchStrings.txt = Database\StoredProcedures\GetJobSearchStrings.txt
 		Database\StoredProcedures\GetJobsFromLastBusinessDay.txt = Database\StoredProcedures\GetJobsFromLastBusinessDay.txt
+		GetLeaderBoardData.txt = GetLeaderBoardData.txt
 		Database\StoredProcedures\GetUserJobSearchStrings.txt = Database\StoredProcedures\GetUserJobSearchStrings.txt
 	EndProjectSection
 EndProject

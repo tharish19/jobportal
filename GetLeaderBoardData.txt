@@ -1,0 +1,15 @@
+DELIMITER //
+CREATE PROCEDURE GetLeaderBoardData (
+	IN StartDateTime datetime
+)
+BEGIN
+	SELECT 
+		JobID,
+        JobStatus,
+        AppliedBy,
+        AppliedOn
+	FROM jobsstatus
+	WHERE AppliedOn >= StartDateTime 
+	ORDER BY AppliedOn Desc;
+END //
+DELIMITER ;
