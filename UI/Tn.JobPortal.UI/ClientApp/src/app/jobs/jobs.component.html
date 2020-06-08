@@ -13,9 +13,9 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div *ngIf="leaderBoardDetails" class="col-md-4">
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
+                            <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
                                 data-toggle="dropdown">
                                 <table class="mainTable">
                                     <tbody>
@@ -50,9 +50,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div *ngIf="leaderBoardDetails" class="col-md-4">
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
+                            <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
                                 data-toggle="dropdown">
                                 <table class="mainTable">
                                     <tr>
@@ -67,12 +67,11 @@
                                                 </tr>
                                             </table>
                                         </td>
-
                                     </tr>
                                 </table>
                             </button>
                             <div class="dropdown-menu">
-                                <h5>Todays Leader Board</h5>
+                                <h5>Weeks Leader Board</h5>
                                 <table class="customtable">
                                     <thead>
                                         <tr>
