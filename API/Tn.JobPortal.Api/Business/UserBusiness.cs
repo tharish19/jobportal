@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Tn.JobPortal.Api.Business
 {
@@ -142,6 +143,45 @@ namespace Tn.JobPortal.Api.Business
         public async Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles)
         {
             return await userRepository.AddOrUpdateJobRolesAsync(jobRoles).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the leader board details asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<LeaderBoardDetails>> GetLeaderBoardDetailsAsync()
+        {
+            int counter = 0;
+            bool isNotDataSufficient = true;
+            holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
+            DateTime date = DateTime.Today;
+            List<JobDetailsModel> result = new List<JobDetailsModel>();
+            do
+            {
+                DateTime lastBusinessDateTime = GetLastBusinessDay(date);
+                result = await userRepository.GetLeaderBoardDetailsAsync(lastBusinessDateTime).ConfigureAwait(false);
+
+                counter++;
+                date = date.AddDays(-1);
+
+                if (counter >= 4)
+                    isNotDataSufficient = false;
+            }
+            while (isNotDataSufficient);
+
+            var groupedUsers = result.GroupBy(x => x.AppliedBy).ToList();
+            var byTotalViews = groupedUsers.OrderByDescending(m => m.Count()).ToList();
+            List<LeaderBoardDetails> leaderBoard = new List<LeaderBoardDetails>();
+
+            foreach (var user in groupedUsers)
+            {
+                LeaderBoardDetails leaderBoardObject = new LeaderBoardDetails();
+                leaderBoardObject.name = user.Key;
+                leaderBoardObject.Rank = byTotalViews.FindIndex(x =>x.Key == user.Key) + 1;
+                leaderBoardObject.submissions = user.Count();
+                leaderBoard.Add(leaderBoardObject);
+            }
+            return leaderBoard;
         }
 
         #region Private Methods

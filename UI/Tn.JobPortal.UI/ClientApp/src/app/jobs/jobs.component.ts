@@ -47,12 +47,13 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   currrentUserName: string;
   searchQuery: any;
   postedByIconArray: any[] = [];
+  leaderBoardDetails: any[] = [];
 
   constructor(private adalService: AdalService,
-    public dialog: MatDialog,
-    private dateAgoPipe: DateAgoPipe,
-    private rootComp: AppComponent,
-    private jobsService: JobsService) { }
+              public dialog: MatDialog,
+              private dateAgoPipe: DateAgoPipe,
+              private rootComp: AppComponent,
+              private jobsService: JobsService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -93,6 +94,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       this.reviewFilterGridData(response.jobDetails);
     });
   }
+
   showPopup(dataItem) {
     const statusDetails = new JobStatus();
     const dialogRef = this.dialog.open(JobSelectionComponent, {
@@ -118,6 +120,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       });
     });
   }
+
   copyInputMessage(val) {
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -132,6 +135,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     document.body.removeChild(selBox);
     this.showPopup(val);
   }
+
   selectAll(selectedJob) {
     if (selectedJob === 'All' && this.searchQuery.includes('All')) {
       this.searchQuery = [];
@@ -166,6 +170,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     }
     this.previousQuery = this.searchQuery;
   }
+
   getSearchTerms(response: any) {
     this.filteredSearchTerms = [];
     this.filteredSearchTerms.push('All');
@@ -174,20 +179,31 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     });
     this.searchTerms = this.filteredSearchTerms;
   }
+
   onSearch() {
     const query = this.searchQuery.filter(x => x !== 'All').join();
     this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
       this.reviewFilterGridData(res);
     });
   }
+
   onInputChange(event: string = '') {
     this.filteredSearchTerms = this.searchTerms.filter(
       employee => String(employee.toLowerCase()).startsWith(
         event.toLowerCase()));
   }
+
+  getLeaderBoard() {
+    this.jobsService.getLeaderBoard().subscribe(res => {
+      this.leaderBoardDetails = res;
+      console.log(this.leaderBoardDetails);
+    });
+  }
+
   ngOnInit() {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
+    this.getLeaderBoard();
     this.currrentUserName = this.adalService.userInfo.profile.name;
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
     this.postedByIconArray.push({ key: 'addison group', value: 'addisongroup.png' });
@@ -212,10 +228,12 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.skip = event.skip;
     this.pageSize = event.take;
   }
+
   public filterChange(filter: CompositeFilterDescriptor): void {
     this.filter = filter;
     // this.grid.data = filterBy(this.filterGridData, filter);
   }
+
   filterData(data: any[]): any[] {
     return process(
       data,
@@ -225,6 +243,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
         filter: this.filter
       }).data;
   }
+
   ngAfterViewChecked(): void {
     if (this.grid !== undefined && this.grid !== null) { } {
       const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
@@ -280,6 +299,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       return distinct(this.filterGridData, fieldName).map(item => item[fieldName]).sort(this.compareFields());
     }
   }
+
   compareFields(): (a: any, b: any) => number {
     return (n1, n2) => {
       if (n1 > n2) {
@@ -291,4 +311,5 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       return 0;
     };
   }
+
 }

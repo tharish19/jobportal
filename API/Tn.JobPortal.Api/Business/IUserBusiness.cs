@@ -44,5 +44,11 @@ namespace Tn.JobPortal.Api.Business
         /// <param name="jobRoles">The job roles.</param>
         /// <returns></returns>
         Task<int> AddOrUpdateJobRolesAsync(JobRolesModel jobRoles);
+
+        /// <summary>
+        /// Gets the leader board details asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        Task<List<LeaderBoardDetails>> GetLeaderBoardDetailsAsync();
     }
 }

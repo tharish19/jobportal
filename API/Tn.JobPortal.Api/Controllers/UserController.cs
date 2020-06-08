@@ -91,5 +91,15 @@ namespace Tn.JobPortal.Api.Controllers
         {
             return await userBusiness.AddOrUpdateJobRolesAsync(jobRoles).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Gets the leader board details asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("leader/board")]
+        public async Task<List<LeaderBoardDetails>> GetLeaderBoardDetailsAsync()
+        {
+            return await userBusiness.GetLeaderBoardDetailsAsync().ConfigureAwait(false);
+        }
     }
 }

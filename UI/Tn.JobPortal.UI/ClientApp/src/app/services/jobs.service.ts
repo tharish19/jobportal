@@ -29,4 +29,7 @@ export class JobsService {
   SubmitFeedBack(data): Observable<any> {
     return this.httpClient.post<any>(this.API_URL + 'update/job/status', data);
   }
+  getLeaderBoard(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + 'leader/board');
+  }
 }

@@ -160,5 +160,23 @@ namespace Tn.JobPortal.Api.Repository
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
             }
         }
+
+        /// <summary>
+        /// Gets the leader board details asynchronous.
+        /// </summary>
+        /// <param name="startDateTime">The start date time.</param>
+        /// <returns></returns>
+        public async Task<List<JobDetailsModel>> GetLeaderBoardDetailsAsync(DateTime startDateTime)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                var result = await connection.QueryAsync<JobDetailsModel>("GetLeaderBoardData",
+                    new
+                    {
+                     startDateTime
+                    }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return result.ToList();
+            }
+        }
     }
 }
