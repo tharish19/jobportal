@@ -149,26 +149,40 @@ namespace Tn.JobPortal.Api.Business
         /// Gets the leader board details asynchronous.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<LeaderBoardDetails>> GetLeaderBoardDetailsAsync()
+        public async Task<WeekAndDayLeaderBoard> GetLeaderBoardDetailsAsync()
         {
-            int counter = 0;
-            bool isNotDataSufficient = true;
-            holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
             DateTime date = DateTime.Today;
-            List<JobDetailsModel> result = new List<JobDetailsModel>();
-            do
-            {
-                DateTime lastBusinessDateTime = GetLastBusinessDay(date);
-                result = await userRepository.GetLeaderBoardDetailsAsync(lastBusinessDateTime).ConfigureAwait(false);
+            List<JobStatusModel> result = new List<JobStatusModel>();
 
-                counter++;
-                date = date.AddDays(-1);
+            DateTime lastBusinessDateTime = GetDateForTheDay(date, 1); // Value of Monday is 1 for Day Of Week
+            result = await userRepository.GetLeaderBoardDetailsAsync(lastBusinessDateTime).ConfigureAwait(false);
 
-                if (counter >= 4)
-                    isNotDataSufficient = false;
-            }
-            while (isNotDataSufficient);
+            List<LeaderBoardDetails> weekData = GetLeaderBoardDetails(result);
 
+            var now = DateTime.Now.Hour;
+            var dateTimeToFilter = (now > 11) ? DateTime.Today : DateTime.Today.AddDays(-1);
+
+
+
+            List<JobStatusModel> response = result.Where(x => x.AppliedOn > dateTimeToFilter).ToList();
+            List<LeaderBoardDetails> todayData = GetLeaderBoardDetails(response);
+
+            WeekAndDayLeaderBoard leaderBoard = new WeekAndDayLeaderBoard();
+            leaderBoard.DayDetails = todayData;
+            leaderBoard.WeekDetails = weekData;
+
+            return leaderBoard;
+        }
+
+        #region Private Methods
+
+        /// <summary>
+        /// Gets the leader board details.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        /// <returns></returns>
+        private List<LeaderBoardDetails> GetLeaderBoardDetails(List<JobStatusModel> result)
+        {
             var groupedUsers = result.GroupBy(x => x.AppliedBy).ToList();
             var byTotalViews = groupedUsers.OrderByDescending(m => m.Count()).ToList();
             List<LeaderBoardDetails> leaderBoard = new List<LeaderBoardDetails>();
@@ -177,14 +191,30 @@ namespace Tn.JobPortal.Api.Business
             {
                 LeaderBoardDetails leaderBoardObject = new LeaderBoardDetails();
                 leaderBoardObject.name = user.Key;
-                leaderBoardObject.Rank = byTotalViews.FindIndex(x =>x.Key == user.Key) + 1;
+                leaderBoardObject.Rank = byTotalViews.FindIndex(x => x.Key == user.Key) + 1;
                 leaderBoardObject.submissions = user.Count();
                 leaderBoard.Add(leaderBoardObject);
             }
             return leaderBoard;
         }
 
-        #region Private Methods
+
+
+        /// <summary>
+        /// Gets the date for the day.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="day">The day.</param>
+        /// <returns></returns>
+        private DateTime GetDateForTheDay(DateTime date, int day)
+        {
+            while ((int)date.DayOfWeek != day)
+                date = date.AddDays(-1);
+
+
+
+            return date;
+        }
 
         /// <summary>
         /// Gets the last business day.

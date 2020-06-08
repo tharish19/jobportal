@@ -40,7 +40,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let detail of leaderBoardDetails">
+                                        <tr *ngFor="let detail of leaderBoardDetails.dayDetails">
                                             <td class="name">{{detail.name}}</td>
                                             <td class="subs">{{detail.submissions}}</td>
                                             <td class="Rank">{{detail.rank}}</td>
@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let detail of leaderBoardDetails">
+                                        <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
                                             <td>{{detail.name}}</td>
                                             <td>{{detail.submissions}}</td>
                                             <td>{{detail.rank}}</td>

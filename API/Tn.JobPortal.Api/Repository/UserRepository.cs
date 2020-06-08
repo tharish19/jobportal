@@ -166,11 +166,11 @@ namespace Tn.JobPortal.Api.Repository
         /// </summary>
         /// <param name="startDateTime">The start date time.</param>
         /// <returns></returns>
-        public async Task<List<JobDetailsModel>> GetLeaderBoardDetailsAsync(DateTime startDateTime)
+        public async Task<List<JobStatusModel>> GetLeaderBoardDetailsAsync(DateTime startDateTime)
         {
             using (MySqlConnection connection = GetConnection())
             {
-                var result = await connection.QueryAsync<JobDetailsModel>("GetLeaderBoardData",
+                var result = await connection.QueryAsync<JobStatusModel>("GetLeaderBoardData",
                     new
                     {
                      startDateTime

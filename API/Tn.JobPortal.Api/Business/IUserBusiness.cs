@@ -49,6 +49,6 @@ namespace Tn.JobPortal.Api.Business
         /// Gets the leader board details asynchronous.
         /// </summary>
         /// <returns></returns>
-        Task<List<LeaderBoardDetails>> GetLeaderBoardDetailsAsync();
+        Task<WeekAndDayLeaderBoard> GetLeaderBoardDetailsAsync();
     }
 }

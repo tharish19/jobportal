@@ -97,7 +97,7 @@ namespace Tn.JobPortal.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("leader/board")]
-        public async Task<List<LeaderBoardDetails>> GetLeaderBoardDetailsAsync()
+        public async Task<WeekAndDayLeaderBoard> GetLeaderBoardDetailsAsync()
         {
             return await userBusiness.GetLeaderBoardDetailsAsync().ConfigureAwait(false);
         }
