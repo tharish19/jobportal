@@ -21,15 +21,15 @@
                                     <tbody>
                                         <tr>
                                             <td rowspan="2" class="lable_header">Today</td>
-                                            <td colspan="4" class="valuecount">{{daySubmissions}}</td>
+                                            <td colspan="4" class="valuecount" style="text-align: right;">{{daySubmissions}}</td>
                                         </tr>
                                         <tr>
-                                            <th class="subheading">Subs</th>
+                                            <th class="subheading" style="text-align: right;">Subs</th>
                                         </tr>
                                     </tbody>
                                 </table>
                             </button>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu"  style="width: 150%;">
                                 <h5>Todays Leader Board</h5>
                                 <table class="customtable">
                                     <thead>
@@ -55,22 +55,18 @@
                             <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
                                 data-toggle="dropdown">
                                 <table class="mainTable">
-                                    <tr>
-                                        <td class="lable_header">Week</td>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td class="valuecount">{{weekSubmissions}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="subheading">Subs</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" class="lable_header">This Week</td>
+                                            <td colspan="4" class="valuecount" style="text-align: right;">{{weekSubmissions}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="subheading" style="text-align: right;">Subs</th>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </button>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu" style="width: 150%;">
                                 <h5>Weeks Leader Board</h5>
                                 <table class="customtable">
                                     <thead>
@@ -82,9 +78,9 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
-                                            <td>{{detail.name}}</td>
-                                            <td>{{detail.submissions}}</td>
-                                            <td>{{detail.rank}}</td>
+                                            <td class="name">{{detail.name}}</td>
+                                            <td class="subs">{{detail.submissions}}</td>
+                                            <td class="Rank">{{detail.rank}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

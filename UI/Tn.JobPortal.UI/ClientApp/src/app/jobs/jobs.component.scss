@@ -76,16 +76,12 @@
 .mainTable {
   empty-cells: show;
 }
-
-.customtable {
-  width: 100%;
-  word-break: break-words;
-}
 .subs, .Rank {
-  width: 150px;
+  width: 100px;
+  text-align: center !important;
 }
 .name {
-  width: 200px; 
+  width: 250px; 
 }
 /* width */
 .dropdown-menu::-webkit-scrollbar {
@@ -107,4 +103,21 @@
 .dropdown-menu::-webkit-scrollbar-thumb:hover {
   background: #0a6a80;
   border-radius: 15px;
+}
+
+.customtable {
+  width: 100%;
+  border-collapse: collapse;
+  word-break: break-words;
+  font-size: 12px !important;
+}
+
+.customtable td, .customtable th {
+  // border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.customtable tr:nth-child(even) {
+  background-color: #edf2f8;
 }
