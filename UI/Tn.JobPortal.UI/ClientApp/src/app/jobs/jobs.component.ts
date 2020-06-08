@@ -113,6 +113,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       statusDetails.AppliedOn = new Date();
       this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
         if (res) {
+          if (statusDetails.jobStatus.toString() === '1') {
+            this.daySubmissions = this.daySubmissions + 1;
+            this.weekSubmissions = this.weekSubmissions + 1;
+          }
           dataItem.jobStatus = statusDetails.jobStatus.toString();
           if (dataItem.appliedBy === '-NA-') {
             dataItem.appliedBy = '';

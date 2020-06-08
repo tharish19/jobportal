@@ -168,8 +168,8 @@ namespace Tn.JobPortal.Api.Business
             List<LeaderBoardDetails> todayData = GetLeaderBoardDetails(response);
 
             WeekAndDayLeaderBoard leaderBoard = new WeekAndDayLeaderBoard();
-            leaderBoard.DayDetails = todayData;
-            leaderBoard.WeekDetails = weekData;
+            leaderBoard.DayDetails = todayData.OrderBy(m => m.Rank).ToList();
+            leaderBoard.WeekDetails = weekData.OrderBy(m => m.Rank).ToList();
 
             return leaderBoard;
         }
