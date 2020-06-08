@@ -23,20 +23,10 @@
                                         <td>
                                             <table>
                                                 <tr>
-                                                    <td class="valuecount">309</td>
+                                                    <td class="valuecount">{{daySubmissions}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="subheading">Subs</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td class="valuecount">309</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="subheading">Rank</td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -48,27 +38,19 @@
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th>First</th>
-                                            <th>Last</th>
-                                            <th>Handle</th>
+                                            <th>Name</th>
+                                            <th>Subs</th>
+                                            <th>Rank</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                        <perfect-scrollbar class="perfect_customscroll">
+                                            <tr *ngFor="let detail of leaderBoardDetails">
+                                                <td>{{detail.name}}</td>
+                                                <td>{{detail.submissions}}</td>
+                                                <td>{{detail.rank}}</td>
+                                            </tr>
+                                        </perfect-scrollbar>
                                     </tbody>
                                 </table>
                             </div>
@@ -84,23 +66,14 @@
                                         <td>
                                             <table>
                                                 <tr>
-                                                    <td class="valuecount">309</td>
+                                                    <td class="valuecount">{{weekSubmissions}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="subheading">Subs</td>
                                                 </tr>
                                             </table>
                                         </td>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td class="valuecount">309</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="subheading">Rank</td>
-                                                </tr>
-                                            </table>
-                                        </td>
+
                                     </tr>
                                 </table>
                             </button>
@@ -109,27 +82,19 @@
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th>First</th>
-                                            <th>Last</th>
-                                            <th>Handle</th>
+                                            <th>Name</th>
+                                            <th>Subs</th>
+                                            <th>Rank</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                        <perfect-scrollbar class="perfect_customscroll">
+                                            <tr *ngFor="let detail of leaderBoardDetails">
+                                                <td>{{detail.name}}</td>
+                                                <td>{{detail.submissions}}</td>
+                                                <td>{{detail.rank}}</td>
+                                            </tr>
+                                        </perfect-scrollbar>
                                     </tbody>
                                 </table>
                             </div>

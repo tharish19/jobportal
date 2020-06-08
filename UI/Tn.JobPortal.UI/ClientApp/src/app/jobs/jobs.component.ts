@@ -48,6 +48,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   searchQuery: any;
   postedByIconArray: any[] = [];
   leaderBoardDetails: any[] = [];
+  daySubmissions = 0;
+  weekSubmissions = 0;
 
   constructor(private adalService: AdalService,
               public dialog: MatDialog,
@@ -196,7 +198,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   getLeaderBoard() {
     this.jobsService.getLeaderBoard().subscribe(res => {
       this.leaderBoardDetails = res;
-      console.log(this.leaderBoardDetails);
+      this.daySubmissions = this.leaderBoardDetails.find(x => x.name === this.currrentUserName).submissions;
+      this.weekSubmissions = 0;
     });
   }
 
@@ -218,8 +221,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.postedByIconArray.push({ key: 'randstad', value: 'randstadusa.jpg' });
     this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
     this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
-    $(document).ready(function(){
-      $('.dropdown-submenu a.test').on("click", function(e){
+    $(document).ready(function() {
+      $('.dropdown-submenu a.test').on('click', function(e) {
         $(this).next('.dropdown-menu').toggle();
         e.stopPropagation();
         e.preventDefault();
