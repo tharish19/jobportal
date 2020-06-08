@@ -339,11 +339,15 @@
 	list-style-type: none;
 	padding-left: 0px;
 	li:nth-child(1) {
-		width: 65%;
+		width: 58%;
 	}
 	li:nth-child(2) {
-		width: 33%;
+		width: 70%;
+	}
+	li:nth-child(3) {
+		width: 40%;
 		margin: auto;
+		text-align: right;
 	}
 }
 
