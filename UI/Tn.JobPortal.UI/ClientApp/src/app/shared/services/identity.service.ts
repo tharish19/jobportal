@@ -20,13 +20,13 @@ export class IdentityService {
 
   // public graphApi: Client;
   constructor() {
-    //this.graphApi = Client.init({
+    // this.graphApi = Client.init({
     //  authProvider: async (done) =>
     //    done(null, this.token)
-    //});
+    // });
   }
 
-  //async GetGroupMembers(): Promise<any[]> {
+  // async GetGroupMembers(): Promise<any[]> {
   //  // const options = {
   //  //   authProvider,
   //  // };
@@ -36,7 +36,7 @@ export class IdentityService {
   //  return await this.graphApi.api('/groups/eefd7503-f4ce-4702-87a2-066e8ee4082f/members').get();
 
   //  // return this.graphClient.api('https://graph.microsoft.com/v1.0/groups/eefd7503-f4ce-4702-87a2-066e8ee4082f/members');
-  //}
+  // }
 
   public get getAdalConfig(): any {
     return {
