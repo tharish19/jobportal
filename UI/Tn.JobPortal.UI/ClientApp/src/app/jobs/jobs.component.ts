@@ -218,6 +218,13 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.postedByIconArray.push({ key: 'randstad', value: 'randstadusa.jpg' });
     this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
     this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
+    $(document).ready(function(){
+      $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('.dropdown-menu').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
