@@ -47,7 +47,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   currrentUserName: string;
   searchQuery: any;
   postedByIconArray: any[] = [];
-  leaderBoardDetails: any[] = [];
+  leaderBoardDetails: any;
+  weeklyLeaderBoard: any[] = [];
+  dailyLeaderBoard: any[] = [];
   daySubmissions = 0;
   weekSubmissions = 0;
 
@@ -198,8 +200,8 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   getLeaderBoard() {
     this.jobsService.getLeaderBoard().subscribe(res => {
       this.leaderBoardDetails = res;
-      this.daySubmissions = this.leaderBoardDetails.find(x => x.name === this.currrentUserName).submissions;
-      this.weekSubmissions = 0;
+      this.daySubmissions = res.dayDetails.find(x => x.name === this.currrentUserName).submissions;
+      this.weekSubmissions = res.weekDetails.find(x => x.name === this.currrentUserName).submissions;
     });
   }
 

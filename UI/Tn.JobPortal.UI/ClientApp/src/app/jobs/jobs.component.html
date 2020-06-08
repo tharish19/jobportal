@@ -18,39 +18,33 @@
                             <button class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
                                 data-toggle="dropdown">
                                 <table class="mainTable">
-                                    <tr>
-                                        <td class="lable_header">Today</td>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td class="valuecount">{{daySubmissions}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="subheading">Subs</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" class="lable_header">Today</td>
+                                            <td colspan="4" class="valuecount">{{daySubmissions}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="subheading">Subs</th>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </button>
                             <div class="dropdown-menu">
                                 <h5>Todays Leader Board</h5>
-                                <table class="table table-borderless">
+                                <table class="customtable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Subs</th>
-                                            <th>Rank</th>
+                                            <th class="name">Name</th>
+                                            <th class="subs">Subs</th>
+                                            <th class="Rank">Rank</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <perfect-scrollbar class="perfect_customscroll">
-                                            <tr *ngFor="let detail of leaderBoardDetails">
-                                                <td>{{detail.name}}</td>
-                                                <td>{{detail.submissions}}</td>
-                                                <td>{{detail.rank}}</td>
-                                            </tr>
-                                        </perfect-scrollbar>
+                                        <tr *ngFor="let detail of leaderBoardDetails.dayDetails">
+                                            <td class="name">{{detail.name}}</td>
+                                            <td class="subs">{{detail.submissions}}</td>
+                                            <td class="Rank">{{detail.rank}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -79,22 +73,20 @@
                             </button>
                             <div class="dropdown-menu">
                                 <h5>Todays Leader Board</h5>
-                                <table class="table table-borderless">
+                                <table class="customtable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Subs</th>
-                                            <th>Rank</th>
+                                            <th class="name">Name</th>
+                                            <th class="subs">Subs</th>
+                                            <th class="Rank">Rank</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <perfect-scrollbar class="perfect_customscroll">
-                                            <tr *ngFor="let detail of leaderBoardDetails">
-                                                <td>{{detail.name}}</td>
-                                                <td>{{detail.submissions}}</td>
-                                                <td>{{detail.rank}}</td>
-                                            </tr>
-                                        </perfect-scrollbar>
+                                        <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
+                                            <td>{{detail.name}}</td>
+                                            <td>{{detail.submissions}}</td>
+                                            <td>{{detail.rank}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
