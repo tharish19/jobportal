@@ -9,7 +9,7 @@ BEGIN
         AppliedBy,
         AppliedOn
 	FROM jobsstatus
-	WHERE AppliedOn >= StartDateTime 
+	WHERE AppliedOn >= StartDateTime AND JobStatus = '1'
 	ORDER BY AppliedOn Desc;
 END //
 DELIMITER ;

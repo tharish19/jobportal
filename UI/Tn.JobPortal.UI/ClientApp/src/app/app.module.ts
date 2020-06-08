@@ -101,10 +101,12 @@ export class CommonExternalModules { }
         provide: HTTP_INTERCEPTORS,
         useClass: AdminInterceptor,
         multi: true
-    }, ColumnResizingService,
+    },
+        ColumnResizingService,
         ColumnInfoService,
         DateAgoPipe,
-        TemplateService],
+        TemplateService
+    ],
     entryComponents: [JobSelectionComponent,
         CustomloaderComponent,
         AlertDialogComponent,
