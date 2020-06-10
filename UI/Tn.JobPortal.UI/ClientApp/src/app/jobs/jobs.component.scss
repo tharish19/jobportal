@@ -32,25 +32,36 @@
   cursor: pointer;
 }
 .Dropdownbtn {
-  padding: 3px 3px;
+  padding: 0px 3px;
   border-radius: 0px;
-  width: 85%;
+  max-width: 140px;
+  min-width: 120px;
+  border-radius: 3px;
+  margin-right: 0px;
+  border: 1px solid #e8f1f2 !important;
+  &:hover,
+  &:active,
+  &:visited,
+  &:focus {
+    background-color: #e8f1f2 !important;
+  }
 }
+
 .lable_header {
   vertical-align: top;
   font-size: 12px;
-  color: #484848;
+  color: #0a6a80;
   text-align: left;
 }
 .valuecount {
-  font-size: 18px;
-  padding: 0px 11px;
+  font-size: 16px;
+  padding: 3px 3px 2px 11px;
   color: #0b748c;
   line-height: normal;
 }
 .subheading {
-  font-size: 12px;
-  color: #484848;
+  font-size: 10px;
+  color: #adadad;
   line-height: normal;
 }
 .mainTable {
@@ -64,24 +75,26 @@
   padding: 10px;
   width: 220px;
   height: auto;
-  max-height: 200px;
+  max-height: 350px;
   overflow-y: scroll;
   h5 {
-    font-size: 17px;
+    font-size: 12px;
     padding: 3px;
     text-align: center;
-    color: #000;
+    color: #13292d;
+    font-weight: bold;
   }
 }
 .mainTable {
   empty-cells: show;
 }
-.subs, .Rank {
+.subs,
+.Rank {
   width: 100px;
   text-align: center !important;
 }
 .name {
-  width: 250px; 
+  width: 250px;
 }
 /* width */
 .dropdown-menu::-webkit-scrollbar {
@@ -90,9 +103,9 @@
 
 /* Track */
 .dropdown-menu::-webkit-scrollbar-track {
-  background: #fff; 
+  background: #fff;
 }
- 
+
 /* Handle */
 .dropdown-menu::-webkit-scrollbar-thumb {
   background: #0a6a80;
@@ -110,14 +123,39 @@
   border-collapse: collapse;
   word-break: break-words;
   font-size: 12px !important;
+  th {
+    font-size: 12px;
+    color: #13292d;
+  }
 }
 
-.customtable td, .customtable th {
+.customtable td,
+.customtable th {
   // border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 4px;
+}
+
+.customtable {
+  .colorsub {
+    color: #0a6a80;
+  }
+  .pastelred{
+    color:#ff6961;
+  }
+  .orangecolor{
+    color:#ff6000;
+  }
+  .greencolor{
+    color:#008000;
+  }
 }
 
 .customtable tr:nth-child(even) {
-  background-color: #edf2f8;
+  background-color: #e8f1f2;
+}
+
+.fontsize18{
+  font-size: 18px;
+  font-weight: 500;
 }
