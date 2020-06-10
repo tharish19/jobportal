@@ -22,11 +22,14 @@
                                         <tbody>
                                             <tr>
                                                 <td rowspan="2" class="lable_header">Today</td>
-                                                <td colspan="4" class="valuecount" style="text-align: right;">
+                                                <td colspan="3" class="valuecount" style="text-align: right;">
                                                     {{daySubmissions}}</td>
+                                                <td colspan="3" class="valuecount" style="text-align: right;">
+                                                    {{dailyRank}}</td>
                                             </tr>
                                             <tr>
                                                 <th class="subheading" style="text-align: right;">Subs</th>
+                                                <th class="subheading" style="text-align: right;">Rank</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -62,11 +65,14 @@
                                         <tbody>
                                             <tr>
                                                 <td rowspan="2" class="lable_header">This Week</td>
-                                                <td colspan="4" class="valuecount" style="text-align: right;">
+                                                <td colspan="3" class="valuecount" style="text-align: right;">
                                                     {{weekSubmissions}}</td>
+                                                <td colspan="3" class="valuecount" style="text-align: right;">
+                                                    {{weeklyRank}}</td>
                                             </tr>
                                             <tr>
                                                 <th class="subheading" style="text-align: right;">Subs</th>
+                                                <th class="subheading" style="text-align: right;">Rank</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -122,8 +128,9 @@
                         </div>
                     </li>
                     <li>
-                        <button type="button" (click)="onSearch()" mat-raised-button class="btn  btn-md  text-white btn-search"><span
-                                class="icon-search icon"></span>Search Jobs</button>
+                        <button type="button" (click)="onSearch()" mat-raised-button
+                            class="btn  btn-md  text-white btn-search"><span class="icon-search icon"></span>Search
+                            Jobs</button>
                     </li>
                 </ul>
             </div>

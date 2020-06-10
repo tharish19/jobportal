@@ -52,12 +52,14 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   dailyLeaderBoard: any[] = [];
   daySubmissions = 0;
   weekSubmissions = 0;
+  dailyRank = 0;
+  weeklyRank = 0;
 
   constructor(private adalService: AdalService,
-              public dialog: MatDialog,
-              private dateAgoPipe: DateAgoPipe,
-              private rootComp: AppComponent,
-              private jobsService: JobsService) { }
+    public dialog: MatDialog,
+    private dateAgoPipe: DateAgoPipe,
+    private rootComp: AppComponent,
+    private jobsService: JobsService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -204,10 +206,14 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   getLeaderBoard() {
     this.jobsService.getLeaderBoard().subscribe(res => {
       this.leaderBoardDetails = res;
-      this.daySubmissions = (res.dayDetails.find(x => x.name === this.currrentUserName))
-        ? res.dayDetails.find(x => x.name === this.currrentUserName).submissions : 0;
-      this.weekSubmissions = (res.weekDetails.find(x => x.name === this.currrentUserName))
-        ? res.weekDetails.find(x => x.name === this.currrentUserName).submissions : 0;
+      if (res.dayDetails.find(x => x.name === this.currrentUserName)) {
+        this.daySubmissions = res.dayDetails.find(x => x.name === this.currrentUserName).submissions;
+        this.dailyRank = res.dayDetails.find(x => x.name === this.currrentUserName).rank;
+      }
+      if (res.weekDetails.find(x => x.name === this.currrentUserName)) {
+        this.weekSubmissions = res.weekDetails.find(x => x.name === this.currrentUserName).submissions;
+        this.weeklyRank = res.weekDetails.find(x => x.name === this.currrentUserName).rank;
+      }
     });
   }
 
@@ -219,17 +225,17 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
     this.postedByIconArray.push({ key: 'addison group', value: 'addisongroup.png' });
     this.postedByIconArray.push({ key: 'career builder', value: 'careerbuilder.png' });
-    this.postedByIconArray.push({ key: 'Collabera', value: 'collabera.png' });
+    this.postedByIconArray.push({ key: 'collabera', value: 'collabera.png' });
     this.postedByIconArray.push({ key: 'dice', value: 'dice.png' });
     this.postedByIconArray.push({ key: 'indeed', value: 'indeed.ico' });
     this.postedByIconArray.push({ key: 'kforce', value: 'kforce.png' });
-    this.postedByIconArray.push({ key: 'Monster', value: 'monsterindia.png' });
+    this.postedByIconArray.push({ key: 'monster', value: 'monsterindia.png' });
     this.postedByIconArray.push({ key: 'net2source', value: 'net2source.jpg' });
     this.postedByIconArray.push({ key: 'ntt data', value: 'nttdata.jfif' });
     this.postedByIconArray.push({ key: 'randstad', value: 'randstadusa.jpg' });
-    this.postedByIconArray.push({ key: 'TekSystems', value: 'tecksystems.ico' });
+    this.postedByIconArray.push({ key: 'teksystems', value: 'tecksystems.ico' });
     this.postedByIconArray.push({ key: 'ziprecruiter', value: 'ziprecruiter.png' });
-    $(document).ready(function() {
+    $(document).ready(() => {
       $('.dropdown-submenu a.test').on('click', function(e) {
         $(this).next('.dropdown-menu').toggle();
         e.stopPropagation();
@@ -249,7 +255,6 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   public filterChange(filter: CompositeFilterDescriptor): void {
     this.filter = filter;
-    // this.grid.data = filterBy(this.filterGridData, filter);
   }
 
   filterData(data: any[]): any[] {
