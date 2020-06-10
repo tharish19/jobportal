@@ -2,8 +2,8 @@
     <div class="Search-from">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-3">
+                <ul class="list-inline firstmenubar">
+                    <li class="list-inline-item">
                         <div class="allJobsLabel">
                             <span>JOBS</span>
                             <button (click)="getJobsData()" type="button" class="btn btn-refresh">
@@ -12,82 +12,92 @@
                                 </span>
                             </button>
                         </div>
-                    </div>
-                    <div *ngIf="leaderBoardDetails" class="col-md-4">
-                        <div class="dropdown">
-                            <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
-                                data-toggle="dropdown">
-                                <table class="mainTable">
-                                    <tbody>
-                                        <tr>
-                                            <td rowspan="2" class="lable_header">Today</td>
-                                            <td colspan="4" class="valuecount" style="text-align: right;">{{daySubmissions}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="subheading" style="text-align: right;">Subs</th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </button>
-                            <div class="dropdown-menu"  style="width: 150%;">
-                                <h5>Todays Leader Board</h5>
-                                <table class="customtable">
-                                    <thead>
-                                        <tr>
-                                            <th class="name">Name</th>
-                                            <th class="subs">Subs</th>
-                                            <th class="Rank">Rank</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let detail of leaderBoardDetails.dayDetails">
-                                            <td class="name">{{detail.name}}</td>
-                                            <td class="subs">{{detail.submissions}}</td>
-                                            <td class="Rank">{{detail.rank}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    </li>
+                    <li class="list-inline-item">
+                        <div *ngIf="leaderBoardDetails">
+                            <div class="dropdown">
+                                <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn"
+                                    type="button" data-toggle="dropdown">
+                                    <table class="mainTable">
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="2" class="lable_header">Today</td>
+                                                <td colspan="4" class="valuecount" style="text-align: right;">
+                                                    {{daySubmissions}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="subheading" style="text-align: right;">Subs</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </button>
+                                <div class="dropdown-menu" style="width: 260px;">
+                                    <h5>Todays Leader Board</h5>
+                                    <table class="customtable">
+                                        <thead>
+                                            <tr>
+                                                <th class="name">Name</th>
+                                                <th class="subs">Subs</th>
+                                                <th class="Rank">Rank</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let detail of leaderBoardDetails.dayDetails">
+                                                <td class="name">{{detail.name}}</td>
+                                                <td class="subs colorsub fontsize18">{{detail.submissions}}</td>
+                                                <td class="Rank pastelred fontsize18">{{detail.rank}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div *ngIf="leaderBoardDetails" class="col-md-4">
-                        <div class="dropdown">
-                            <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn" type="button"
-                                data-toggle="dropdown">
-                                <table class="mainTable">
-                                    <tbody>
-                                        <tr>
-                                            <td rowspan="2" class="lable_header">This Week</td>
-                                            <td colspan="4" class="valuecount" style="text-align: right;">{{weekSubmissions}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="subheading" style="text-align: right;">Subs</th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </button>
-                            <div class="dropdown-menu" style="width: 150%;">
-                                <h5>Weeks Leader Board</h5>
-                                <table class="customtable">
-                                    <thead>
-                                        <tr>
-                                            <th class="name">Name</th>
-                                            <th class="subs">Subs</th>
-                                            <th class="Rank">Rank</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
-                                            <td class="name">{{detail.name}}</td>
-                                            <td class="subs">{{detail.submissions}}</td>
-                                            <td class="Rank">{{detail.rank}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    </li>
+                    <li class="list-inline-item">
+                        <div *ngIf="leaderBoardDetails">
+                            <div class="dropdown">
+                                <button (click)="getLeaderBoard()" class="btn btn-default dropdown-toggle Dropdownbtn"
+                                    type="button" data-toggle="dropdown">
+                                    <table class="mainTable">
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="2" class="lable_header">This Week</td>
+                                                <td colspan="4" class="valuecount" style="text-align: right;">
+                                                    {{weekSubmissions}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="subheading" style="text-align: right;">Subs</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </button>
+                                <div class="dropdown-menu" style="width: 260px;">
+                                    <h5>Weeks Leader Board</h5>
+                                    <table class="customtable">
+                                        <thead>
+                                            <tr>
+                                                <th class="name">Name</th>
+                                                <th class="subs">Subs</th>
+                                                <th class="Rank">Rank</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
+                                                <td class="name">{{detail.name}}</td>
+                                                <td class="subs colorsub fontsize18">{{detail.submissions}}</td>
+                                                <td class="Rank pastelred fontsize18">{{detail.rank}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+                    </li>
+                </ul>
+                <!-- <div class="row">
+                    <div class="col-md-3">
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-6">
                 <ul class="ComboFields">
@@ -112,7 +122,7 @@
                         </div>
                     </li>
                     <li>
-                        <button type="button" (click)="onSearch()" class="btn  btn-md  text-white btn-search"><span
+                        <button type="button" (click)="onSearch()" mat-raised-button class="btn  btn-md  text-white btn-search"><span
                                 class="icon-search icon"></span>Search Jobs</button>
                     </li>
                 </ul>
