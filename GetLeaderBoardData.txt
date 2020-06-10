@@ -9,7 +9,9 @@ BEGIN
         AppliedBy,
         AppliedOn
 	FROM jobsstatus
-	WHERE AppliedOn >= StartDateTime AND JobStatus = '1'
+	WHERE AppliedOn >= StartDateTime
+		AND JobStatus = '1'
+		AND AppliedBy NOT IN ('Sri Jasti', 'Vasanth Nemala')
 	ORDER BY AppliedOn Desc;
 END //
 DELIMITER ;

@@ -11,8 +11,8 @@ export class DateAgoPipe implements PipeTransform {
   transform(value: any): any {
     if (value) {
       const seconds = Math.floor((+new Date() - +new Date(moment.utc(value).toDate())) / 1000);
-      if (seconds < 29) {
-        return 'now';
+      if (seconds < 59) {
+        return 'Just now';
       }
       const intervals = {
         year: 31536000,

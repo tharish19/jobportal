@@ -36,6 +36,9 @@ namespace Tn.JobPortal.Api.Business
         /// <returns></returns>
         public async Task<UserJobDetailsAndSearchStringsModel> GetLatestJobsAsync(string postedByValues, string userId = null)
         {
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            DateTime cstDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+
             UserJobDetailsAndSearchStringsModel userJobDetailsAndSearchStrings = new UserJobDetailsAndSearchStringsModel();
 
             List<JobRolesModel> jobSearchStrings = await userRepository.GetJobSearchStringsAsync().ConfigureAwait(false);
@@ -54,7 +57,7 @@ namespace Tn.JobPortal.Api.Business
                 int counter = 0;
                 bool isNotDataSufficient = true;
                 holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
-                DateTime date = DateTime.Today;
+                DateTime date = cstDateTime;
                 List<JobDetailsModel> jobs;
                 do
                 {
@@ -89,12 +92,15 @@ namespace Tn.JobPortal.Api.Business
         /// <returns></returns>
         public async Task<List<JobDetailsModel>> GetFilteredJobsAsync(string jobSearchString, string filteredBy, string postedByValues)
         {
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+
             string whereCondition = "";
             string postedByCondition = "";
             string jobRoleCondition = "";
             string[] filters;
             holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
-            DateTime lastBusinessDateTime = GetLastBusinessDay(DateTime.Today);
+            DateTime lastBusinessDateTime = GetLastBusinessDay(cstTime);
 
             if (postedByValues != null && postedByValues != "")
             {
@@ -151,7 +157,9 @@ namespace Tn.JobPortal.Api.Business
         /// <returns></returns>
         public async Task<WeekAndDayLeaderBoard> GetLeaderBoardDetailsAsync()
         {
-            DateTime date = DateTime.Today;
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+
+            DateTime date = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
             List<JobStatusModel> result = new List<JobStatusModel>();
 
             DateTime lastBusinessDateTime = GetDateForTheDay(date, 1); // Value of Monday is 1 for Day Of Week
@@ -159,10 +167,10 @@ namespace Tn.JobPortal.Api.Business
 
             List<LeaderBoardDetails> weekData = GetLeaderBoardDetails(result);
 
-            var now = DateTime.Now.Hour;
-            var dateTimeToFilter = (now > 11) ? DateTime.Today : DateTime.Today.AddDays(-1);
+            DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
 
-
+            var now = cstTime.Hour;
+            var dateTimeToFilter = (now > 11) ? cstTime : cstTime.AddDays(-1);
 
             List<JobStatusModel> response = result.Where(x => x.AppliedOn > dateTimeToFilter).ToList();
             List<LeaderBoardDetails> todayData = GetLeaderBoardDetails(response);

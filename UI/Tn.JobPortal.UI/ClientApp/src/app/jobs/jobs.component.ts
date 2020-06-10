@@ -204,8 +204,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   getLeaderBoard() {
     this.jobsService.getLeaderBoard().subscribe(res => {
       this.leaderBoardDetails = res;
-      this.daySubmissions = res.dayDetails.find(x => x.name === this.currrentUserName).submissions;
-      this.weekSubmissions = res.weekDetails.find(x => x.name === this.currrentUserName).submissions;
+      this.daySubmissions = (res.dayDetails.find(x => x.name === this.currrentUserName))
+        ? res.dayDetails.find(x => x.name === this.currrentUserName).submissions : 0;
+      this.weekSubmissions = (res.weekDetails.find(x => x.name === this.currrentUserName))
+        ? res.weekDetails.find(x => x.name === this.currrentUserName).submissions : 0;
     });
   }
 
