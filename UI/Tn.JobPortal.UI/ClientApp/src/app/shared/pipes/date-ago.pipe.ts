@@ -10,7 +10,7 @@ export class DateAgoPipe implements PipeTransform {
 
   transform(value: any): any {
     if (value) {
-      const seconds = Math.floor((+new Date() - +new Date(moment.utc(value).toDate())) / 1000);
+      const seconds = Math.floor((+new Date() - +new Date(moment(value).toDate())) / 1000);
       if (seconds < 59) {
         return 'Just now';
       }

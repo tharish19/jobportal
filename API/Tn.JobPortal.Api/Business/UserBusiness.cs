@@ -170,7 +170,7 @@ namespace Tn.JobPortal.Api.Business
             DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
 
             var now = cstTime.Hour;
-            var dateTimeToFilter = (now > 11) ? cstTime : cstTime.AddDays(-1);
+            var dateTimeToFilter = (now >= 11) ? cstTime.Date : cstTime.Date.AddDays(-1);
 
             List<JobStatusModel> response = result.Where(x => x.AppliedOn > dateTimeToFilter).ToList();
             List<LeaderBoardDetails> todayData = GetLeaderBoardDetails(response);
