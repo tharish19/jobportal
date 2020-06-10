@@ -15,9 +15,6 @@
   background-color: #f7f3e7 !important;
 }
 
-.btn-refresh {
-  margin-left: 10px;
-}
 .prefex-brief {
   margin-right: 8px;
 }
@@ -34,8 +31,7 @@
 .Dropdownbtn {
   padding: 0px 3px;
   border-radius: 0px;
-  max-width: 140px;
-  min-width: 120px;
+  width: 180px;
   border-radius: 3px;
   margin-right: 0px;
   border: 1px solid #e8f1f2 !important;
@@ -52,17 +48,20 @@
   font-size: 12px;
   color: #0a6a80;
   text-align: left;
+  width: 70px;
 }
 .valuecount {
-  font-size: 16px;
-  padding: 3px 3px 2px 11px;
+  font-size: 20px;
   color: #0b748c;
   line-height: normal;
+  width: 100px;
+  font-weight: bolder;
 }
 .subheading {
-  font-size: 10px;
+  font-size: 12px;
   color: #adadad;
   line-height: normal;
+  width: 100px;
 }
 .mainTable {
   padding: 3px 0px;
@@ -140,15 +139,15 @@
   .colorsub {
     color: #0a6a80;
   }
-  .pastelred{
-    color:#ff6961;
-  }
-  .orangecolor{
-    color:#ff6000;
-  }
-  .greencolor{
-    color:#008000;
-  }
+}
+.pastelred{
+  color:#ff6961;
+}
+.orangecolor{
+  color:#ff6000;
+}
+.greencolor{
+  color:#008000;
 }
 
 .customtable tr:nth-child(even) {

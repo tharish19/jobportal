@@ -21,15 +21,16 @@
                                     <table class="mainTable">
                                         <tbody>
                                             <tr>
-                                                <td rowspan="2" class="lable_header">Today</td>
-                                                <td colspan="3" class="valuecount" style="text-align: right;">
+                                                <td class="lable_header">Today</td>
+                                                <td  class="valuecount">
                                                     {{daySubmissions}}</td>
-                                                <td colspan="3" class="valuecount" style="text-align: right;">
+                                                <td [ngClass]="(dailyRank <= 5) ? 'greencolor' : (dailyRank > 5 && dailyRank <=10 ? 'orangecolor' : 'pastelred')"  class="valuecount">
                                                     {{dailyRank}}</td>
                                             </tr>
                                             <tr>
-                                                <th class="subheading" style="text-align: right;">Subs</th>
-                                                <th class="subheading" style="text-align: right;">Rank</th>
+                                                <th>&nbsp;</th>
+                                                <th class="subheading">Subs</th>
+                                                <th class="subheading">Rank</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -48,7 +49,7 @@
                                             <tr *ngFor="let detail of leaderBoardDetails.dayDetails">
                                                 <td class="name">{{detail.name}}</td>
                                                 <td class="subs colorsub fontsize18">{{detail.submissions}}</td>
-                                                <td class="Rank pastelred fontsize18">{{detail.rank}}</td>
+                                                <td [ngClass]="(detail.rank <= 5) ? 'greencolor' : (detail.rank > 5 && detail.rank <=10 ? 'orangecolor' : 'pastelred')"  class="Rank  fontsize18">{{detail.rank}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -64,15 +65,16 @@
                                     <table class="mainTable">
                                         <tbody>
                                             <tr>
-                                                <td rowspan="2" class="lable_header">This Week</td>
-                                                <td colspan="3" class="valuecount" style="text-align: right;">
+                                                <td class="lable_header">This Week</td>
+                                                <td  class="valuecount">
                                                     {{weekSubmissions}}</td>
-                                                <td colspan="3" class="valuecount" style="text-align: right;">
+                                                <td [ngClass]="(weeklyRank <= 5) ? 'greencolor' : ((weeklyRank > 5 && weeklyRank <=10) ? 'orangecolor' : 'pastelred')"  class="valuecount">
                                                     {{weeklyRank}}</td>
                                             </tr>
                                             <tr>
-                                                <th class="subheading" style="text-align: right;">Subs</th>
-                                                <th class="subheading" style="text-align: right;">Rank</th>
+                                                <th>&nbsp;</th>
+                                                <th class="subheading">Subs</th>
+                                                <th class="subheading">Rank</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -91,7 +93,7 @@
                                             <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
                                                 <td class="name">{{detail.name}}</td>
                                                 <td class="subs colorsub fontsize18">{{detail.submissions}}</td>
-                                                <td class="Rank pastelred fontsize18">{{detail.rank}}</td>
+                                                <td [ngClass]="(detail.rank <= 5) ? 'greencolor' : (detail.rank > 5 && detail.rank <=10 ? 'orangecolor' : 'pastelred')" class="Rank  fontsize18">{{detail.rank}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -100,10 +102,6 @@
                         </div>
                     </li>
                 </ul>
-                <!-- <div class="row">
-                    <div class="col-md-3">
-                    </div>
-                </div> -->
             </div>
             <div class="col-md-6">
                 <ul class="ComboFields">
@@ -134,77 +132,6 @@
                     </li>
                 </ul>
             </div>
-            <!-- <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="allJobsLabel">
-                            <span>JOBS</span>
-                            <button (click)="getJobsData()" type="button" class="btn btn-refresh">
-                                <span matTooltip="Refresh All" matTooltipClass="custom-tooltip">
-                                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mr5">
-                        <div class=" row graphs">
-                            <div class="col-md-4 daysandweeks">
-                                Today
-                            </div>
-                            <div class="col-md-4 pt-8">
-                                <div class="values">39</div>
-                                <div class="valuelable">Subs</div>
-                            </div>
-                            <div class="col-md-4 pt-8">
-                                <div class="values">39</div>
-                                <div class="valuelable">Rank</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 ml5">
-                        <div class=" row graphs">
-                            <div class="col-md-4 daysandweeks">
-                                Today
-                            </div>
-                            <div class="col-md-4 pt-8">
-                                <div class="values">39</div>
-                                <div class="valuelable">Subs</div>
-                            </div>
-                            <div class="col-md-4 pt-8">
-                                <div class="values">39</div>
-                                <div class="valuelable">Rank</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <ul class="ComboFields">
-                    <li>
-                        <div class="inputfieldscustom">
-                            <mat-form-field class="example-full-width">
-                                <mat-placeholder>Skills</mat-placeholder>
-                                <mat-icon matPrefix class="prefex-brief"><i class="fa fa-briefcase"
-                                        aria-hidden="true"></i></mat-icon>
-                                <mat-select [(ngModel)]="searchQuery" multiple>
-                                    <input matInput (input)="onInputChange($event.target.value)"
-                                        placeholder="Search here" class="customInputField" autocomplete="off" />
-                                    <perfect-scrollbar class="perfect_customscroll">
-                                        <mat-option (click)="selectAll(term)" *ngFor="let term of filteredSearchTerms"
-                                            [value]="term">
-                                            {{term}}
-                                        </mat-option>
-                                    </perfect-scrollbar>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </li>
-                    <li>
-                        <button type="button" (click)="onSearch()" class="btn  btn-md  text-white btn-search"><span
-                                class="icon-search icon"></span>Search Jobs</button>
-                    </li>
-                </ul>
-            </div> -->
         </div>
         <div class="row">
             <div class="col-md-12">
