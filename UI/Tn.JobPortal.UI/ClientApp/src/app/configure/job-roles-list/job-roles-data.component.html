@@ -1,13 +1,10 @@
 <div class="container-fluid">
     <div class="Search-from">
         <div class="row align-items-center justify-content-center mb-10">
-            <div class="col-md-3 allJobsLabel">
-                <h4>JOB ROLES</h4>
-            </div>
-            <div class="col-md-6 text-right">
+            <div class="col-md-9 text-right">
                 <span class="errormsg" *ngIf="infoMessage !== null && infoMessage !== ''">{{infoMessage}}</span>
             </div>
-            <div class="col-md-3 text-left pl35">
+            <div class="col-md-3 text-left">
                 <button type="button" [disabled]="!isAuthorizedUser" class="btn  btn-md  text-white btn-search"
                     (click)="OpenEditJobRole(null)">
                     <span class="icon-search icon"></span>New Job Role
