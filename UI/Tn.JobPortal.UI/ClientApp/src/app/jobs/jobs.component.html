@@ -36,7 +36,7 @@
                                     </table>
                                 </button>
                                 <div class="dropdown-menu" style="width: 260px;">
-                                    <h5>Todays Leader Board</h5>
+                                    <h5>Today Leader Board</h5>
                                     <table class="customtable">
                                         <thead>
                                             <tr>
@@ -48,8 +48,8 @@
                                         <tbody>
                                             <tr *ngFor="let detail of leaderBoardDetails.dayDetails">
                                                 <td class="name">{{detail.name}}</td>
-                                                <td class="subs colorsub fontsize18">{{detail.submissions}}</td>
-                                                <td [ngClass]="(detail.rank <= 5) ? 'greencolor' : (detail.rank > 5 && detail.rank <=10 ? 'orangecolor' : 'pastelred')"  class="Rank  fontsize18">{{detail.rank}}</td>
+                                                <td class="subs">{{detail.submissions}}</td>
+                                                <td class="Rank">{{detail.rank}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -80,7 +80,7 @@
                                     </table>
                                 </button>
                                 <div class="dropdown-menu" style="width: 260px;">
-                                    <h5>Weeks Leader Board</h5>
+                                    <h5>This Week Leader Board</h5>
                                     <table class="customtable">
                                         <thead>
                                             <tr>
@@ -92,8 +92,8 @@
                                         <tbody>
                                             <tr *ngFor="let detail of leaderBoardDetails.weekDetails">
                                                 <td class="name">{{detail.name}}</td>
-                                                <td class="subs colorsub fontsize18">{{detail.submissions}}</td>
-                                                <td [ngClass]="(detail.rank <= 5) ? 'greencolor' : (detail.rank > 5 && detail.rank <=10 ? 'orangecolor' : 'pastelred')" class="Rank  fontsize18">{{detail.rank}}</td>
+                                                <td class="subs">{{detail.submissions}}</td>
+                                                <td class="Rank">{{detail.rank}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

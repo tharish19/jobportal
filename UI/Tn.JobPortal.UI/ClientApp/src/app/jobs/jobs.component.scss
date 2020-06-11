@@ -74,11 +74,11 @@
   padding: 10px;
   width: 220px;
   height: auto;
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: scroll;
   h5 {
     font-size: 12px;
-    padding: 3px;
+    // padding: 3px;
     text-align: center;
     color: #13292d;
     font-weight: bold;
@@ -132,7 +132,7 @@
 .customtable th {
   // border: 1px solid #dddddd;
   text-align: left;
-  padding: 4px;
+  padding: 3px;
 }
 
 .customtable {
