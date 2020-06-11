@@ -8,6 +8,8 @@ import { AuthenticationGuard } from './shared/services/authenticated.guard';
 import { OAuthCallbackHandler } from './shared/services/oauth-callback.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfigureComponent } from './configure/configure.component';
+import { JobRolesDataComponent } from './configure/job-roles-list/job-roles-data.component';
+import { ConsultantListComponent } from './configure/consultant-list/consultant-list.component';
 
 // Layouts
 export const AppRoutes: Routes = [
@@ -36,7 +38,24 @@ export const AppRoutes: Routes = [
             {
                 path: 'configure',
                 component: ConfigureComponent,
-                canActivate: [AuthenticationGuard]
+                canActivate: [AuthenticationGuard],
+                children: [
+                    {
+                        path: '',
+                        pathMatch: 'full',
+                        redirectTo: 'jobroles'
+                    },
+                    {
+                        path: 'jobroles',
+                        component: JobRolesDataComponent,
+                        outlet: 'ConfigureType'
+                    },
+                    {
+                        path: 'consultants',
+                        component: ConsultantListComponent,
+                        outlet: 'ConfigureType'
+                    }
+                ]
             }
         ]
     }

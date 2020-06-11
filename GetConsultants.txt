@@ -1,0 +1,21 @@
+DELIMITER //
+CREATE PROCEDURE GetConsultants()
+BEGIN
+	select 
+		c.ConsultantID,
+		c.ConsultantName,
+		c.MobileNumber,
+		c.Email,
+		c.JobTitle,
+		cm.MemberID,
+		cr.jobsearchid,
+		jss.JobRole
+	from consultants c 
+		join consultantmemberbridge cm
+			on cm.ConsultantID = c.ConsultantID
+		join consultantrolebridge cr
+			on cr.ConsultantID = c.ConsultantID
+		join jobssearchstrings jss
+			on jss.jobsearchid = cr.jobsearchid
+END //
+DELIMITER ;
