@@ -17,7 +17,7 @@ import { CommonLayoutComponent } from './common/common-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { JobSelectionComponent } from './dialogs/job-selection/job-selection.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { JobRolesDataComponent } from './jobsearchdata/job-roles-data.component';
+import { JobRolesDataComponent } from './configure/job-roles-list/job-roles-data.component';
 import { OAuthCallbackComponent } from './login-callback/oauth-callback.component';
 import { SignInComponent } from './login-callback/sign-in/sign-in.component';
 import { NoRightClickDirective } from './shared/directives/no-right-click.directive';
@@ -30,9 +30,11 @@ import { SidePanelComponent } from './template/side-panel/side-panel.component';
 import { TemplateModule } from './template/template.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomloaderComponent } from './shared/customloader/customloader.component';
-import { AddJobRoleComponent } from './jobsearchdata/addjobsearchdata/add-job-role.component';
+import { AddJobRoleComponent } from './configure/job-roles-list/add-job-role/add-job-role.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { ConsultantListComponent } from './configure/consultant-list/consultant-list.component';
+import { ConfigureComponent } from './configure/configure.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient);
@@ -50,7 +52,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         DateAgoPipe
     ],
     imports: [PerfectScrollbarModule],
-    declarations: [DateAgoPipe],
+    declarations: [DateAgoPipe, ConfigureComponent, ConsultantListComponent],
     providers: [{
         provide: PERFECT_SCROLLBAR_CONFIG,
         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

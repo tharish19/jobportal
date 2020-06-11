@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GridComponent, GridDataResult, DataStateChangeEvent, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor, process, State } from '@progress/kendo-data-query';
-import { IJobRoles } from '../Interfaces/IJobRoles';
-import { AppComponent } from '../app.component';
-import { JobsService } from '../services/jobs.service';
+import { IJobRoles } from '../../Interfaces/IJobRoles';
+import { AppComponent } from '../../app.component';
+import { JobsService } from '../../services/jobs.service';
 import { MatDialog } from '@angular/material';
-import { AddJobRoleComponent } from './addjobsearchdata/add-job-role.component';
-import { DialogService } from '../services/dailog.service';
-import { AdalService } from '../shared/services/adal.service';
+import { AddJobRoleComponent } from './add-job-role/add-job-role.component';
+import { DialogService } from '../../services/dailog.service';
+import { AdalService } from '../../shared/services/adal.service';
 
 @Component({
     selector: 'app-job-roles-data',

@@ -7,7 +7,7 @@ import { SignInComponent } from './login-callback/sign-in/sign-in.component';
 import { AuthenticationGuard } from './shared/services/authenticated.guard';
 import { OAuthCallbackHandler } from './shared/services/oauth-callback.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { JobRolesDataComponent } from './jobsearchdata/job-roles-data.component';
+import { ConfigureComponent } from './configure/configure.component';
 
 // Layouts
 export const AppRoutes: Routes = [
@@ -34,8 +34,8 @@ export const AppRoutes: Routes = [
                 canActivate: [AuthenticationGuard]
             },
             {
-                path: 'jobsearchdata',
-                component: JobRolesDataComponent,
+                path: 'configure',
+                component: ConfigureComponent,
                 canActivate: [AuthenticationGuard]
             }
         ]
