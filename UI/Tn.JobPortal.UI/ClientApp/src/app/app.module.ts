@@ -52,7 +52,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         DateAgoPipe
     ],
     imports: [PerfectScrollbarModule],
-    declarations: [DateAgoPipe, ConfigureComponent, ConsultantListComponent],
+    declarations: [DateAgoPipe,  ConsultantListComponent],
     providers: [{
         provide: PERFECT_SCROLLBAR_CONFIG,
         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
@@ -97,7 +97,8 @@ export class CommonExternalModules { }
         CustomloaderComponent,
         AddJobRoleComponent,
         AlertDialogComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        ConfigureComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
