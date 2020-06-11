@@ -57,7 +57,7 @@ namespace Tn.JobPortal.Api.Business
                 int counter = 0;
                 bool isNotDataSufficient = true;
                 holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
-                DateTime date = cstDateTime;
+                DateTime date = cstDateTime.Date;
                 List<JobDetailsModel> jobs;
                 do
                 {
@@ -100,7 +100,7 @@ namespace Tn.JobPortal.Api.Business
             string jobRoleCondition = "";
             string[] filters;
             holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
-            DateTime lastBusinessDateTime = GetLastBusinessDay(cstTime);
+            DateTime lastBusinessDateTime = GetLastBusinessDay(cstTime.Date);
 
             if (postedByValues != null && postedByValues != "")
             {
@@ -162,7 +162,7 @@ namespace Tn.JobPortal.Api.Business
             DateTime date = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
             List<JobStatusModel> result = new List<JobStatusModel>();
 
-            DateTime lastBusinessDateTime = GetDateForTheDay(date, 1); // Value of Monday is 1 for Day Of Week
+            DateTime lastBusinessDateTime = GetDateForTheDay(date.Date, 1); // Value of Monday is 1 for Day Of Week
             result = await userRepository.GetLeaderBoardDetailsAsync(lastBusinessDateTime).ConfigureAwait(false);
 
             List<LeaderBoardDetails> weekData = GetLeaderBoardDetails(result);
@@ -170,7 +170,7 @@ namespace Tn.JobPortal.Api.Business
             DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
 
             var now = cstTime.Hour;
-            var dateTimeToFilter = (now >= 11) ? cstTime.Date : cstTime.Date.AddDays(-1);
+            var dateTimeToFilter = (now >= 9) ? cstTime.Date : cstTime.Date.AddDays(-1);
 
             List<JobStatusModel> response = result.Where(x => x.AppliedOn > dateTimeToFilter).ToList();
             List<LeaderBoardDetails> todayData = GetLeaderBoardDetails(response);
@@ -218,8 +218,6 @@ namespace Tn.JobPortal.Api.Business
         {
             while ((int)date.DayOfWeek != day)
                 date = date.AddDays(-1);
-
-
 
             return date;
         }
