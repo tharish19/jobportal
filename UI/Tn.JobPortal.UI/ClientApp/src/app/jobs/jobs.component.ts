@@ -223,9 +223,11 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.currrentUserName = this.adalService.userInfo.profile.name;
     window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
     this.postedByIconArray.push({ key: 'addison group', value: 'addisongroup.png' });
+    this.postedByIconArray.push({ key: 'apex', value: 'apexsystems.ico' });
     this.postedByIconArray.push({ key: 'career builder', value: 'careerbuilder.png' });
     this.postedByIconArray.push({ key: 'collabera', value: 'collabera.png' });
     this.postedByIconArray.push({ key: 'dice', value: 'dice.png' });
+    this.postedByIconArray.push({ key: 'experis data', value: 'experis.ico' });
     this.postedByIconArray.push({ key: 'indeed', value: 'indeed.ico' });
     this.postedByIconArray.push({ key: 'kforce', value: 'kforce.png' });
     this.postedByIconArray.push({ key: 'monster', value: 'monsterindia.png' });
