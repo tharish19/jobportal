@@ -112,7 +112,7 @@
                                 <mat-placeholder>Skills</mat-placeholder>
                                 <mat-icon matPrefix class="prefex-brief"><i class="fa fa-briefcase"
                                         aria-hidden="true"></i></mat-icon>
-                                <mat-select [(ngModel)]="searchQuery" multiple>
+                                <mat-select [(ngModel)]="searchQuery" multiple panelClass="Jobsdropdown">
                                     <input matInput (input)="onInputChange($event.target.value)"
                                         placeholder="Search here" class="customInputField" autocomplete="off" />
                                     <perfect-scrollbar class="perfect_customscroll">

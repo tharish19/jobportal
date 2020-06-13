@@ -10,19 +10,20 @@
                 </svg>
             </div>
         </div>
-        <div class="row mb-30">
-            <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-10">
                 <p *ngIf="!consultantData" class="page_title uppercase title_clr d-inline">Add Consultant</p>
                 <p *ngIf="consultantData" class="page_title uppercase title_clr d-inline">
                     Update Consultant</p>
             </div>
         </div>
-        <div class="row mb-10">
+        <div class="row mt-10">
             <div class="col-md-6">
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Consultant Name </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <input matInput formControlName="consultantName" maxlength="150" autocomplete="off" class="inputalignment" />
+                    <input matInput formControlName="consultantName" maxlength="150" autocomplete="off"
+                        class="inputalignment" />
                     <mat-error *ngIf="addConsultantForm.controls['consultantName'].errors">
                         Please enter Consultant Name with maximum 150 characters.
                     </mat-error>
@@ -32,7 +33,98 @@
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Job Title </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <input matInput formControlName="jobTitle" maxlength="100" autocomplete="off" class="inputalignment" />
+                    <input matInput formControlName="jobTitle" maxlength="100" autocomplete="off"
+                        class="inputalignment" />
+                    <mat-error *ngIf="addConsultantForm.controls['jobTitle'].errors">
+                        Please enter Job Title with maximum 100 characters.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Email Address </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <input matInput formControlName="email" maxlength="150" autocomplete="off" class="inputalignment" />
+                    <mat-error *ngIf="addConsultantForm.controls['email'].errors">
+                        Please enter Email Address.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Mobile Number </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <input matInput formControlName="mobileNumber" maxlength="20" autocomplete="off"
+                        class="inputalignment" />
+                    <mat-error *ngIf="addConsultantForm.controls['mobileNumber'].errors">
+                        Please enter Mobile Number.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Members </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <mat-select name="membersList" formControlName="members" [(ngModel)]="selectedMembers" multiple panelClass="customwidthdropdown">
+                        <perfect-scrollbar style="max-width: 100%;" class="perfectScroll_custom">
+                            <mat-option *ngFor="let obj of membersList" [value]="obj.mail">
+                                {{obj.displayName}}
+                            </mat-option>
+                        </perfect-scrollbar>
+                    </mat-select>
+                    <mat-error *ngIf="addConsultantForm.controls['members'].errors">
+                        Please select at least one Member.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Roles </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <mat-select name="jobRoleList" formControlName="jobRoles" [(ngModel)]="selectedJobRoles" multiple panelClass="customwidthdropdown">
+                        <perfect-scrollbar style="max-width: 100%;" class="perfectScroll_custom">
+                            <mat-option *ngFor="let obj of jobRoleList" [value]="obj.jobRoleId">
+                                {{obj.jobRole}}
+                            </mat-option>
+                        </perfect-scrollbar>
+                    </mat-select>
+                    <mat-error *ngIf="addConsultantForm.controls['jobRoles'].errors">
+                        Please select at least one Job Roles.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-12 text-right">
+                <button type="button" (click)="save()"
+                class="btn btn-success btn-sm btn-custom cursor-pointer">Save</button>
+            <button (click)="cancel()" type="button" class="btn btn-danger btn-sm btn-custom cursor-pointer">
+                Clear
+            </button>
+            </div>
+        </div>
+        <!-- <div class="row mb-10">
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Consultant Name </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <input matInput formControlName="consultantName" maxlength="150" autocomplete="off"
+                        class="inputalignment" />
+                    <mat-error *ngIf="addConsultantForm.controls['consultantName'].errors">
+                        Please enter Consultant Name with maximum 150 characters.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-placeholder>Job Title </mat-placeholder>
+                    <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
+                    <input matInput formControlName="jobTitle" maxlength="100" autocomplete="off"
+                        class="inputalignment" />
                     <mat-error *ngIf="addConsultantForm.controls['jobTitle'].errors">
                         Please enter Job Title with maximum 100 characters.
                     </mat-error>
@@ -54,7 +146,8 @@
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Mobile Number </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <input matInput formControlName="mobileNumber" maxlength="20" autocomplete="off" class="inputalignment" />
+                    <input matInput formControlName="mobileNumber" maxlength="20" autocomplete="off"
+                        class="inputalignment" />
                     <mat-error *ngIf="addConsultantForm.controls['mobileNumber'].errors">
                         Please enter Mobile Number.
                     </mat-error>
@@ -66,10 +159,9 @@
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Members </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <mat-select name="membersList" formControlName="members" panelClass="CustomMatSelectDropDown"
+                    <mat-select name="membersList" formControlName="members" 
                         [(ngModel)]="selectedMembers" multiple>
-                        <perfect-scrollbar style="max-width: 100%;"
-                            class="CustomMatSelectDropDown_Scroll perfectScroll_custom">
+                        <perfect-scrollbar style="max-width: 100%;" class="perfectScroll_custom">
                             <mat-option *ngFor="let obj of membersList" [value]="obj.mail">
                                 {{obj.displayName}}
                             </mat-option>
@@ -84,10 +176,9 @@
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Roles </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <mat-select name="jobRoleList" formControlName="jobRoles" panelClass="CustomMatSelectDropDown"
+                    <mat-select name="jobRoleList" formControlName="jobRoles" 
                         [(ngModel)]="selectedJobRoles" multiple>
-                        <perfect-scrollbar style="max-width: 100%;"
-                            class="CustomMatSelectDropDown_Scroll perfectScroll_custom">
+                        <perfect-scrollbar style="max-width: 100%;" class="perfectScroll_custom">
                             <mat-option *ngFor="let obj of jobRoleList" [value]="obj.jobRoleId">
                                 {{obj.jobRole}}
                             </mat-option>
@@ -96,6 +187,7 @@
                     <mat-error *ngIf="addConsultantForm.controls['jobRoles'].errors">
                         Please select at least one Job Roles.
                     </mat-error>
+
                 </mat-form-field>
             </div>
         </div>
@@ -107,6 +199,6 @@
                     Clear
                 </button>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>
