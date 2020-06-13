@@ -16,6 +16,6 @@ BEGIN
 		join consultantrolebridge cr
 			on cr.ConsultantID = c.ConsultantID
 		join jobssearchstrings jss
-			on jss.jobsearchid = cr.jobsearchid
+			on jss.jobsearchid = cr.jobsearchid;
 END //
 DELIMITER ;

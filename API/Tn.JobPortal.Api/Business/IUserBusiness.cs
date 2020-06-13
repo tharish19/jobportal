@@ -50,5 +50,11 @@ namespace Tn.JobPortal.Api.Business
         /// </summary>
         /// <returns></returns>
         Task<WeekAndDayLeaderBoard> GetLeaderBoardDetailsAsync();
+
+        /// <summary>
+        /// Gets all consultants asynchronous.
+        /// </summary>
+        /// <returns>all consultants</returns>
+        Task<List<ConsultantsClientModel>> GetAllConsultantsAsync();
     }
 }

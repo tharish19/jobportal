@@ -173,8 +173,24 @@ namespace Tn.JobPortal.Api.Repository
                 var result = await connection.QueryAsync<JobStatusModel>("GetLeaderBoardData",
                     new
                     {
-                     startDateTime
+                        startDateTime
                     }, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return result.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Gets all consultants asynchronous.
+        /// </summary>
+        /// <returns>
+        /// all consultants
+        /// </returns>
+        public async Task<List<ConsultantsDataModel>> GetAllConsultantsAsync()
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                var result = await connection.QueryAsync<ConsultantsDataModel>("GetConsultants",
+                    null, null, null, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return result.ToList();
             }
         }

@@ -4,8 +4,6 @@ export interface IConsultants {
     mobileNumber: string;
     email: string;
     jobTitle: string;
-    memberIDList: any[];
-    members: any;
-    jobsearchidList: any[];
-    jobRoles: any;
+    memberIdList: any[];
+    jobRoleIdList: any[];
 }

@@ -67,5 +67,11 @@ namespace Tn.JobPortal.Api.Repository
         /// <param name="startDateTime">The start date time.</param>
         /// <returns></returns>
         Task<List<JobStatusModel>> GetLeaderBoardDetailsAsync(DateTime startDateTime);
+
+        /// <summary>
+        /// Gets all consultants asynchronous.
+        /// </summary>
+        /// <returns>all consultants</returns>
+        Task<List<ConsultantsDataModel>> GetAllConsultantsAsync();
     }
 }

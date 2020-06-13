@@ -101,5 +101,15 @@ namespace Tn.JobPortal.Api.Controllers
         {
             return await userBusiness.GetLeaderBoardDetailsAsync().ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Gets all consultants asynchronous.
+        /// </summary>
+        /// <returns>all consultants</returns>
+        [HttpGet("consultants")]
+        public async Task<List<ConsultantsClientModel>> GetAllConsultantsAsync()
+        {
+            return await userBusiness.GetAllConsultantsAsync().ConfigureAwait(false);
+        }
     }
 }

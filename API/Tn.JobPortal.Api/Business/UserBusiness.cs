@@ -182,6 +182,42 @@ namespace Tn.JobPortal.Api.Business
             return leaderBoard;
         }
 
+        /// <summary>
+        /// Gets all consultants asynchronous.
+        /// </summary>
+        /// <returns>
+        /// all consultants
+        /// </returns>
+        public async Task<List<ConsultantsClientModel>> GetAllConsultantsAsync()
+        {
+            var response = await userRepository.GetAllConsultantsAsync().ConfigureAwait(false);
+            List<ConsultantsClientModel> consultantsList = new List<ConsultantsClientModel>();
+            var groupData = response.GroupBy(x => x.ConsultantID).ToList();
+            foreach (var consultant in groupData.ToList())
+            {
+                List<string> MemberList = new List<string>();
+                List<int> JobRoleList = new List<int>();
+                foreach (var row in consultant)
+                {
+                    MemberList.Add(row.MemberID);
+                    JobRoleList.Add(row.JobRoleID);
+                }
+
+                consultantsList.Add(
+                    new ConsultantsClientModel()
+                    {
+                        ConsultantID = consultant.FirstOrDefault().ConsultantID,
+                        ConsultantName = consultant.FirstOrDefault().ConsultantName,
+                        Email = consultant.FirstOrDefault().Email,
+                        MobileNumber = consultant.FirstOrDefault().MobileNumber,
+                        JobTitle = consultant.FirstOrDefault().JobTitle,
+                        MemberIdList = MemberList,
+                        JobRoleIdList = JobRoleList
+                    });
+            }
+            return consultantsList;
+        }
+
         #region Private Methods
 
         /// <summary>
