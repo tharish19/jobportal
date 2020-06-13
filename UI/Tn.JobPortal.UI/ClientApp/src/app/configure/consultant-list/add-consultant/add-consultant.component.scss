@@ -12,3 +12,14 @@
     border-radius: 50%;
     border:1px solid #000;
 }
+.perfectScroll_custom{
+    max-height: 200px;
+    overflow-x: hidden;
+}
+.btn-custom{
+    margin-bottom: 0px;
+}
+:host/deep/ .mat-select-panel    {
+    margin-top: 0px !important;
+    margin-left: 0px !important;
+}

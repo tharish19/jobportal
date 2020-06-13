@@ -251,7 +251,8 @@
 	:focus {
 		background-color: rgb(10, 106, 128);
 		outline: 0;
-		box-shadow: 0 14px 26px -12px rgba(10,106,128,.42), 0 4px 23px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(10,106,128,.2);
+		box-shadow: 0 14px 26px -12px rgba(10, 106, 128, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12),
+			0 8px 10px -5px rgba(10, 106, 128, 0.2);
 	}
 }
 .btn-post {
@@ -491,12 +492,6 @@ input.mat-input-element {
 ::ng-deep .k-grid {
 	background-color: #fff;
 }
-
-.mat-select-panel {
-	margin-top: 36px;
-	margin-left: 10px;
-	min-width: calc(100% + 33px) !important;
-}
 .k-grid tr.k-alt {
 	background-color: rgba(255, 255, 255, 0.04);
 }
@@ -727,25 +722,25 @@ input.mat-input-element {
 .pb-30 {
 	padding-bottom: 30px;
 }
-.popupcloseposition{
+.popupcloseposition {
 	position: absolute;
-    top: 8px;
+	top: 8px;
 	right: 10px;
 	cursor: pointer;
 }
-.AddJobSearchData{
+.AddJobSearchData {
 	position: relative !important;
 }
-.AddConsultant{
+.AddConsultant {
 	position: relative !important;
 }
-.mall15{
+.mall15 {
 	margin: 15px;
 }
-.pl-15{
+.pl-15 {
 	padding-left: 15px;
-} 
-.pr-15{
+}
+.pr-15 {
 	padding-right: 15px;
 }
 .perfectScroll_custom {
@@ -754,4 +749,13 @@ input.mat-input-element {
 }
 .PopUp.perfectScroll_custom {
 	max-height: 350px;
+}
+.customwidthdropdown {
+	margin-left: 40px !important;
+	min-width: 100% !important;
+}
+.Jobsdropdown{
+	margin-left: 10px;
+	min-width: 100% !important;
+	margin-top: 44px;
 }
