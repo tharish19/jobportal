@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class JobsService {
+export class ApiService {
 
   API_URL = environment.userApiKey + 'user/';
 
@@ -31,5 +31,11 @@ export class JobsService {
   }
   getLeaderBoard(): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + 'leader/board');
+  }
+  GetAllConsultants(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + 'consultants');
+  }
+  AddOrUpdateConsultant(consultant: any): Observable<any> {
+    return this.httpClient.post<any>(this.API_URL + 'update/consultant', consultant);
   }
 }

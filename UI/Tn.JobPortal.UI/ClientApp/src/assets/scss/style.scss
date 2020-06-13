@@ -418,7 +418,23 @@ div.k-grid-header {
 .mat-form-field.mat-focused .mat-form-field-ripple {
 	background-color: #0a6a80;
 }
-
+.mat-form-field {
+	.mat-form-field-label {
+		padding-top: 4px;
+		.asteriskDisplay {
+			position: relative;
+			top: -3px;
+		}
+	}
+	.mat-form-field-wrapper {
+		.mat-select-arrow {
+			color: #fd6d21;
+		}
+	}
+}
+.asteriskDisplay {
+	color: red;
+}
 .Profilelogout:hover {
 	.profiledropdown {
 		display: block;
@@ -713,10 +729,14 @@ input.mat-input-element {
 }
 .popupcloseposition{
 	position: absolute;
-    top: 3px;
-    right: 5px;
+    top: 8px;
+	right: 10px;
+	cursor: pointer;
 }
 .AddJobSearchData{
+	position: relative !important;
+}
+.AddConsultant{
 	position: relative !important;
 }
 .mall15{
@@ -727,4 +747,11 @@ input.mat-input-element {
 } 
 .pr-15{
 	padding-right: 15px;
+}
+.perfectScroll_custom {
+	max-height: calc(100vh - 200px);
+	overflow-x: hidden;
+}
+.PopUp.perfectScroll_custom {
+	max-height: 350px;
 }

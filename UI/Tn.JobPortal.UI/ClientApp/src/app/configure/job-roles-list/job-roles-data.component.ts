@@ -3,7 +3,7 @@ import { GridComponent, GridDataResult, DataStateChangeEvent, PageChangeEvent } 
 import { CompositeFilterDescriptor, process, State } from '@progress/kendo-data-query';
 import { IJobRoles } from '../../Interfaces/IJobRoles';
 import { AppComponent } from '../../app.component';
-import { JobsService } from '../../services/jobs.service';
+import { ApiService } from '../../services/api.service';
 import { MatDialog } from '@angular/material';
 import { AddJobRoleComponent } from './add-job-role/add-job-role.component';
 import { DialogService } from '../../services/dailog.service';
@@ -32,18 +32,18 @@ export class JobRolesDataComponent implements OnInit {
     public pageSizes = false;
     public previousNext = true;
     gridData: IJobRoles[] = [];
-    infoMessage: string;
     isAuthorizedUser = false;
     authorizedUsers: any[] = ['Vasanth@tekninjas.com',
         'naveen@tekninjas.com',
         'sri@tekninjas.com',
         'vijay.y@tekninjas.com',
-        'srikanth.a@tekninjas.com'];
+        'srikanth.a@tekninjas.com',
+        'flow@tekninjas.com'];
 
     constructor(private adalService: AdalService,
         private rootComp: AppComponent,
         private dialogService: DialogService,
-        private jobsService: JobsService,
+        private apiService: ApiService,
         public dialog: MatDialog) {
     }
 
@@ -53,7 +53,7 @@ export class JobRolesDataComponent implements OnInit {
             this.isAuthorizedUser = true;
         }
         this.rootComp.cssClass = 'KendoCustomFilter_list';
-        this.jobsService.GetJobSearchTerms().subscribe(res => {
+        this.apiService.GetJobSearchTerms().subscribe(res => {
             this.gridData = res;
             this.gridData.map((_x, i) => {
                 if (this.gridData[i].jobRole.indexOf('"') >= 0) {
@@ -80,16 +80,13 @@ export class JobRolesDataComponent implements OnInit {
                 if (dataItem) {
                     dataItem.jobRole = _result.jobRole.replace(/"/ig, '');
                     dataItem.exactPhrase = _result.exactPhrase;
-                    this.infoMessage = 'Job Role \'' + _result.jobRole + '\' is updated.';
+                    this.dialogService.openAlertDialog('Job Role \'' + _result.jobRole + '\' is updated.', 'success');
                 } else {
                     _result.jobRole = _result.jobRole.replace(/"/ig, '');
                     this.gridData.push(_result);
-                    this.infoMessage = 'Job Role \'' + _result.jobRole + '\' is added.';
+                    this.dialogService.openAlertDialog('Job Role \'' + _result.jobRole + '\' is added.', 'success');
                     this.grid.data = this.gridData;
                 }
-                setTimeout(() => {
-                    this.infoMessage = null;
-                }, 5000);
             }
         });
     }
@@ -103,17 +100,14 @@ export class JobRolesDataComponent implements OnInit {
                         jobRole: dataItem.jobRole,
                         isDeleted: true
                     };
-                    this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
+                    this.apiService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
                         if (response !== null) {
                             this.gridData = this.gridData.filter(x => x.jobRoleId !== dataItem.jobRoleId);
-                            this.infoMessage = 'Job Role \'' + dataItem.jobRole + '\' is deleted.';
+                            this.dialogService.openAlertDialog('Job Role \'' + dataItem.jobRole + '\' is deleted.', 'success');
                             this.grid.data = this.gridData;
                         } else {
-                            this.infoMessage = 'An error occurred. Please try again.';
+                            this.dialogService.openAlertDialog('An error occurred. Please try again.', 'error');
                         }
-                        setTimeout(() => {
-                            this.infoMessage = null;
-                        }, 5000);
                     });
                 }
             });

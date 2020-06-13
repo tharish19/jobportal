@@ -13,7 +13,7 @@ import { AppComponent } from '../app.component';
 import { JobSelectionComponent } from '../dialogs/job-selection/job-selection.component';
 import { JobDetailsModel } from '../Interfaces/jobs';
 import { JobStatus } from '../Interfaces/JobStatus';
-import { JobsService } from '../services/jobs.service';
+import { ApiService } from '../services/api.service';
 import { DateAgoPipe } from '../shared/pipes/date-ago.pipe';
 import { AdalService } from '../shared/services/adal.service';
 
@@ -59,7 +59,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     public dialog: MatDialog,
     private dateAgoPipe: DateAgoPipe,
     private rootComp: AppComponent,
-    private jobsService: JobsService) { }
+    private apiService: ApiService) { }
 
   rowCallback(context: RowClassArgs) {
     const user = window.sessionStorage.getItem('currrentUserName');
@@ -92,7 +92,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
 
   getJobsData() {
-    this.jobsService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
+    this.apiService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
       if (response.userJobSearchString) {
         this.searchQuery = (response.userJobSearchString.split(','));
       }
@@ -113,7 +113,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
       statusDetails.jobID = dataItem.jobID;
       statusDetails.appliedBy = this.currrentUserName;
       statusDetails.AppliedOn = new Date();
-      this.jobsService.SubmitFeedBack(statusDetails).subscribe(res => {
+      this.apiService.SubmitFeedBack(statusDetails).subscribe(res => {
         if (res) {
           if (statusDetails.jobStatus.toString() === '1') {
             this.getLeaderBoard();
@@ -191,7 +191,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   onSearch() {
     const query = this.searchQuery.filter(x => x !== 'All').join();
-    this.jobsService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
+    this.apiService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
       this.reviewFilterGridData(res);
     });
   }
@@ -203,7 +203,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
 
   getLeaderBoard() {
-    this.jobsService.getLeaderBoard().subscribe(res => {
+    this.apiService.getLeaderBoard().subscribe(res => {
       this.leaderBoardDetails = res;
       if (res.dayDetails.find(x => x.name === this.currrentUserName)) {
         this.daySubmissions = res.dayDetails.find(x => x.name === this.currrentUserName).submissions;

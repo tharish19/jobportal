@@ -35,6 +35,7 @@ import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.compone
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { ConsultantListComponent } from './configure/consultant-list/consultant-list.component';
 import { ConfigureComponent } from './configure/configure.component';
+import { AddConsultantComponent } from './configure/consultant-list/add-consultant/add-consultant.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient);
@@ -52,7 +53,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         DateAgoPipe
     ],
     imports: [PerfectScrollbarModule],
-    declarations: [DateAgoPipe, ConsultantListComponent],
+    declarations: [DateAgoPipe],
     providers: [{
         provide: PERFECT_SCROLLBAR_CONFIG,
         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
@@ -98,7 +99,9 @@ export class CommonExternalModules { }
         AddJobRoleComponent,
         AlertDialogComponent,
         ConfirmDialogComponent,
-        ConfigureComponent
+        ConfigureComponent,
+        ConsultantListComponent,
+        AddConsultantComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
