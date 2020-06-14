@@ -1,0 +1,12 @@
+DELIMITER //
+CREATE PROCEDURE AddOrUpdateConsultantJobRoleMappings (
+	IN ConsultantId INT(10),
+    IN JobRoleId INT(10),
+    IN InsertedBy NVARCHAR(150)
+)
+BEGIN		
+	INSERT INTO consultantrolebridge (ConsultantID, jobsearchid, RowInsertBy, RowInsertDate)
+		VALUES (ConsultantId, JobRoleId, InsertedBy, sysdate());
+	SELECT last_insert_id();
+END //
+DELIMITER ;

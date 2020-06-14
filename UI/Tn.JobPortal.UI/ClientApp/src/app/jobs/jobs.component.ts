@@ -42,9 +42,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   public previousNext = true;
   filterGridData: JobDetailsModel[] = [];
   searchTerms: any[] = [];
-  filteredSearchTerms: any[] = [];
+  consultantsList: any[] = [];
   previousQuery: any;
-  currrentUserName: string;
+  currrentMemberId: string;
+  userFullName: string;
   searchQuery: any;
   postedByIconArray: any[] = [];
   leaderBoardDetails: any;
@@ -54,6 +55,12 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   weekSubmissions = 0;
   dailyRank = 0;
   weeklyRank = 0;
+  membersList = [{ memberId: 1, displayName: 'Sri Jasti', mail: 'sri@tekninjas.com' },
+  { memberId: 2, displayName: 'Naveen Kumar', mail: 'naveen@tekninjas.com' },
+  { memberId: 3, displayName: 'Vasanth Nemala', mail: 'vasanth@tekninjas.com' },
+  { memberId: 4, displayName: 'Vijay Yasaram', mail: 'vijay.y@tekninjas.com' },
+  { memberId: 5, displayName: 'Srikanth Anapagadda', mail: 'srikanth.a@tekninjas.com' },
+  { memberId: 6, displayName: 'MS Flow', mail: 'flow@tekninjas.com' }];
 
   constructor(private adalService: AdalService,
     public dialog: MatDialog,
@@ -62,7 +69,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     private apiService: ApiService) { }
 
   rowCallback(context: RowClassArgs) {
-    const user = window.sessionStorage.getItem('currrentUserName');
+    const user = window.sessionStorage.getItem('currrentMemberId');
     if (context.dataItem.jobStatus === '2' && context.dataItem.appliedBy.indexOf(user) >= 0) {
       return {
         notrelaventClass: true,
@@ -82,6 +89,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.filterGridData.map((_x, i) => {
       this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
       this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
+      // this.filterGridData[i].appliedBy = (this.membersList.filter(x => x.mail === this.filterGridData[i].appliedBy).length > 0)
+      //   ? this.membersList.filter(x => x.mail === this.filterGridData[i].appliedBy)[0].displayName
+      //   : this.filterGridData[i].appliedBy;
       this.filterGridData[i].appliedBy = (this.filterGridData[i].appliedBy !== '' && this.filterGridData[i].appliedBy !== null)
         ? this.filterGridData[i].appliedBy : '-NA-';
       this.filterGridData[i].postedByIcon = (this.postedByIconArray
@@ -92,13 +102,23 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   }
 
   getJobsData() {
-    this.apiService.GetJobDetails(this.adalService.userInfo.profile.name).subscribe(response => {
-      if (response.userJobSearchString) {
-        this.searchQuery = (response.userJobSearchString.split(','));
+    this.apiService.GetAllConsultantsAndJobsForMember().subscribe(response => {
+      if (response) {
+        if (response.consultantsData && response.consultantsData.length > 0) {
+          this.addConsultants(response.consultantsData);
+        }
+        this.reviewFilterGridData(response.jobsData);
       }
-      this.getSearchTerms(response.jobSearchStrings.map(o => o.jobRole));
-      this.reviewFilterGridData(response.jobDetails);
     });
+  }
+
+  addConsultants(consultantsData: any) {
+    this.consultantsList = [];
+    this.consultantsList.push({ consultantId: 0, consultantName: 'All' });
+    consultantsData.forEach(ele => {
+      this.consultantsList.push(ele);
+    });
+    this.searchTerms = this.consultantsList;
   }
 
   showPopup(dataItem) {
@@ -111,7 +131,7 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     dialogRef.afterClosed().subscribe(() => {
       statusDetails.jobStatus = dialogRef.componentInstance.selectedValue;
       statusDetails.jobID = dataItem.jobID;
-      statusDetails.appliedBy = this.currrentUserName;
+      statusDetails.appliedBy = this.currrentMemberId;
       statusDetails.AppliedOn = new Date();
       this.apiService.SubmitFeedBack(statusDetails).subscribe(res => {
         if (res) {
@@ -122,9 +142,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
           if (dataItem.appliedBy === '-NA-') {
             dataItem.appliedBy = '';
           }
-          dataItem.appliedBy = (dataItem.appliedBy && !dataItem.appliedBy.includes(this.currrentUserName)) ? dataItem.appliedBy + ', ' +
-            this.currrentUserName : (dataItem.appliedBy && dataItem.appliedBy.includes(this.currrentUserName)) ?
-              dataItem.appliedBy : this.currrentUserName;
+          dataItem.appliedBy = (dataItem.appliedBy && !dataItem.appliedBy.includes(this.userFullName)) ? dataItem.appliedBy + ', ' +
+            this.userFullName : (dataItem.appliedBy && dataItem.appliedBy.includes(this.userFullName)) ?
+              dataItem.appliedBy : this.userFullName;
         }
       });
     });
@@ -145,74 +165,77 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.showPopup(val);
   }
 
-  selectAll(selectedJob) {
-    if (selectedJob === 'All' && this.searchQuery.includes('All')) {
+  selectAll(selectedConsultantId) {
+    if (selectedConsultantId === 0 && this.searchQuery.includes(0)) {
       this.searchQuery = [];
-      this.filteredSearchTerms.forEach(element => {
-        this.searchQuery.push(element);
+      this.consultantsList.forEach(element => {
+        this.searchQuery.push(element.consultantId);
       });
-    } else if (selectedJob === 'All' && this.searchQuery.length === this.filteredSearchTerms.length - 1) {
+    } else if (selectedConsultantId === 0 && this.searchQuery.length === this.consultantsList.length - 1) {
       this.searchQuery = [];
-    } else if (!this.searchQuery.includes('All') && this.searchQuery.length === this.filteredSearchTerms.length - 1) {
+    } else if (!this.searchQuery.includes(0) && this.searchQuery.length === this.consultantsList.length - 1) {
       this.searchQuery = [];
-      this.filteredSearchTerms.forEach(element => {
-        this.searchQuery.push(element);
+      this.consultantsList.forEach(element => {
+        this.searchQuery.push(element.consultantId);
       });
-    } else if (this.searchQuery.includes('All') && this.searchQuery.length === this.filteredSearchTerms.length - 1) {
+    } else if (this.searchQuery.includes(0) && this.searchQuery.length === this.consultantsList.length - 1) {
       this.searchQuery = [];
-      this.filteredSearchTerms.forEach(element => {
-        if (element !== 'All' && element !== selectedJob) {
-          this.searchQuery.push(element);
+      this.consultantsList.forEach(element => {
+        if (element.consultantId !== 0 && element.consultantId !== selectedConsultantId) {
+          this.searchQuery.push(element.consultantId);
         }
       });
-    } else if (!this.searchQuery.includes('All') && this.filteredSearchTerms.length !== this.searchTerms.length) {
-      if (this.searchQuery.includes(selectedJob)) {
-        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 'All');
-        this.searchQuery.push(selectedJob);
-        if (this.searchQuery.length === this.filteredSearchTerms.length - 1 && !this.searchQuery.includes('All')) {
-          this.searchQuery.push('All');
+    } else if (!this.searchQuery.includes(0) && this.consultantsList.length !== this.searchTerms.length) {
+      if (this.searchQuery.includes(selectedConsultantId)) {
+        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== 0);
+        this.searchQuery.push(selectedConsultantId);
+        if (this.searchQuery.length === this.consultantsList.length - 1 && !this.searchQuery.includes(0)) {
+          this.searchQuery.push(0);
         }
-      } else if (!this.searchQuery.includes(selectedJob)) {
-        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedJob
-          && staffNumber !== 'All');
+      } else if (!this.searchQuery.includes(selectedConsultantId)) {
+        this.searchQuery = this.previousQuery.filter(staffNumber => staffNumber !== selectedConsultantId
+          && staffNumber !== 0);
       }
     }
     this.previousQuery = this.searchQuery;
   }
 
-  getSearchTerms(response: any) {
-    this.filteredSearchTerms = [];
-    this.filteredSearchTerms.push('All');
-    response.forEach(el => {
-      this.filteredSearchTerms.push(el);
-    });
-    this.searchTerms = this.filteredSearchTerms;
-  }
-
   onSearch() {
-    const query = this.searchQuery.filter(x => x !== 'All').join();
-    this.apiService.GetJobSearchResults(query, this.currrentUserName).subscribe(res => {
+    const query = this.searchQuery.filter(x => x !== 0).join();
+    this.apiService.GetSelectedConsultantJobsForMember(query).subscribe(res => {
       this.reviewFilterGridData(res);
     });
   }
 
   onInputChange(event: string = '') {
-    this.filteredSearchTerms = this.searchTerms.filter(
-      employee => String(employee.toLowerCase()).startsWith(
+    this.consultantsList = this.searchTerms.filter(
+      employee => String(employee.consultantName.toLowerCase()).startsWith(
         event.toLowerCase()));
   }
 
   getLeaderBoard() {
     this.apiService.getLeaderBoard().subscribe(res => {
       this.leaderBoardDetails = res;
-      if (res.dayDetails.find(x => x.name === this.currrentUserName)) {
-        this.daySubmissions = res.dayDetails.find(x => x.name === this.currrentUserName).submissions;
-        this.dailyRank = res.dayDetails.find(x => x.name === this.currrentUserName).rank;
+      if (res.dayDetails.find(x => x.name === this.currrentMemberId)) {
+        this.daySubmissions = res.dayDetails.find(x => x.name === this.currrentMemberId).submissions;
+        this.dailyRank = res.dayDetails.find(x => x.name === this.currrentMemberId).rank;
       }
-      if (res.weekDetails.find(x => x.name === this.currrentUserName)) {
-        this.weekSubmissions = res.weekDetails.find(x => x.name === this.currrentUserName).submissions;
-        this.weeklyRank = res.weekDetails.find(x => x.name === this.currrentUserName).rank;
+      if (res.weekDetails.find(x => x.name === this.currrentMemberId)) {
+        this.weekSubmissions = res.weekDetails.find(x => x.name === this.currrentMemberId).submissions;
+        this.weeklyRank = res.weekDetails.find(x => x.name === this.currrentMemberId).rank;
       }
+      this.leaderBoardDetails.dayDetails.map((_x, i) => {
+        this.leaderBoardDetails.dayDetails[i].name
+          = (this.membersList.filter(x => x.mail === this.leaderBoardDetails.dayDetails[i].name).length > 0)
+            ? this.membersList.filter(x => x.mail === this.leaderBoardDetails.dayDetails[i].name)[0].displayName
+            : this.leaderBoardDetails.dayDetails[i].name;
+      });
+      this.leaderBoardDetails.weekDetails.map((_x, i) => {
+        this.leaderBoardDetails.weekDetails[i].name
+          = (this.membersList.filter(x => x.mail === this.leaderBoardDetails.weekDetails[i].name).length > 0)
+            ? this.membersList.filter(x => x.mail === this.leaderBoardDetails.weekDetails[i].name)[0].displayName
+            : this.leaderBoardDetails.weekDetails[i].name;
+      });
     });
   }
 
@@ -220,8 +243,9 @@ export class JobsComponent implements OnInit, AfterViewChecked {
     this.rootComp.cssClass = 'KendoCustomFilter_list';
     this.getJobsData();
     this.getLeaderBoard();
-    this.currrentUserName = this.adalService.userInfo.profile.name;
-    window.sessionStorage.setItem('currrentUserName', this.currrentUserName);
+    this.currrentMemberId = this.adalService.userInfo.userName;
+    window.sessionStorage.setItem('currrentMemberId', this.currrentMemberId);
+    this.userFullName = this.membersList.filter(x => x.mail === this.currrentMemberId)[0].displayName;
     this.postedByIconArray.push({ key: 'addison group', value: 'addisongroup.png' });
     this.postedByIconArray.push({ key: 'apex', value: 'apexsystems.ico' });
     this.postedByIconArray.push({ key: 'career builder', value: 'careerbuilder.png' });

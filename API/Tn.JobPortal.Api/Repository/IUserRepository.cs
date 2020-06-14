@@ -73,5 +73,62 @@ namespace Tn.JobPortal.Api.Repository
         /// </summary>
         /// <returns>all consultants</returns>
         Task<List<ConsultantsDataModel>> GetAllConsultantsAsync();
+
+        /// <summary>
+        /// Adds the or update consultant asynchronous.
+        /// </summary>
+        /// <param name="ConsultantID">The consultant identifier.</param>
+        /// <param name="ConsultantName">Name of the consultant.</param>
+        /// <param name="MobileNumber">The mobile number.</param>
+        /// <param name="Email">The email.</param>
+        /// <param name="JobTitle">The job title.</param>
+        /// <param name="insertedBy">The inserted by.</param>
+        /// <returns>consultantId</returns>
+        Task<int> AddOrUpdateConsultantAsync(int consultantId, string consultantName, string mobileNumber, string email, string jobTitle, string insertedBy);
+
+        /// <summary>
+        /// Adds the or update consultant member mapping asynchronous.
+        /// </summary>
+        /// <param name="consultantId">The consultant identifier.</param>
+        /// <param name="memberId">The member identifier.</param>
+        /// <param name="insertedBy">The inserted by.</param>
+        /// <returns>Consultant ID</returns>
+        Task<int> AddOrUpdateConsultantMemberMappingAsync(int consultantId, string memberId, string insertedBy);
+
+        /// <summary>
+        /// Adds the or update consultant job role mapping asynchronous.
+        /// </summary>
+        /// <param name="consultantId">The consultant identifier.</param>
+        /// <param name="jobRoleId">The job role identifier.</param>
+        /// <param name="insertedBy">The inserted by.</param>
+        /// <returns>consultant ID</returns>
+        Task<int> AddOrUpdateConsultantJobRoleMappingAsync(int consultantId, int jobRoleId, string insertedBy);
+
+        /// <summary>
+        /// Deletes the consultants asynchronous.
+        /// </summary>
+        /// <param name="consultantId">The consultant identifier.</param>
+        /// <param name="updatedBy">The updated by.</param>
+        /// <returns>
+        /// response
+        /// </returns>
+        Task<bool> DeleteConsultantsAsync(int consultantId, string updatedBy);
+
+        /// <summary>
+        /// Gets all consultants and jobs for member asynchronous.
+        /// </summary>
+        /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns>all consultants and jobs</returns>
+        Task<ConsultantsAndJobs> GetAllConsultantsAndJobsForMemberAsync(DateTime lastBusinessDateTime, string memberId);
+
+        /// <summary>
+        /// Gets the selected consultant jobs for member.
+        /// </summary>
+        /// <param name="lastBusinessDateTime">The last business date time.</param>
+        /// <param name="memberId">The member identifier.</param>
+        /// <param name="consultantIdList">The consultant identifier list.</param>
+        /// <returns>jobs</returns>
+        Task<List<JobDetailsModel>> GetSelectedConsultantJobsForMember(DateTime lastBusinessDateTime, string memberId, string consultantIdList);
     }
 }

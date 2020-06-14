@@ -23,17 +23,17 @@ export const AppRoutes: Routes = [
         component: CommonLayoutComponent,
         children: [
             {
+                path: 'dashboard',
+                component: DashboardComponent,
+                canActivate: [AuthenticationGuard]
+            },
+            {
                 path: 'jobs',
                 component: JobsComponent,
                 canActivate: [AuthenticationGuard],
                 data: {
                     title: 'Grid Table'
                 },
-            },
-            {
-                path: 'dashboard',
-                component: DashboardComponent,
-                canActivate: [AuthenticationGuard]
             },
             {
                 path: 'configure',

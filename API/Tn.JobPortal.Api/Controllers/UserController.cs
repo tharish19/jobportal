@@ -111,5 +111,52 @@ namespace Tn.JobPortal.Api.Controllers
         {
             return await userBusiness.GetAllConsultantsAsync().ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Adds the or update consultants asynchronous.
+        /// </summary>
+        /// <param name="consultantData">The consultant data.</param>
+        /// <returns>consultant id</returns>
+        [HttpPost("consultant")]
+        public async Task<int> AddOrUpdateConsultantsAsync(ConsultantsClientModel consultantData)
+        {
+            return await userBusiness.AddOrUpdateConsultantsAsync(consultantData.InsertedBy, consultantData).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Deletes the consultants asynchronous.
+        /// </summary>
+        /// <param name="consultantId">The consultant identifier.</param>
+        /// <param name="updatedBy">The updated by.</param>
+        /// <returns>response</returns>
+        [HttpGet("consultant/{consultantId}/{updatedBy}")]
+        public async Task<bool> DeleteConsultantsAsync(int consultantId, string updatedBy)
+        {
+            return await userBusiness.DeleteConsultantsAsync(consultantId, updatedBy).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets all consultants and jobs for member asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns>all consultants and jobs</returns>
+        [HttpGet("all/consultants/jobs/{memberId}")]
+        public async Task<ConsultantsAndJobs> GetAllConsultantsAndJobsForMemberAsync(string memberId)
+        {
+            return await userBusiness.GetAllConsultantsAndJobsForMemberAsync(memberId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the selected consultant jobs for member.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <param name="consultantIdList">The consultant identifier list.</param>
+        /// <returns>jobs</returns>
+        [HttpPost("consultants/jobs/{memberId}")]
+        public async Task<List<JobDetailsModel>> GetSelectedConsultantJobsForMember(string memberId, SearchQueryClientModel consultantIdList)
+        {
+            return await userBusiness.GetSelectedConsultantJobsForMember(memberId, consultantIdList.SearchQuery).ConfigureAwait(false);
+        }
+        
     }
 }

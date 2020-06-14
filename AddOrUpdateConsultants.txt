@@ -1,0 +1,44 @@
+DELIMITER //
+CREATE PROCEDURE AddOrUpdateConsultants (
+	IN CstId INT(10),
+    IN ConsultantName NVARCHAR(150),
+    IN Email NVARCHAR(150),
+    IN MobileNumber NVARCHAR(10),
+    IN JobTitle NVARCHAR(150),
+    IN InsertedBy NVARCHAR(150)
+)
+BEGIN	
+	IF (SELECT Count(*) FROM Consultants C Where C.ConsultantID = CstId) > 0 THEN
+		BEGIN
+			UPDATE Consultants C 
+				SET C.ConsultantName = ConsultantName,
+					C.Email = Email,
+                    C.MobileNumber = MobileNumber,
+                    C.JobTitle = JobTitle,
+					C.RowUpdateDate = sysdate(),
+                    C.RowUpdateBy = InsertedBy
+				WHERE C.ConsultantID = CstId;
+
+			IF (SELECT Count(*) FROM consultantrolebridge CRB Where CRB.ConsultantID = CstId) > 0 THEN
+				BEGIN
+					DELETE FROM consultantrolebridge Where ConsultantID = CstId;
+				END;
+			END IF;
+            
+            IF (SELECT Count(*) FROM consultantmemberbridge CMB Where CMB.ConsultantID = CstId) > 0 THEN
+				BEGIN
+					DELETE FROM consultantmemberbridge Where ConsultantID = CstId;
+				END;
+			END IF;
+
+			SELECT CstId;
+        END;
+	ELSE
+		BEGIN
+			INSERT INTO Consultants(ConsultantName, Email,MobileNumber,JobTitle, RowInsertBy, RowInsertDate)
+				VALUES (ConsultantName, Email, MobileNumber, JobTitle, InsertedBy, sysdate());
+			SELECT last_insert_id();
+        END;
+	END IF;
+END //
+DELIMITER ;

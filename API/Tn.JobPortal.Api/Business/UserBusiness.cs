@@ -199,14 +199,14 @@ namespace Tn.JobPortal.Api.Business
                 List<int> JobRoleList = new List<int>();
                 foreach (var row in consultant)
                 {
-                    MemberList.Add(row.MemberID);
-                    JobRoleList.Add(row.JobRoleID);
+                    if (MemberList.Where(x => x == row.MemberID).Count() <= 0) MemberList.Add(row.MemberID);
+                    if (JobRoleList.Where(x => x == row.JobRoleID).Count() <= 0) JobRoleList.Add(row.JobRoleID);
                 }
 
                 consultantsList.Add(
                     new ConsultantsClientModel()
                     {
-                        ConsultantID = consultant.FirstOrDefault().ConsultantID,
+                        ConsultantId = consultant.FirstOrDefault().ConsultantID,
                         ConsultantName = consultant.FirstOrDefault().ConsultantName,
                         Email = consultant.FirstOrDefault().Email,
                         MobileNumber = consultant.FirstOrDefault().MobileNumber,
@@ -216,6 +216,83 @@ namespace Tn.JobPortal.Api.Business
                     });
             }
             return consultantsList;
+        }
+
+        /// <summary>
+        /// Adds the or update consultants asynchronous.
+        /// </summary>
+        /// <param name="insertedBy">The inserted by.</param>
+        /// <param name="consultantData">The consultant data.</param>
+        /// <returns>
+        /// response
+        /// </returns>
+        public async Task<int> AddOrUpdateConsultantsAsync(string insertedBy, ConsultantsClientModel consultantData)
+        {
+            var response = await userRepository.AddOrUpdateConsultantAsync(consultantData.ConsultantId, consultantData.ConsultantName, consultantData.MobileNumber, consultantData.Email, consultantData.JobTitle, insertedBy).ConfigureAwait(false);
+
+            if (consultantData.ConsultantId == 0) consultantData.ConsultantId = response;
+
+            if (response > 0)
+            {
+                foreach (var memberId in consultantData.MemberIdList)
+                {
+                    await userRepository.AddOrUpdateConsultantMemberMappingAsync(consultantData.ConsultantId, memberId, insertedBy).ConfigureAwait(false);
+                }
+
+                foreach (var jobRoleId in consultantData.JobRoleIdList)
+                {
+                    await userRepository.AddOrUpdateConsultantJobRoleMappingAsync(consultantData.ConsultantId, jobRoleId, insertedBy).ConfigureAwait(false);
+                }
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Deletes the consultants asynchronous.
+        /// </summary>
+        /// <param name="consultantId">The consultant identifier.</param>
+        /// <param name="updatedBy">The updated by.</param>
+        /// <returns>
+        /// response
+        /// </returns>
+        public async Task<bool> DeleteConsultantsAsync(int consultantId, string updatedBy)
+        {
+            return await userRepository.DeleteConsultantsAsync(consultantId, updatedBy).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets all consultants and jobs for member asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns>
+        /// all consultants and jobs
+        /// </returns>
+        public async Task<ConsultantsAndJobs> GetAllConsultantsAndJobsForMemberAsync(string memberId)
+        {
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+            holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
+            DateTime lastBusinessDateTime = GetLastBusinessDay(cstTime.Date);
+
+            return await userRepository.GetAllConsultantsAndJobsForMemberAsync(lastBusinessDateTime, memberId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the selected consultant jobs for member.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <param name="consultantIdList">The consultant identifier list.</param>
+        /// <returns>
+        /// list of jobs
+        /// </returns>
+        public async Task<List<JobDetailsModel>> GetSelectedConsultantJobsForMember(string memberId, string consultantIdList)
+        {
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+            holidayList = (holidayList.Count <= 0) ? await userRepository.GetHolidayListAsync().ConfigureAwait(false) : holidayList;
+            DateTime lastBusinessDateTime = GetLastBusinessDay(cstTime.Date);
+
+            return await userRepository.GetSelectedConsultantJobsForMember(lastBusinessDateTime, memberId, consultantIdList).ConfigureAwait(false);
         }
 
         #region Private Methods

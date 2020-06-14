@@ -8,6 +8,7 @@ import { DialogService } from 'src/app/services/dailog.service';
 import { ApiService } from 'src/app/services/api.service';
 import { MatDialog } from '@angular/material';
 import { AddConsultantComponent } from './add-consultant/add-consultant.component';
+import { IJobRoles } from 'src/app/Interfaces/IJobRoles';
 
 @Component({
   selector: 'app-consultant-list',
@@ -32,8 +33,9 @@ export class ConsultantListComponent implements OnInit {
   public pageSizes = false;
   public previousNext = true;
   gridData: IConsultants[] = [];
-  infoMessage: string;
   isAuthorizedUser = false;
+  jobRoleList: IJobRoles[] = [];
+  membersList = [];
   authorizedUsers: any[] = ['Vasanth@tekninjas.com',
     'naveen@tekninjas.com',
     'sri@tekninjas.com',
@@ -44,74 +46,91 @@ export class ConsultantListComponent implements OnInit {
   constructor(private adalService: AdalService,
     private rootComp: AppComponent,
     private dialogService: DialogService,
-    private jobsService: ApiService,
+    private apiService: ApiService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.membersList = [{ memberId: 1, displayName: 'Sri Jasti', mail: 'sri@tekninjas.com' },
+    { memberId: 2, displayName: 'Naveen Kumar', mail: 'naveen@tekninjas.com' },
+    { memberId: 3, displayName: 'Vasanth Nemala', mail: 'vasanth@tekninjas.com' },
+    { memberId: 4, displayName: 'Vijay Yasaram', mail: 'vijay.y@tekninjas.com' },
+    { memberId: 5, displayName: 'Srikanth Anapagadda', mail: 'srikanth.a@tekninjas.com' },
+    { memberId: 6, displayName: 'MS Flow', mail: 'flow@tekninjas.com' }];
+    this.gridData = [];
+    this.GetJobRole();
     const userId = this.adalService.userInfo.userName;
     if (this.authorizedUsers.filter(o => o.toLowerCase() === userId.toLowerCase()).length > 0) {
       this.isAuthorizedUser = true;
     }
     this.rootComp.cssClass = 'KendoCustomFilter_list';
-    this.gridData = [];
-    // this.jobsService.GetAllConsultants().subscribe(res => {
-    //   this.gridData = res;
-    // });
   }
 
+  GetJobRole() {
+    this.apiService.GetJobSearchTerms().subscribe(res => {
+      this.jobRoleList = res;
+      this.jobRoleList.map((_x, i) => {
+        if (this.jobRoleList[i].jobRole.indexOf('"') >= 0) {
+          this.jobRoleList[i].jobRole = this.jobRoleList[i].jobRole.replace(/"/ig, '');
+        }
+      });
+      this.GetAllConsultants();
+    });
+  }
+
+  GetAllConsultants() {
+    this.apiService.GetAllConsultants().subscribe(result => {
+      this.gridData = result;
+      this.gridData.map((_x, i) => {
+        let members = '';
+        let roles = '';
+        this.gridData[i].memberIdList.forEach(_ele => {
+          members = members + ', ' + this.membersList.filter(x => x.mail === _ele)[0].displayName;
+        });
+        this.gridData[i].jobRoleIdList.forEach(_role => {
+          roles = roles + ', ' + this.jobRoleList.filter(x => x.jobRoleId === _role)[0].jobRole;
+        });
+        this.gridData[i].members = members.replace(/^, (.*)/, '$1');
+        this.gridData[i].jobRoles = roles.replace(/^, (.*)/, '$1');
+      });
+    });
+  }
   editConsultant(dataItem: any = null) {
     const consultantId = (dataItem) ? dataItem.consultantId : null;
     const dialogRef = this.dialog.open(AddConsultantComponent, {
       panelClass: 'AddConsultant',
       width: '60%',
       data: {
+        jobRoles: this.jobRoleList,
+        membersList: this.membersList,
         consultantData: (consultantId ? this.gridData.filter(x => x.consultantId === consultantId)[0] : null),
       }
     });
-    dialogRef.afterClosed().subscribe(() => {
-      //   if (_result) {
-      //     if (dataItem) {
-      //       dataItem.jobRole = _result.jobRole.replace(/"/ig, '');
-      //       dataItem.exactPhrase = _result.exactPhrase;
-      //       this.infoMessage = 'Job Role \'' + _result.jobRole + '\' is updated.';
-      //     } else {
-      //       _result.jobRole = _result.jobRole.replace(/"/ig, '');
-      //       this.gridData.push(_result);
-      //       this.infoMessage = 'Job Role \'' + _result.jobRole + '\' is added.';
-      //       this.grid.data = this.gridData;
-      //     }
-      //     setTimeout(() => {
-      //       this.infoMessage = null;
-      //     }, 5000);
-      //   }
+    dialogRef.afterClosed().subscribe((_result) => {
+      if (_result) {
+        if (consultantId) {
+          this.GetAllConsultants();
+          this.dialogService.openAlertDialog('Consultant \'' + _result.consultantData.consultantName + '\' is updated.', 'success');
+        } else {
+          this.GetAllConsultants();
+          this.dialogService.openAlertDialog('Consultant \'' + _result.consultantData.consultantName + '\' is added.', 'success');
+        }
+      }
     });
   }
 
   delete(dataItem: any) {
-    this.dialogService.openConfirmDialog('Do you wish to delete this Job Role?', true)
+    this.dialogService.openConfirmDialog('Do you wish to delete this Consultant?', true)
       .afterClosed().subscribe(res => {
         if (res) {
-          this.infoMessage = 'Deleted.';
-          setTimeout(() => {
-            this.infoMessage = null;
-          }, 5000);
-          // const updatedJobRole = {
-          //   jobRoleId: dataItem.jobRoleId,
-          //   jobRole: dataItem.jobRole,
-          //   isDeleted: true
-          // };
-          // this.jobsService.AddOrUpdateJobRole(updatedJobRole).subscribe(response => {
-          //   if (response !== null) {
-          //     this.gridData = this.gridData.filter(x => x.jobRoleId !== dataItem.jobRoleId);
-          //     this.infoMessage = 'Job Role \'' + dataItem.jobRole + '\' is deleted.';
-          //     this.grid.data = this.gridData;
-          //   } else {
-          //     this.infoMessage = 'An error occurred. Please try again.';
-          //   }
-          //   setTimeout(() => {
-          //     this.infoMessage = null;
-          //   }, 5000);
-          // });
+          this.apiService.DeleteConsultant(dataItem.consultantId).subscribe(response => {
+            if (response) {
+              this.gridData = this.gridData.filter(x => x.consultantId !== dataItem.consultantId);
+              this.dialogService.openAlertDialog('Consultant \'' + dataItem.consultantName + '\' is deleted.', 'success');
+              this.grid.data = this.gridData;
+            } else {
+              this.dialogService.openAlertDialog('An error occurred. Please try again.', 'success');
+            }
+          });
         }
       });
   }

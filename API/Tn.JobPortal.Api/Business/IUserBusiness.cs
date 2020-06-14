@@ -56,5 +56,38 @@ namespace Tn.JobPortal.Api.Business
         /// </summary>
         /// <returns>all consultants</returns>
         Task<List<ConsultantsClientModel>> GetAllConsultantsAsync();
+
+        /// <summary>
+        /// Adds the or update consultants asynchronous.
+        /// </summary>
+        /// <param name="insertedBy">The inserted by.</param>
+        /// <param name="consultantData">The consultant data.</param>
+        /// <returns>response</returns>
+        Task<int> AddOrUpdateConsultantsAsync(string insertedBy, ConsultantsClientModel consultantData);
+
+        /// <summary>
+        /// Deletes the consultants asynchronous.
+        /// </summary>
+        /// <param name="consultantId">The consultant identifier.</param>
+        /// <param name="updatedBy">The updated by.</param>
+        /// <returns>
+        /// response
+        /// </returns>
+        Task<bool> DeleteConsultantsAsync(int consultantId, string updatedBy);
+
+        /// <summary>
+        /// Gets all consultants and jobs for member asynchronous.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <returns>all consultants and jobs </returns>
+        Task<ConsultantsAndJobs> GetAllConsultantsAndJobsForMemberAsync(string memberId);
+
+        /// <summary>
+        /// Gets the selected consultant jobs for member.
+        /// </summary>
+        /// <param name="memberId">The member identifier.</param>
+        /// <param name="consultantIdList">The consultant identifier list.</param>
+        /// <returns>list of jobs</returns>
+        Task<List<JobDetailsModel>> GetSelectedConsultantJobsForMember(string memberId, string consultantIdList);
     }
 }

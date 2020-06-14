@@ -1,0 +1,22 @@
+DELIMITER //
+CREATE PROCEDURE DeleteConsultant(
+	IN ConsultantId INT(10),
+    IN UpdatedBy NVARCHAR(150)
+)
+BEGIN
+	IF (SELECT Count(*) FROM Consultants C Where C.ConsultantID = ConsultantId) > 0 THEN
+		BEGIN
+			UPDATE Consultants C 
+				SET C.IsDeleted = 1,
+					C.RowUpdateDate = sysdate(),
+                    C.RowUpdateBy = UpdatedBy
+				WHERE C.ConsultantID = ConsultantId;
+			SELECT 1;
+        END;
+	ELSE
+		BEGIN
+			SELECT 0;
+        END;
+	END IF;
+END //
+DELIMITER ;

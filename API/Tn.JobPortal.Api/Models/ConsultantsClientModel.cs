@@ -13,7 +13,7 @@ namespace Tn.JobPortal.Api.Models
         /// <value>
         /// The consultant identifier.
         /// </value>
-        public int ConsultantID { get; set; }
+        public int ConsultantId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the consultant.
@@ -62,5 +62,13 @@ namespace Tn.JobPortal.Api.Models
         /// The job role identifier.
         /// </value>
         public List<int> JobRoleIdList { get; set; }
+
+        /// <summary>
+        /// Gets or sets the inserted by.
+        /// </summary>
+        /// <value>
+        /// The inserted by.
+        /// </value>
+        public string InsertedBy { get; set; }
     }
 }

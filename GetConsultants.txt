@@ -8,14 +8,16 @@ BEGIN
 		c.Email,
 		c.JobTitle,
 		cm.MemberID,
-		cr.jobsearchid,
+		cr.jobsearchid AS JobRoleId,
 		jss.JobRole
 	from consultants c 
-		join consultantmemberbridge cm
+		left join consultantmemberbridge cm
 			on cm.ConsultantID = c.ConsultantID
-		join consultantrolebridge cr
+		left join consultantrolebridge cr
 			on cr.ConsultantID = c.ConsultantID
-		join jobssearchstrings jss
-			on jss.jobsearchid = cr.jobsearchid;
+		left join jobssearchstrings jss
+			on jss.jobsearchid = cr.jobsearchid
+	where c.isdeleted = 0
+	order by c.ConsultantID;
 END //
 DELIMITER ;

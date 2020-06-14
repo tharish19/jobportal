@@ -17,6 +17,7 @@ export class AddJobRoleComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         public formBuilder: FormBuilder,
         private apiService: ApiService) {
+        this.dialogRef.disableClose = true;
         this.jobRoleData = data.jobRoleData;
     }
     createFormGroup() {

@@ -15,14 +15,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{714AD05D-7C1C-45FF-A664-65F31748A249}"
 	ProjectSection(SolutionItems) = preProject
+		AddOrUpdateConsultantJobRoleMappings.txt = AddOrUpdateConsultantJobRoleMappings.txt
+		AddOrUpdateConsultantMemberMappings.txt = AddOrUpdateConsultantMemberMappings.txt
+		AddOrUpdateConsultants.txt = AddOrUpdateConsultants.txt
 		Database\StoredProcedures\AddOrUpdateJobRoles.txt = Database\StoredProcedures\AddOrUpdateJobRoles.txt
 		Database\StoredProcedures\AddOrUpdateJobStatus.txt = Database\StoredProcedures\AddOrUpdateJobStatus.txt
+		DeleteConsultant.txt = DeleteConsultant.txt
+		GetAllConsultantsAndJobsForMember.txt = GetAllConsultantsAndJobsForMember.txt
 		GetConsultants.txt = GetConsultants.txt
 		Database\StoredProcedures\GetFilteredJobs.txt = Database\StoredProcedures\GetFilteredJobs.txt
 		Database\StoredProcedures\GetHolidayList.txt = Database\StoredProcedures\GetHolidayList.txt
 		Database\StoredProcedures\GetJobSearchStrings.txt = Database\StoredProcedures\GetJobSearchStrings.txt
 		Database\StoredProcedures\GetJobsFromLastBusinessDay.txt = Database\StoredProcedures\GetJobsFromLastBusinessDay.txt
 		GetLeaderBoardData.txt = GetLeaderBoardData.txt
+		GetSelectedConsultantJobsForMember.txt = GetSelectedConsultantJobsForMember.txt
 		Database\StoredProcedures\GetUserJobSearchStrings.txt = Database\StoredProcedures\GetUserJobSearchStrings.txt
 	EndProjectSection
 EndProject

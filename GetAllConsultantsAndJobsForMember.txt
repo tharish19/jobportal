@@ -1,0 +1,56 @@
+DELIMITER //
+CREATE PROCEDURE GetAllConsultantsAndJobsForMember(
+	IN LastBusinessDateTime datetime,
+	IN MemberId NVARCHAR(150)
+)
+BEGIN
+	SET group_concat_max_len = 2048;
+
+	SELECT 
+		C.ConsultantID,
+		C.ConsultantName
+	FROM consultants C 
+		join consultantmemberbridge CM
+			on CM.ConsultantID = C.ConsultantID
+	WHERE C.isdeleted = 0
+		AND CM.MemberID = MemberId;
+	
+	SELECT 
+		JD.JobID,
+		JD.JobTitle,
+		JD.JobLocation,
+		JD.JobType,
+		JD.CompanyName,
+		JD.PostedBy,
+		JD.PostedDate,
+		JD.JobURL,
+		JD.RowInsertDate,
+		JD.RowInsertBy,
+		JD.RowUpdateDate,
+		JD.RowUpdateBy,
+		JD.JobSearchString,
+		JD.jobURLSubstr,
+		JD.Archive,
+		CASE WHEN MemberId IS NOT NULL AND (SELECT count(*) FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1' AND JS.AppliedBy = MemberId) > 0 THEN
+				(SELECT JS.JobStatus FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1' AND JS.AppliedBy = MemberId ORDER By JS.AppliedOn DESC LIMIT 1)
+			ELSE (SELECT JS.JobStatus FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1' ORDER By JS.AppliedOn DESC LIMIT 1) 
+		END AS JobStatus,
+		(SELECT GROUP_CONCAT(JS.AppliedBy ORDER BY JS.AppliedOn DESC SEPARATOR ', ') FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1') AS AppliedBy,
+		CASE WHEN MemberId IS NOT NULL AND (SELECT count(*) FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1' AND JS.AppliedBy = MemberId) > 0 THEN
+				(SELECT JS.AppliedOn FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1' AND JS.AppliedBy = MemberId order by JS.AppliedOn desc LIMIT 1) 
+			ELSE (SELECT JS.AppliedOn FROM jobsstatus JS where JS.JobID = JD.JobID AND JS.JobStatus = '1' order by JS.AppliedOn desc LIMIT 1) 
+		END AS AppliedOn
+	FROM jobsdetails JD
+	JOIN jobssearchstrings JSS ON JD.JobSearchString like concat('%', JSS.JobRole, '%')
+	JOIN consultantrolebridge CRB on JSS.jobsearchid = CRB.jobsearchid
+	JOIN consultantmemberbridge CMB on CMB.ConsultantID = CRB.ConsultantID
+	JOIN consultants C ON C.ConsultantID = CMB.ConsultantID
+	WHERE JD.RowInsertDate >= LastBusinessDateTime 
+		AND CMB.MemberID = MemberId
+		AND JD.JobType <> 'perm'
+		AND JobType <> 'permanent'
+		AND JD.Archive = 0
+		AND C.IsDeleted = 0
+	order by JD.RowInsertDate Desc;
+END //
+DELIMITER ;
