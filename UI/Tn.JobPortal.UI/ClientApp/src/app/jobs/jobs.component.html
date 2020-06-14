@@ -137,7 +137,7 @@
             <div class="col-md-12">
                 <div class="table-responsive">
                     <kendo-grid #grid id="GridID" [kendoGridBinding]="filterGridData" [rowClass]="rowCallback"
-                        class="CustomGrid GridScroll KendoCustomScroll" filterable="menu" [filter]="filter"
+                        class="CustomGrid GridScroll KendoCustomScroll customRowcolor" filterable="menu" [filter]="filter"
                         (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort"
                         [pageSize]="pageSize" (pageChange)="pageChange($event)"
                         (dataStateChange)="dataStateChange($event)" [reorderable]="true" [resizable]="true"

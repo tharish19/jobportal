@@ -471,7 +471,7 @@ input.mat-input-element {
 	padding-left: 15px;
 	padding-right: 15px;
 	color: #0a6a80;
-	margin-top: 7px;
+	margin-top: 3px;
 	&::placeholder {
 		padding-left: 0px;
 		color: #0a6a80;
@@ -758,4 +758,16 @@ input.mat-input-element {
 	margin-left: 10px;
 	min-width: 100% !important;
 	margin-top: 44px;
+}
+.customRowcolor{
+	td:nth-child(3){
+	  color: rgb(11, 116, 140);
+	  font-weight: bold;
+	}
+}
+.customsecondRowcolor{
+	td:nth-child(2){
+	  color: rgb(11, 116, 140);
+	  font-weight: bold;
+	}
 }
