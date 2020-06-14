@@ -759,3 +759,15 @@ input.mat-input-element {
 	min-width: 100% !important;
 	margin-top: 44px;
 }
+.customRowcolor{
+	td:nth-child(3){
+	  color: rgb(11, 116, 140);
+	  font-weight: bold;
+	}
+}
+.customsecondRowcolor{
+	td:nth-child(2){
+	  color: rgb(11, 116, 140);
+	  font-weight: bold;
+	}
+}
