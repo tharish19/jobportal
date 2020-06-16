@@ -23,3 +23,8 @@
     margin-top: 0px !important;
     margin-left: 0px !important;
 }
+:host/deep/ .customLableAlign{
+    .mat-form-field-label{
+        margin-top: 5px !important;
+    }
+}
