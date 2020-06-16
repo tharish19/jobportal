@@ -51,6 +51,7 @@
   "jquery": "^3.5.0",
   "moment": "^2.24.0",
   "ng-http-loader": "^6.0.1",
+  "ngx-mask": "^9.1.2",
   "ngx-perfect-scrollbar": "^8.0.0",
   "node-sass": "^4.10.0",
   "perfect-scrollbar": "^1.5.0",

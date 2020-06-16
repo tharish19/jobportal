@@ -9,6 +9,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ColumnInfoService, ColumnResizingService, GridModule } from '@progress/kendo-angular-grid';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { AppMaterialModule } from './app-material.module';
 import { AppComponent } from './app.component';
@@ -75,6 +76,7 @@ export class CommonExternalModules { }
         CommonExternalModules,
         FormsModule,
         ReactiveFormsModule,
+        NgxMaskModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

@@ -14,7 +14,7 @@
         </div>
         <div class="row mb-10">
             <div class="col-md-12">
-                <div class="table-responsive" style="width: 80%;margin: auto;">
+                <div class="table-responsive" *ngIf="this.gridData?.length > 0" style="width: 80%;margin: auto;">
                     <kendo-grid #grid id="GridID" [kendoGridBinding]="gridData"
                         class="CustomGrid GridScroll KendoCustomScroll" filterable="menu" [filter]="filter"
                         (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort"

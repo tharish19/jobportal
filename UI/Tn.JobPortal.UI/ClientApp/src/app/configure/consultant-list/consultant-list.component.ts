@@ -35,7 +35,26 @@ export class ConsultantListComponent implements OnInit {
   gridData: IConsultants[] = [];
   isAuthorizedUser = false;
   jobRoleList: IJobRoles[] = [];
-  membersList = [];
+  membersList = [{ memberId: 1, displayName: 'Naveen Kumar', mail: 'naveen@tekninjas.com' },
+  { memberId: 2, displayName: 'Vasanth Nemala', mail: 'vasanth@tekninjas.com' },
+  { memberId: 3, displayName: 'Sai Lakamsani', mail: 'sai@tekninjas.com' },
+  { memberId: 4, displayName: 'Shilpa Pennamreddy', mail: 'shilpa.p@TekNinjas.com' },
+  { memberId: 5, displayName: 'Sumanth Kota', mail: 'sumanth.k@tekninjas.com' },
+  { memberId: 6, displayName: 'Vijay Yasaram', mail: 'vijay.y@tekninjas.com' },
+  { memberId: 7, displayName: 'Sravan Sunkari', mail: 'sravan.s@tekninjas.com' },
+  { memberId: 8, displayName: 'Srikanth Anapagadda', mail: 'srikanth.a@tekninjas.com' },
+  { memberId: 9, displayName: 'Vinod Kumar', mail: 'vinod.k@tekninjas.com' },
+  { memberId: 10, displayName: 'Siva Ramakrishna', mail: 'siva@tekninjas.com' },
+  { memberId: 11, displayName: 'Nagarjuna Pathi', mail: 'nagarjuna@tekninjas.com' },
+  { memberId: 12, displayName: 'MS Flow', mail: 'flow@tekninjas.com' },
+  { memberId: 13, displayName: 'uipath1', mail: 'uipath1@tekninjas.com' },
+  { memberId: 14, displayName: 'Adithya Vardhan', mail: 'adithya.v@tekninjas.com' },
+  { memberId: 15, displayName: 'Arun Kumar Kattamreddy', mail: 'Arun.K@tekninjas.com' },
+  { memberId: 16, displayName: 'Pavan Arradi', mail: 'pavan.a@tekninjas.com' },
+  { memberId: 17, displayName: 'Sudha Kancharla', mail: 'sudha.k@tekninjas.com' },
+  { memberId: 18, displayName: 'Kumar Bharani', mail: 'kumar.b@tekninjas.com' },
+  { memberId: 19, displayName: 'Harish Mahadev', mail: 'harish.m@tekninjas.com' },
+  { memberId: 20, displayName: 'Shiva Kasturi', mail: 'shiva.k@tekninjas.com' }];
   authorizedUsers: any[] = ['Vasanth@tekninjas.com',
     'naveen@tekninjas.com',
     'sri@tekninjas.com',
@@ -50,12 +69,6 @@ export class ConsultantListComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.membersList = [{ memberId: 1, displayName: 'Sri Jasti', mail: 'sri@tekninjas.com' },
-    { memberId: 2, displayName: 'Naveen Kumar', mail: 'naveen@tekninjas.com' },
-    { memberId: 3, displayName: 'Vasanth Nemala', mail: 'vasanth@tekninjas.com' },
-    { memberId: 4, displayName: 'Vijay Yasaram', mail: 'vijay.y@tekninjas.com' },
-    { memberId: 5, displayName: 'Srikanth Anapagadda', mail: 'srikanth.a@tekninjas.com' },
-    { memberId: 6, displayName: 'MS Flow', mail: 'flow@tekninjas.com' }];
     this.gridData = [];
     this.GetJobRole();
     const userId = this.adalService.userInfo.userName;
@@ -80,18 +93,22 @@ export class ConsultantListComponent implements OnInit {
   GetAllConsultants() {
     this.apiService.GetAllConsultants().subscribe(result => {
       this.gridData = result;
-      this.gridData.map((_x, i) => {
-        let members = '';
-        let roles = '';
-        this.gridData[i].memberIdList.forEach(_ele => {
-          members = members + ', ' + this.membersList.filter(x => x.mail === _ele)[0].displayName;
+      if (this.gridData && this.gridData.length > 0) {
+        this.gridData.map((_x, i) => {
+          let members = '';
+          let roles = '';
+          this.gridData[i].memberIdList.forEach(_ele => {
+            members = members + ', ' + this.membersList.filter(x => x.mail === _ele)[0].displayName;
+          });
+          this.gridData[i].jobRoleIdList.forEach(_role => {
+            roles = roles + ', ' + this.jobRoleList.filter(x => x.jobRoleId === _role)[0].jobRole;
+          });
+          this.gridData[i].members = members.replace(/^, (.*)/, '$1');
+          this.gridData[i].jobRoles = roles.replace(/^, (.*)/, '$1');
         });
-        this.gridData[i].jobRoleIdList.forEach(_role => {
-          roles = roles + ', ' + this.jobRoleList.filter(x => x.jobRoleId === _role)[0].jobRole;
-        });
-        this.gridData[i].members = members.replace(/^, (.*)/, '$1');
-        this.gridData[i].jobRoles = roles.replace(/^, (.*)/, '$1');
-      });
+      } else {
+        this.dialogService.openAlertDialog('No records available.', 'warning');
+      }
     });
   }
   editConsultant(dataItem: any = null) {
@@ -159,8 +176,10 @@ export class ConsultantListComponent implements OnInit {
 
   ngAfterViewChecked(): void {
     if (this.grid !== undefined && this.grid !== null) { } {
-      const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
-      const _refChildHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight;
+      const _refParentHeight = (this.grid && this.grid.wrapper)
+        ? this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight : null;
+      const _refChildHeight = (this.grid && this.grid.wrapper)
+        ? this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight : null;
       if (_refParentHeight < _refChildHeight) {
         this.applyDynamicClass = true;
       }

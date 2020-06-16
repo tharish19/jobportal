@@ -1,0 +1,24 @@
+.swal2-icon.swal2-warning {
+    border-color: #fdb84f!important;
+    color: #fdb84f!important;
+}
+.text-center {
+    text-align: center!important;
+}
+.swal2-icon {
+    position: relative;
+    justify-content: center;
+    width: 5em;
+    height: 5em;
+    margin: 1.25em auto 1.875em;
+    border: .25em solid transparent;
+    border-radius: 50%;
+    line-height: 5em;
+    cursor: default;
+    box-sizing: content-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    zoom: normal;
+}

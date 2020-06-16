@@ -17,6 +17,7 @@ export class AddConsultantComponent implements OnInit {
     selectedJobRoles = [];
     jobRoleList: any[] = [];
     membersList: any[] = [];
+    mask = '000-000-0000';
 
     constructor(public dialogRef: MatDialogRef<AddConsultantComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,

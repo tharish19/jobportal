@@ -16,6 +16,7 @@ import { JobStatus } from '../Interfaces/JobStatus';
 import { ApiService } from '../services/api.service';
 import { DateAgoPipe } from '../shared/pipes/date-ago.pipe';
 import { AdalService } from '../shared/services/adal.service';
+import { DialogService } from '../services/dailog.service';
 
 declare var $: any;
 @Component({
@@ -55,17 +56,32 @@ export class JobsComponent implements OnInit, AfterViewChecked {
   weekSubmissions = 0;
   dailyRank = 0;
   weeklyRank = 0;
-  membersList = [{ memberId: 1, displayName: 'Sri Jasti', mail: 'sri@tekninjas.com' },
-  { memberId: 2, displayName: 'Naveen Kumar', mail: 'naveen@tekninjas.com' },
-  { memberId: 3, displayName: 'Vasanth Nemala', mail: 'vasanth@tekninjas.com' },
-  { memberId: 4, displayName: 'Vijay Yasaram', mail: 'vijay.y@tekninjas.com' },
-  { memberId: 5, displayName: 'Srikanth Anapagadda', mail: 'srikanth.a@tekninjas.com' },
-  { memberId: 6, displayName: 'MS Flow', mail: 'flow@tekninjas.com' }];
+  membersList = [{ memberId: 1, displayName: 'Naveen Kumar', mail: 'naveen@tekninjas.com' },
+  { memberId: 2, displayName: 'Vasanth Nemala', mail: 'vasanth@tekninjas.com' },
+  { memberId: 3, displayName: 'Sai Lakamsani', mail: 'sai@tekninjas.com' },
+  { memberId: 4, displayName: 'Shilpa Pennamreddy', mail: 'shilpa.p@TekNinjas.com' },
+  { memberId: 5, displayName: 'Sumanth Kota', mail: 'sumanth.k@tekninjas.com' },
+  { memberId: 6, displayName: 'Vijay Yasaram', mail: 'vijay.y@tekninjas.com' },
+  { memberId: 7, displayName: 'Sravan Sunkari', mail: 'sravan.s@tekninjas.com' },
+  { memberId: 8, displayName: 'Srikanth Anapagadda', mail: 'srikanth.a@tekninjas.com' },
+  { memberId: 9, displayName: 'Vinod Kumar', mail: 'vinod.k@tekninjas.com' },
+  { memberId: 10, displayName: 'Siva Ramakrishna', mail: 'siva@tekninjas.com' },
+  { memberId: 11, displayName: 'Nagarjuna Pathi', mail: 'nagarjuna@tekninjas.com' },
+  { memberId: 12, displayName: 'MS Flow', mail: 'flow@tekninjas.com' },
+  { memberId: 13, displayName: 'uipath1', mail: 'uipath1@tekninjas.com' },
+  { memberId: 14, displayName: 'Adithya Vardhan', mail: 'adithya.v@tekninjas.com' },
+  { memberId: 15, displayName: 'Arun Kumar Kattamreddy', mail: 'Arun.K@tekninjas.com' },
+  { memberId: 16, displayName: 'Pavan Arradi', mail: 'pavan.a@tekninjas.com' },
+  { memberId: 17, displayName: 'Sudha Kancharla', mail: 'sudha.k@tekninjas.com' },
+  { memberId: 18, displayName: 'Kumar Bharani', mail: 'kumar.b@tekninjas.com' },
+  { memberId: 19, displayName: 'Harish Mahadev', mail: 'harish.m@tekninjas.com' },
+  { memberId: 20, displayName: 'Shiva Kasturi', mail: 'shiva.k@tekninjas.com' }];
 
   constructor(private adalService: AdalService,
     public dialog: MatDialog,
     private dateAgoPipe: DateAgoPipe,
     private rootComp: AppComponent,
+    private dialogService: DialogService,
     private apiService: ApiService) { }
 
   rowCallback(context: RowClassArgs) {
@@ -86,19 +102,35 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   reviewFilterGridData(data: JobDetailsModel[]) {
     this.filterGridData = data;
-    this.filterGridData.map((_x, i) => {
-      this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
-      this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
-      // this.filterGridData[i].appliedBy = (this.membersList.filter(x => x.mail === this.filterGridData[i].appliedBy).length > 0)
-      //   ? this.membersList.filter(x => x.mail === this.filterGridData[i].appliedBy)[0].displayName
-      //   : this.filterGridData[i].appliedBy;
-      this.filterGridData[i].appliedBy = (this.filterGridData[i].appliedBy !== '' && this.filterGridData[i].appliedBy !== null)
-        ? this.filterGridData[i].appliedBy : '-NA-';
-      this.filterGridData[i].postedByIcon = (this.postedByIconArray
-        .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0).length > 0)
-        ? this.postedByIconArray.filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value
-        : null;
-    });
+    if (this.filterGridData && this.filterGridData.length > 0) {
+      this.filterGridData.map((_x, i) => {
+        this.filterGridData[i].postedOn = this.dateAgoPipe.transform(this.filterGridData[i].rowInsertDate);
+        this.filterGridData[i].companyName = this.filterGridData[i].companyName !== 'NA' ? this.filterGridData[i].companyName : '';
+        this.filterGridData[i].postedByIcon = (this.postedByIconArray
+          .filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0).length > 0)
+          ? this.postedByIconArray.filter(x => x.key.toLowerCase().indexOf(this.filterGridData[i].postedBy.toLowerCase()) >= 0)[0].value
+          : null;
+        if (this.filterGridData[i].appliedBy !== '' && this.filterGridData[i].appliedBy !== null) {
+          if (this.filterGridData[i].appliedBy.split(',').length > 1) {
+            let val = '';
+            this.filterGridData[i].appliedBy.split(',').forEach((obj) => {
+              val = val + ', ' + ((this.membersList.filter(x => x.mail === obj).length > 0)
+                ? this.membersList.filter(x => x.mail === obj)[0].displayName
+                : obj);
+            });
+            this.filterGridData[i].appliedBy = val.replace(/^, (.+)/ig, '$1');
+          } else {
+            this.filterGridData[i].appliedBy = (this.membersList.filter(x => x.mail === this.filterGridData[i].appliedBy).length > 0)
+              ? this.membersList.filter(x => x.mail === this.filterGridData[i].appliedBy)[0].displayName
+              : this.filterGridData[i].appliedBy;
+          }
+        } else {
+          this.filterGridData[i].appliedBy = '-NA-';
+        }
+      });
+    } else {
+      this.dialogService.openAlertDialog('No records available.', 'warning');
+    }
   }
 
   getJobsData() {
@@ -294,8 +326,10 @@ export class JobsComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     if (this.grid !== undefined && this.grid !== null) { } {
-      const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
-      const _refChildHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight;
+      const _refParentHeight = (this.grid && this.grid.wrapper)
+        ? this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight : null;
+      const _refChildHeight = (this.grid && this.grid.wrapper)
+        ? this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight : null;
       if (_refParentHeight < _refChildHeight) {
         this.applyDynamicClass = true;
       }

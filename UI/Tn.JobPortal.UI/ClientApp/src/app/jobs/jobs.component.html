@@ -135,7 +135,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive">
+                <div class="table-responsive" *ngIf="this.filterGridData?.length > 0">
                     <kendo-grid #grid id="GridID" [kendoGridBinding]="filterGridData" [rowClass]="rowCallback"
                         class="CustomGrid GridScroll KendoCustomScroll customRowcolor" filterable="menu" [filter]="filter"
                         (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort"

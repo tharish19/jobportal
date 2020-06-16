@@ -5,8 +5,8 @@
                 <div class="col-md-10">
                 </div>
                 <div class="col-md-2 text-right" style="margin-top: -65px;">
-                    <button mat-raised-button type="button" [disabled]="!isAuthorizedUser" class="btn  btn-md  text-white btn-search"
-                        (click)="editConsultant(null)">
+                    <button mat-raised-button type="button" [disabled]="!isAuthorizedUser"
+                        class="btn  btn-md  text-white btn-search" (click)="editConsultant(null)">
                         <span class="icon-search icon"></span>Add Consultant
                     </button>
                 </div>
@@ -14,10 +14,10 @@
         </div>
         <div class="row mb-10">
             <div class="col-md-12">
-                <div class="table-responsive" style="width: 100%; margin: auto;">
+                <div class="table-responsive" *ngIf="this.gridData?.length > 0" style="width: 100%; margin: auto;">
                     <kendo-grid #grid id="GridID" [kendoGridBinding]="gridData"
-                        class="CustomGrid GridScroll KendoCustomScroll customsecondRowcolor" filterable="menu" [filter]="filter"
-                        (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort"
+                        class="CustomGrid GridScroll KendoCustomScroll customsecondRowcolor" filterable="menu"
+                        [filter]="filter" (filterChange)="filterChange($event)" [skip]="state.skip" [sort]="state.sort"
                         [pageSize]="pageSize" (pageChange)="pageChange($event)"
                         (dataStateChange)="dataStateChange($event)" [reorderable]="true" [resizable]="true"
                         [sortable]="{allowUnsort: true}" [pageable]="false">
@@ -37,7 +37,7 @@
                                 </kendo-grid-string-filter-menu>
                             </ng-template>
                         </kendo-grid-column>
-                    <kendo-grid-column field="jobTitle" title="Job Title" sortable="true" width="150">
+                        <kendo-grid-column field="jobTitle" title="Job Title" sortable="true" width="150">
                             <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                                 let-filterService="filterService">
                                 <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -49,6 +49,9 @@
                             </ng-template>
                         </kendo-grid-column>
                         <kendo-grid-column field="email" title="Email" sortable="true" width="200">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <a href="mailto:{{dataItem.email}}">{{dataItem.email}}</a>
+                            </ng-template>
                             <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                                 let-filterService="filterService">
                                 <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -60,6 +63,9 @@
                             </ng-template>
                         </kendo-grid-column>
                         <kendo-grid-column field="mobileNumber" title="Mobile" sortable="true" width="100">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <a href="tel:{{dataItem.mobileNumber}}">{{dataItem.mobileNumber}}</a>
+                            </ng-template>
                             <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                                 let-filterService="filterService">
                                 <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"

@@ -55,14 +55,18 @@ export class JobRolesDataComponent implements OnInit {
         this.rootComp.cssClass = 'KendoCustomFilter_list';
         this.apiService.GetJobSearchTerms().subscribe(res => {
             this.gridData = res;
-            this.gridData.map((_x, i) => {
-                if (this.gridData[i].jobRole.indexOf('"') >= 0) {
-                    this.gridData[i].jobRole = this.gridData[i].jobRole.replace(/"/ig, '');
-                    this.gridData[i].exactPhrase = true;
-                } else {
-                    this.gridData[i].exactPhrase = false;
-                }
-            });
+            if (this.gridData && this.gridData.length > 0) {
+                this.gridData.map((_x, i) => {
+                    if (this.gridData[i].jobRole.indexOf('"') >= 0) {
+                        this.gridData[i].jobRole = this.gridData[i].jobRole.replace(/"/ig, '');
+                        this.gridData[i].exactPhrase = true;
+                    } else {
+                        this.gridData[i].exactPhrase = false;
+                    }
+                });
+            } else {
+                this.dialogService.openAlertDialog('No records available.', 'warning');
+            }
         });
     }
 
@@ -135,8 +139,10 @@ export class JobRolesDataComponent implements OnInit {
     }
     ngAfterViewChecked(): void {
         if (this.grid !== undefined && this.grid !== null) { } {
-            const _refParentHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight;
-            const _refChildHeight = this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight;
+            const _refParentHeight = (this.grid && this.grid.wrapper)
+                ? this.grid.wrapper.nativeElement.querySelector('.k-grid-content').offsetHeight : null;
+            const _refChildHeight = (this.grid && this.grid.wrapper)
+                ? this.grid.wrapper.nativeElement.querySelector('.k-grid-table-wrap').offsetHeight : null;
             if (_refParentHeight < _refChildHeight) {
                 this.applyDynamicClass = true;
             }

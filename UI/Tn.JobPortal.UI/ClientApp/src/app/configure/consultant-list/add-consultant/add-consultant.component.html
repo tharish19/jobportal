@@ -57,7 +57,7 @@
                 <mat-form-field class="example-full-width">
                     <mat-placeholder>Mobile Number </mat-placeholder>
                     <mat-placeholder class="asteriskDisplay">*</mat-placeholder>
-                    <input matInput formControlName="mobileNumber" autocomplete="off" class="inputalignment" />
+                    <input matInput [mask]="mask" formControlName="mobileNumber" autocomplete="off" class="inputalignment" />
                     <mat-error *ngIf="addConsultantForm.controls['mobileNumber'].errors">
                         Please enter valid Mobile Number.
                     </mat-error>
