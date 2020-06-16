@@ -351,7 +351,7 @@
 		width: 70%;
 	}
 	li:nth-child(3) {
-		width: 40%;
+		width: 15%;
 		margin: auto;
 		text-align: right;
 	}
@@ -421,7 +421,7 @@ div.k-grid-header {
 }
 .mat-form-field {
 	.mat-form-field-label {
-		padding-top: 4px;
+		// padding-top: 4px;
 		.asteriskDisplay {
 			position: relative;
 			top: -3px;
@@ -754,20 +754,51 @@ input.mat-input-element {
 	margin-left: 40px !important;
 	min-width: 100% !important;
 }
-.Jobsdropdown{
+.Jobsdropdown {
 	margin-left: 10px;
 	min-width: 100% !important;
 	margin-top: 44px;
 }
-.customRowcolor{
-	td:nth-child(3){
-	  color: rgb(11, 116, 140);
-	  font-weight: bold;
+.customRowcolor {
+	td:nth-child(3) {
+		color: rgb(11, 116, 140);
+		font-weight: bold;
 	}
 }
-.customsecondRowcolor{
-	td:nth-child(2){
-	  color: rgb(11, 116, 140);
-	  font-weight: bold;
+.customsecondRowcolor {
+	td:nth-child(2) {
+		color: rgb(11, 116, 140);
+		font-weight: bold;
+	}
+}
+
+.btn-round {
+	border-radius: 50% !important;
+	height: 41px;
+	width: 41px;
+	min-width: 41px !important;
+	text-align: center !important;
+	outline: none;
+	i {
+		font-size: 15px;
+		margin-top: 0;
+		position: absolute;
+		width: 100%;
+		-webkit-transform: none;
+		transform: none;
+		left: 0;
+		top: 0;
+		height: 100%;
+		line-height: 41px;
+		transform: rotate(90deg);
+	}
+	&:hover,
+	&:active,
+	&:visited,
+	&:focus {
+		background-color: #0a6a80;
+		i {
+			color: #fff;
+		}
 	}
 }

@@ -1,10 +1,10 @@
-<div class="card mt-3 mr-15 ml-5 mb-0 cardheight">
+<div class="card mt-1 mr-15 ml-5 mb-0 cardheight">
     <div class="card-body">
-        <div class="Search-from mb-10">
+        <div class="Search-from">
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-10">
                 </div>
-                <div class="col-md-2 text-right" style="margin-top: -65px;">
+                <div class="col-md-2 text-right" style="margin-top: -50px;">
                     <button mat-raised-button type="button" [disabled]="!isAuthorizedUser" class="btn  btn-md  text-white btn-search"
                         (click)="editConsultant(null)">
                         <span class="icon-search icon"></span>Add Consultant
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-10">
+        <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive" style="width: 100%; margin: auto;">
                     <kendo-grid #grid id="GridID" [kendoGridBinding]="gridData"
@@ -49,6 +49,9 @@
                             </ng-template>
                         </kendo-grid-column>
                         <kendo-grid-column field="email" title="Email" sortable="true" width="200">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <a href="mailto:{{dataItem.email}}">{{dataItem.email}}</a>
+                            </ng-template>
                             <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                                 let-filterService="filterService">
                                 <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
@@ -60,6 +63,9 @@
                             </ng-template>
                         </kendo-grid-column>
                         <kendo-grid-column field="mobileNumber" title="Mobile" sortable="true" width="100">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <a href="tel:{{dataItem.mobileNumber}}">{{dataItem.mobileNumber}}</a>
+                            </ng-template>
                             <ng-template kendoGridFilterMenuTemplate let-filter let-column="column"
                                 let-filterService="filterService">
                                 <kendo-grid-string-filter-menu [column]="column" [filter]="filter" [extra]="false"
