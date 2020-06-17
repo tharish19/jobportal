@@ -1,97 +1,38 @@
-<div class="pt30 pb30 pop_dialog" style="background:#ffffff;">
+<div class="pb-20 pop_dialog" style="background:#ffffff;">
     <div class="swal2-icon swal2-warning pulse-warning text-center line-height50"
         *ngIf="dialogData.isSuccessErrorWarning.toLowerCase() === 'warning'">
-        <div class="font50 pt15">!</div>
+        <div class="f-modal-alert">
+            <div class="f-modal-icon f-modal-warning scaleWarning">
+                <span class="f-modal-body pulseWarningIns"></span>
+                <span class="f-modal-dot pulseWarningIns"></span>
+            </div>
+        </div>
     </div>
     <div class="swal2-icon swal2-warning pulse-warning text-center line-height50"
         *ngIf="dialogData.isSuccessErrorWarning.toLowerCase() === 'error'">
-        <div class="font50 pt15">
-            <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
-                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
-                style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                <ellipse style="fill:#E04F5F;" cx="256" cy="256" rx="256" ry="255.832" />
-                <g transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 77.26 32)">
-                    <rect x="3.98" y="-427.615" style="fill:#FFFFFF;" width="55.992" height="285.672" />
-                    <rect x="-110.828" y="-312.815" style="fill:#FFFFFF;" width="285.672" height="55.992" />
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-            </svg>
+        <div class="f-modal-alert">
+            <div class="f-modal-icon f-modal-error animate">
+                <span class="f-modal-x-mark">
+                    <span class="f-modal-line f-modal-left animateXLeft"></span>
+                    <span class="f-modal-line f-modal-right animateXRight"></span>
+                </span>
+                <div class="f-modal-placeholder"></div>
+                <div class="f-modal-fix"></div>
+            </div>
         </div>
     </div>
     <div class="swal2-icon pulse-success text-center line-height50"
         *ngIf="dialogData.isSuccessErrorWarning.toLowerCase() === 'success'">
-        <div class="font50 pt15">
-            <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" height="30" width="30"
-                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
-                style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                <ellipse style="fill:#32BEA6;" cx="256" cy="256" rx="256" ry="255.832" />
-                <polygon style="fill:#FFFFFF;" points="235.472,392.08 114.432,297.784 148.848,253.616 223.176,311.52 345.848,134.504 
-                391.88,166.392 " />
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-                <g>
-                </g>
-            </svg>
+        <div class="f-modal-alert">
+            <div class="f-modal-icon f-modal-success animate">
+                <span class="f-modal-line f-modal-tip animateSuccessTip"></span>
+                <span class="f-modal-line f-modal-long animateSuccessLong"></span>
+                <div class="f-modal-placeholder"></div>
+                <div class="f-modal-fix"></div>
+            </div>
         </div>
     </div>
-    <h2 align="center" class="font20 font500" [innerHTML]='dialogData.bodyText'></h2>
+    <h2 align="center" class="font20 font500 pb-10" [innerHTML]='dialogData.bodyText'></h2>
     <div align="center" *ngIf="dialogData.isSuccessErrorWarning === '' || dialogData.isSuccessErrorWarning === null 
         || (dialogData.isSuccessErrorWarning !== 'error' && dialogData.isSuccessErrorWarning !== 'warning') 
         || dialogData.isSuccessErrorWarning.toLowerCase() === 'success'">

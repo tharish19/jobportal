@@ -202,7 +202,7 @@
 	border-right: 1px solid #cacaca;
 }
 .side-nav .side-nav-inner .side-nav-menu {
-	height: calc(100vh - 27%);
+	height: calc(100vh - 165px);
 }
 //sidenavbar ends here
 
@@ -719,6 +719,9 @@ input.mat-input-element {
 .pt-30 {
 	padding-top: 30px;
 }
+.pb-10 {
+	padding-bottom: 10px;
+}
 .pb-30 {
 	padding-bottom: 30px;
 }
@@ -742,6 +745,9 @@ input.mat-input-element {
 }
 .pr-15 {
 	padding-right: 15px;
+}
+.pb-20{
+	padding-bottom: 20px;
 }
 .perfectScroll_custom {
 	max-height: calc(100vh - 200px);
