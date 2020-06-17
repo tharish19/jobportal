@@ -98,13 +98,16 @@ export class ConsultantListComponent implements OnInit {
           let members = '';
           let roles = '';
           this.gridData[i].memberIdList.forEach(_ele => {
-            members = members + ', ' + this.membersList.filter(x => x.mail === _ele)[0].displayName;
+            members = members + ', ' + ((this.membersList.filter(x => x.mail === _ele).length > 0)
+              ? this.membersList.filter(x => x.mail === _ele)[0].displayName : _ele);
           });
           this.gridData[i].jobRoleIdList.forEach(_role => {
-            roles = roles + ', ' + this.jobRoleList.filter(x => x.jobRoleId === _role)[0].jobRole;
+            roles = roles + ', ' + ((this.jobRoleList.filter(x => x.jobRoleId === _role).length > 0)
+              ? this.jobRoleList.filter(x => x.jobRoleId === _role)[0].jobRole : '');
           });
           this.gridData[i].members = members.replace(/^, (.*)/, '$1');
-          this.gridData[i].jobRoles = roles.replace(/^, (.*)/, '$1');
+          this.gridData[i].jobRoles = roles.replace(/^(, )+(.*)/, '$2');
+          this.gridData[i].jobRoles = this.gridData[i].jobRoles.replace(/(, ,)+/, ',');
         });
       } else {
         this.dialogService.openAlertDialog('No records available.', 'warning');

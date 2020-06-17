@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   tenant: 'tekninjas.com',
-  clientId: '9b9508ee-8fe2-4769-8de8-de6871c7c730',
+  // UAT:
+  clientId: 'a0466aac-cfcd-4cb9-a123-c5f4ef3f6bb6',
+  //// Prod:
+  // clientId: '9b9508ee-8fe2-4769-8de8-de6871c7c730',
   userApiKey: 'http://localhost:53138/api/'
 };
 
